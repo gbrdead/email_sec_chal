@@ -1,0 +1,23 @@
+import setuptools
+
+setuptools.setup(
+    name = "email-sec-cache",
+    description = "Email Security Cache",
+    version = "0.1.0",
+    license="GPLv3+",
+    
+    author = "Vladimir Panov",
+    author_email = "gbr@voidland.org",
+    maintainer = "Vladimir Panov",
+    maintainer_email = "gbr@voidland.org",
+    
+    packages=[
+        "email_sec_cache",
+        "gpgmime",
+        "email_sec_cache.test"],
+                 
+    install_requires=[
+        "python-gnupg >= 0.3.8",
+        "python-hkp >= 0.1.3"],
+                 
+    test_suite = "email_sec_cache.test")
