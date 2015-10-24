@@ -1,4 +1,3 @@
-import hkp
 import sqlite3
 import shutil
 import os
@@ -42,8 +41,6 @@ class Pgp:
         if not os.access(Pgp.tempDir, os.F_OK):
             os.makedirs(Pgp.tempDir)
 
-        Pgp.keyServer = hkp.KeyServer("http://keys.gnupg.net")
-        
         with open(os.path.join(Pgp.configDir, "bot.asc"), "r") as botKeysFile:
             Pgp.botKeys = botKeysFile.read()
 
@@ -77,28 +74,6 @@ class Pgp:
         cursor = Pgp.dbConn.cursor()
         for row in cursor.execute('SELECT key FROM correspondents WHERE email_address = ?', (self.emailAddress, )):
             self.correspondentKey = row[0]
-        self.importPublicKey()
-        
-    def loadCorrespondentKeyFromServer(self, keyId):
-        loaded = False
-        expectedUid = ("<" + self.emailAddress + ">").lower()
-        
-        keys = Pgp.keyServer.search("0x" + keyId)
-        for key in keys:
-            suitable = False
-            for identitiy in key.identities:
-                if identitiy.uid.lower().endswith(expectedUid):
-                    suitable = True
-                    break
-            if suitable:
-                self.correspondentKey = key.key
-                loaded = True
-                break
-                
-        if not loaded:
-            raise PgpException("No correspondent key for email address %s found." % self.emailAddress)
-        
-        self.saveCorrespondentKeyToDb()
         self.importPublicKey()
         
     def loadCorrespondentKey(self, correspondentKey_):

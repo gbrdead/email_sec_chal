@@ -17,7 +17,6 @@ setuptools.setup(
         "email_sec_cache.test"],
                  
     install_requires=[
-        "python-gnupg >= 0.3.8",
-        "python-hkp >= 0.1.3"],
+        "python-gnupg >= 0.3.8"],
                  
     test_suite = "email_sec_cache.test")
