@@ -4,13 +4,11 @@ import os
 import gpgmime
 import email.utils
 import tempfile
+import email_sec_cache
 
 
-class PgpException(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-    def __str__(self):
-        return self.msg
+class PgpException(email_sec_cache.EmailSecCacheException):
+    pass
 
 
 class Pgp:
@@ -62,7 +60,7 @@ class Pgp:
         self.loadCorrespondentKeyFromDb()
     
     def __enter__(self):
-        pass
+        return self
     
     def __exit__(self, exc_type, exc_value, traceback):
         self.close()

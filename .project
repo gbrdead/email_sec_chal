@@ -3,7 +3,6 @@
 	<name>email_sec_cache</name>
 	<comment></comment>
 	<projects>
-		<project>python-gpgmime</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
