@@ -45,7 +45,10 @@ class Message:
             return None
         text = msg.get_payload(decode=True)
         if msg.get_content_subtype() == "html":
-            plainText = bs4.BeautifulSoup(text, "lxml").get_text()
+            html = bs4.BeautifulSoup(text, "html.parser")
+            for el in html.findAll(["script", "style"]):
+                el.extract()
+            plainText = html.get_text()
         else:
             plainText = text.decode(msg.get_content_charset(), "ignore")
         return plainText
