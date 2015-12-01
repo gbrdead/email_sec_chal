@@ -67,8 +67,13 @@ class PgpTests(unittest.TestCase):
         
     def parseMessage(self, encrypted, signed, wrongEncryptionKey = False, wrongSignatureKey = False, plaintext = False, html = False, attachment = False):
         msg = self.getMessage(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment)
-        isEncrypted, isVerified, plainMsg = PgpTests.pgp.parseMessage(msg)
-        return isEncrypted, isVerified, plainMsg
+        return email_sec_cache.Message(msg)
+    
+    def assertParsedMessage(self, parsedMsg, encryptedExpected, signedExpected):
+        self.assertEqual(encryptedExpected, parsedMsg.isEncrypted)
+        self.assertEqual(signedExpected, parsedMsg.isVerified)
+        words = email_sec_cache.extractWords(parsedMsg.getMessageTexts())
+        self.assertIn("Alabala", words)
 
 
     def testEncryptedWrong(self):
@@ -82,173 +87,149 @@ class PgpTests(unittest.TestCase):
     def testUnencryptedUnsignedPlaintext(self):
         encrypted = False
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testUnencryptedSignedPlaintext(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified)
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testEncryptedUnsignedPlaintext(self):
         encrypted = True
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testEncryptedSignedPlaintext(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testUnencryptedSignedWrongPlaintext(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
     def testEncryptedSignedWrongPlaintext(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
 
     def testUnencryptedUnsignedPlaintextHtml(self):
         encrypted = False
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testUnencryptedSignedPlaintextHtml(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testEncryptedUnsignedPlaintextHtml(self):
         encrypted = True
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)        
                     
     def testEncryptedSignedPlaintextHtml(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testUnencryptedSignedWrongPlaintextHtml(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
     def testEncryptedSignedWrongPlaintextHtml(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
 
     def testUnencryptedUnsignedHtml(self):
         encrypted = False
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testUnencryptedSignedHtml(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testEncryptedUnsignedHtml(self):
         encrypted = True
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testEncryptedSignedHtml(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testUnencryptedSignedWrongHtml(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
-
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
+        
     def testEncryptedSignedWrongHtml(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, html = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
 
     def testUnencryptedUnsignedAttachment(self):
         encrypted = False
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testUnencryptedSignedAttachment(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testEncryptedUnsignedAttachment(self):
         encrypted = True
         signed = False
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
                     
     def testEncryptedSignedAttachment(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(signed, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed)
 
     def testUnencryptedSignedWrongAttachment(self):
         encrypted = False
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, attachment = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
     def testEncryptedSignedWrongAttachment(self):
         encrypted = True
         signed = True
-        isEncrypted, isVerified, plainMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, attachment = True)
-        self.assertEqual(encrypted, isEncrypted)
-        self.assertEqual(False, isVerified) 
+        parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
 
 if __name__ == "__main__":

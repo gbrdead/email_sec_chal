@@ -3,3 +3,4 @@
 /MANIFEST
 /email_sec_cache.egg-info/
 /dist/
+/.cache/

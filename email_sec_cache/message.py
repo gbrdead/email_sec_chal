@@ -33,12 +33,15 @@ class Message:
             for payload in msg.get_payload():
                 texts += self.getMessageTextsAux(payload)
             return texts
+        
+        if msg.get_content_maintype() == "multipart":
+            return self.getMessageTextsAux(msg.get_payload())        
+        
+        plainText = self.convertToPlainText(msg)
+        if plainText is not None:
+            return [plainText]
         else:
-            plainText = self.convertToPlainText(msg)
-            if plainText is not None:
-                return [plainText]
-            else:
-                return []
+            return []
         
     def convertToPlainText(self, msg):
         if msg.get_content_maintype() != "text":
