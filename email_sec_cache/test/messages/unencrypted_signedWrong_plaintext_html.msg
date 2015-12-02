@@ -2,40 +2,50 @@ Return-Path: <gbr@voidland.org>
 X-Original-To: gbr@voidland.voidland.org
 Delivered-To: gbr@voidland.voidland.org
 Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
-	by voidland.voidland.org (Postfix) with ESMTP id 1A8FB142002F
-	for <gbr@voidland.voidland.org>; Sun, 18 Oct 2015 00:48:58 +0300 (EEST)
+	by voidland.voidland.org (Postfix) with ESMTP id 40B6914201E5
+	for <gbr@voidland.voidland.org>; Wed,  2 Dec 2015 23:41:23 +0200 (EET)
 Received: from es.voidland.org (es.voidland.org [192.168.255.1])
-	by mail.voidland.org (Postfix) with ESMTP id EFA42409F8
-	for <gbr@voidland.voidland.org>; Sun, 18 Oct 2015 00:48:57 +0300 (EEST)
+	by mail.voidland.org (Postfix) with ESMTP id 224B040A2A
+	for <gbr@voidland.voidland.org>; Wed,  2 Dec 2015 23:41:23 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1449092483; bh=Ni/RKIiff4vfhiMBTcqblTaAAKlIPTTCTflNuyae8GE=;
+	h=From:Subject:To:Date;
+	b=Ra78MRUXZq7p6bC+jwM5CyPQegAt4z2srPqtKTEMoA51hce/7FK9QEWjyq6sJ2LR+
+	 MzmuiHGKVe3pO4Nx84uopQncyVyDQi0mm95YVK1Z/+a9zCqW5dDGFG0B+dEBSbTH18
+	 OhcaUOPhErjGnU09VP+u0lVA5SzOmqdE88ZcX2Q0=
 Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
-	by es.voidland.org (Postfix) with ESMTPSA id D9C3934E00CF
-	for <gbr@voidland.voidland.org>; Sun, 18 Oct 2015 00:48:57 +0300 (EEST)
+	by es.voidland.org (Postfix) with ESMTPSA id 0951234E0124
+	for <gbr@voidland.voidland.org>; Wed,  2 Dec 2015 23:41:23 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1449092483; bh=Ni/RKIiff4vfhiMBTcqblTaAAKlIPTTCTflNuyae8GE=;
+	h=From:Subject:To:Date;
+	b=Ra78MRUXZq7p6bC+jwM5CyPQegAt4z2srPqtKTEMoA51hce/7FK9QEWjyq6sJ2LR+
+	 MzmuiHGKVe3pO4Nx84uopQncyVyDQi0mm95YVK1Z/+a9zCqW5dDGFG0B+dEBSbTH18
+	 OhcaUOPhErjGnU09VP+u0lVA5SzOmqdE88ZcX2Q0=
 From: Vladimir Panov <gbr@voidland.org>
 Subject: Opa
 To: gbr@voidland.voidland.org
-Message-ID: <5622C249.2020105@voidland.org>
-Date: Sun, 18 Oct 2015 00:48:57 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:38.0) Gecko/20100101
- Firefox/38.0 SeaMonkey/2.35
+Message-ID: <565F6582.4070006@voidland.org>
+Date: Wed, 2 Dec 2015 23:41:22 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:41.0) Gecko/20100101
+ Firefox/41.0 SeaMonkey/2.38
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="b6uBdnUHrhFrDPb877aQ7Gt9ceuACNodu"
+ boundary="SP1ropgen2arPEXnjMoAMkkgWwtC1NVQ4"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---b6uBdnUHrhFrDPb877aQ7Gt9ceuACNodu
+--SP1ropgen2arPEXnjMoAMkkgWwtC1NVQ4
 Content-Type: multipart/alternative;
- boundary="------------090909010307040004040302"
+ boundary="------------080206040604000005080503"
 
 This is a multi-part message in MIME format.
---------------090909010307040004040302
+--------------080206040604000005080503
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: base64
 
-*Alabala*
-=46rom - Sat Oct 17 22:30:43 2015
-
---------------090909010307040004040302
+KkFsYWJhbGEqIC/QkNC70LDQsdCw0LvQsC8K
+--------------080206040604000005080503
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
 
@@ -44,15 +54,14 @@ Content-Transfer-Encoding: quoted-printable
     <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
 -8">
   </head>
-  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <b>Alabala</b><br>
-    From - Sat Oct 17 22:30:43 2015<br>
+  <body bgcolor=3D"#FFFFFF" text=3D"#000000">
+    <b>Alabala</b> <i>=D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=D0=B0</i>
   </body>
 </html>
 
---------------090909010307040004040302--
+--------------080206040604000005080503--
 
---b6uBdnUHrhFrDPb877aQ7Gt9ceuACNodu
+--SP1ropgen2arPEXnjMoAMkkgWwtC1NVQ4
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -60,19 +69,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJWIsJJAAoJEMl6bvU0WTOvChIQAMLmR4Kw68vGurRLCV6EoZQU
-ZvHC2vpVuP1aOuBF4affQ0ze2qZAyEv+7RH6lxvonntbxSE5FppNzsjhPdp7kR5/
-ugc5Au0fARuJYhc6Ma7yOVI7BSERVqvavs2rpP6MTAMZZnHRsAaBu3xXxxpY/f75
-QZMWcFCWrZOfwyM/tD8Gej6xMFfPAcOCIlzp95Q2M7AHRA9VDnjngtSfianiGqRr
-Ov76vlC3gJHXPhHelk/YaRNYtN+5/8Vu9lIwPWpy8l9OEhK6XMqFolpcYTFeEyRw
-YYafT774KPYlhGBtyGKPPwM9jTqFheasLqy0clm/tZwN7PyQ/1ovlF/bgWaCNqLq
-mk5XfLLaLgxwu9ueZDvxu6DISL9hyk3JM9IWw3Q+TyPnS4bxrW+JRmBVr5Gk0hfp
-gM0WsksS3jEWX23JuQQdA06NsckpaUUe3FwEHc+GxOLUs7gUlv0KyYEI/pQdHdkH
-FuRaTRjeHq/alFFuV75tvSeSC3Vx++QQEvCmd9B8EyZbAZKbtShWv40HHXeaBdTL
-fvXUvI1nEAxyvXptR4lbv9fZOiXi0pQwBIZFKptxCIHYiBW6Iw0MEAcdxbH2Rg0o
-cNjJr/Gi5sXh3YcbvTaJTDmWt1+mbbc0BveKwgA0UNoMD0x7FYoSiB7t1Vjl5k2y
-NDTRPhyngl5njxd8LFdj
-=Brgr
+iQIcBAEBCAAGBQJWX2WCAAoJEMl6bvU0WTOvdlIQAITo6xqVeEKRJ0MLBqjCQzZn
+aCcagfVhMlSLpF6nOm7UCfD9AcB7dp/hMrfRLam5WoqUGMDb8tFIeG058ezC5eWW
+DemM89CEvuMQUq4rwGCzehUs9bhGLjG5R7dz7x5js+YduTIc7Os/tIekI6Z2QoX6
+KVWExyq/8+hM9oi4SthPxLRVVbO8Vbun44ZCbSkRy0+FPzQhceByXHQnVQPpHlcX
+vFo+n5Q227Y3+63nan0CIl8c96XUwPFqIKLDsJhpMz9IM4yhOnFXb+agOIuOJQHA
+HabMTMVtmpLzHyFf3OE4boGNWSXuHKDElXuEZv/Qiwkjy1zZO7AnNUxpUT7W3LGH
+7yC/xPcN1BGrnSd8ZtKQg5qvKPdahjTTzuZQwGwEd/iAPqgBjqcuj9y8ihNDvud5
+wQKno24+JKRIN8H4Mo6nDUHExJX4d3HTOYqblmHnKxhJII4yaWHh9KK72g2RrIXx
+fke+Odc27Y3LbQ0+AsqI4SZEcnvxGBt9PYIqd0Wp2Vb0lIgzK4KeaJTYiqHYoF8H
++FhYU8/fCxwLM6Qf4xqVo2kslMJ3PANtU8Vuuk9PBYf7iUGmvLURNzCJGP47iy9M
+cOmDuNBpKIS+CSoUFawAYI/qX6hert/GQ6iKVBapzVTRipY/NkiHmXwz/lhQ2Af2
+fvQrwh31aPmrPOUNA22S
+=kbub
 -----END PGP SIGNATURE-----
 
---b6uBdnUHrhFrDPb877aQ7Gt9ceuACNodu--
+--SP1ropgen2arPEXnjMoAMkkgWwtC1NVQ4--

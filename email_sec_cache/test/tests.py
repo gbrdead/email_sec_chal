@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 import email_sec_cache
 import email
@@ -74,6 +75,7 @@ class PgpTests(unittest.TestCase):
         self.assertEqual(signedExpected, parsedMsg.isVerified)
         words = email_sec_cache.extractWords(parsedMsg.getMessageTexts())
         self.assertIn("Alabala", words)
+        self.assertIn(u"Алабала", words)
 
 
     def testEncryptedWrong(self):

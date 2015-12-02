@@ -51,8 +51,11 @@ class Message:
             html = bs4.BeautifulSoup(text, "html.parser")
             for el in html.findAll(["script", "style"]):
                 el.extract()
-            plainText = html.get_text()
+            plainText = html.get_text(separator=" ")
         else:
-            plainText = text.decode(msg.get_content_charset(), "ignore")
+            charset = msg.get_content_charset()
+            if charset is None:
+                charset = "utf-8"
+            plainText = text.decode(charset, "ignore")
         return plainText
         
