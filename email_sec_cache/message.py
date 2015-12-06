@@ -8,7 +8,7 @@ class MsgException(email_sec_cache.EmailSecCacheException):
     pass
 
 
-class Message:
+class IncomingMessage:
     
     id = None
     emailAddress = None
@@ -25,11 +25,11 @@ class Message:
             raise MsgException("Missing From header in message: %s" % self.originalMessage)
         self.id = self.originalMessage["Message-ID"]
         
-        logging.info("Parsing a message with id %s from %s" % (self.id, self.emailAddress))
+        logging.debug("Parsing a message with id %s from %s" % (self.id, self.emailAddress))
 
         with email_sec_cache.Pgp(self.emailAddress, gpgVerbose) as pgp:
             self.isEncrypted, self.isVerified, self.plainMessage = pgp.parseMessage(self.originalMessage)
-        logging.info("The message with id %s was %sencrypted and %sverified" % (self.id, ("" if self.isEncrypted else "not "), ("" if self.isVerified else "not ")))
+        logging.debug("The message with id %s was %sencrypted and %sverified" % (self.id, ("" if self.isEncrypted else "not "), ("" if self.isVerified else "not ")))
             
     def getMessageTexts(self):
         return self.getMessageTextsAux(self.plainMessage)
@@ -64,7 +64,7 @@ class Message:
         else:
             charset = msg.get_content_charset()
             if charset is None:
-                logging.warning("No charset specified for a message from %s with id %s; assuming UTF-8" % (self.emailAddress, self.id))
+                logging.warning("No charset specified for a part in a message from %s with id %s; assuming UTF-8" % (self.emailAddress, self.id))
                 charset = "utf-8"
             plainText = text.decode(charset, "ignore")
         return plainText

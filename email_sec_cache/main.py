@@ -40,7 +40,7 @@ class MailBot:
                     try:
                         from_ = origMsg["From"]
                         msgId = origMsg["Message-ID"]
-                        msg = email_sec_cache.Message(origMsg)
+                        msg = email_sec_cache.IncomingMessage(origMsg)
                         
                         words = email_sec_cache.extractWords(msg.getMessageTexts())
                         if unicode.upper(email_sec_cache.geocacheName) in map(unicode.upper, words):

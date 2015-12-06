@@ -42,20 +42,20 @@ class Pgp:
         Pgp.dbConn = sqlite3.connect(os.path.join(email_sec_cache.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
         cursor = Pgp.dbConn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS correspondents (email_address TEXT PRIMARY KEY, key TEXT)")
-        logging.info("Created the correspondents DB table")
+        logging.debug("Created the correspondents DB table")
         
-        logging.info("Pgp static initialization successful")
+        logging.debug("Pgp static initialization successful")
         Pgp.initialized = True
     
     def __init__(self, emailAddress, gpgVerbose = False):
         Pgp.staticInit()
         
         self.emailAddress = emailAddress
-        logging.info("Creating a Pgp instance for %s" % self.emailAddress)
+        logging.debug("Creating a Pgp instance for %s" % self.emailAddress)
         
         self.gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir, prefix = self.emailAddress + "_")
         self.gpg = gpgmime.GPG(gnupghome = self.gnupgHomeDir, verbose = gpgVerbose)
-        logging.info("Created a GPG home directory in %s for %s" % (self.gnupgHomeDir, self.emailAddress))
+        logging.debug("Created a GPG home directory in %s for %s" % (self.gnupgHomeDir, self.emailAddress))
         
         self.gpg.import_keys(Pgp.botKeys)
         self.loadCorrespondentKeyFromDb()
@@ -68,7 +68,7 @@ class Pgp:
         
     def close(self):
         shutil.rmtree(self.gnupgHomeDir, ignore_errors=True)
-        logging.info("Deleted the GPG home directory %s for %s" % (self.gnupgHomeDir, self.emailAddress))
+        logging.debug("Deleted the GPG home directory %s for %s" % (self.gnupgHomeDir, self.emailAddress))
         
     def loadCorrespondentKeyFromDb(self):
         cursor = Pgp.dbConn.cursor()
@@ -106,13 +106,13 @@ class Pgp:
             cursor.execute("SELECT key FROM correspondents WHERE email_address = ?", (self.emailAddress, ))
             if cursor.fetchone() is None:
                 cursor.execute("INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (self.emailAddress, self.correspondentKey))
-                logging.info("Added a new correspondent key in the DB for %s" % self.emailAddress)
+                logging.debug("Added a new correspondent key in the DB for %s" % self.emailAddress)
             else:
                 cursor.execute("UPDATE correspondents SET key = ? WHERE email_address = ?", (self.correspondentKey, self.emailAddress))
-                logging.info("Updated the new correspondent key in the DB for %s" % self.emailAddress)
+                logging.debug("Updated the new correspondent key in the DB for %s" % self.emailAddress)
         else:
             cursor.execute("DELETE FROM correspondents WHERE email_address = ?", (self.emailAddress))
-            logging.info("Removed the new correspondent key from the DB for %s" % self.emailAddress)
+            logging.debug("Removed the new correspondent key from the DB for %s" % self.emailAddress)
             
     def importPublicKey(self):
         if self.correspondentFingerprints is not None:

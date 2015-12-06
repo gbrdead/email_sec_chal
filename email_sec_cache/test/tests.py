@@ -16,7 +16,7 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.INFO)
+        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.DEBUG)
         
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         configDir = os.path.join(moduleDir, "config")
@@ -71,7 +71,7 @@ class Tests(unittest.TestCase):
         
     def parseMessage(self, encrypted, signed, wrongEncryptionKey = False, wrongSignatureKey = False, plaintext = False, html = False, attachment = False):
         msg = self.getMessage(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment)
-        return email_sec_cache.Message(msg)
+        return email_sec_cache.IncomingMessage(msg)
     
     def assertParsedMessage(self, parsedMsg, encryptedExpected, signedExpected):
         self.assertEqual(encryptedExpected, parsedMsg.isEncrypted)
