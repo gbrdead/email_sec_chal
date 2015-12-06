@@ -39,7 +39,7 @@ class Pgp:
         with open(os.path.join(email_sec_cache.configDir, u"bot.asc"), "r") as botKeysFile:
             Pgp.botKeys = botKeysFile.read()
 
-        Pgp.dbConn = sqlite3.connect(os.path.join(email_sec_cache.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
+        Pgp.dbConn = sqlite3.connect(os.path.join(email_sec_cache.dataDir, u"email_sec_cache.sqlite3"), isolation_level=None)
         cursor = Pgp.dbConn.cursor()
         cursor.execute(u"CREATE TABLE IF NOT EXISTS correspondents (email_address TEXT PRIMARY KEY, key TEXT)")
         logging.debug(u"Created the correspondents DB table")
@@ -72,7 +72,7 @@ class Pgp:
         
     def loadCorrespondentKeyFromDb(self):
         cursor = Pgp.dbConn.cursor()
-        for row in cursor.execute('SELECT key FROM correspondents WHERE email_address = ?', (self.emailAddress, )):
+        for row in cursor.execute(u"SELECT key FROM correspondents WHERE email_address = ?", (self.emailAddress, )):
             self.correspondentKey = row[0]
         self.importPublicKey()
         

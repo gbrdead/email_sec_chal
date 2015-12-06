@@ -46,7 +46,7 @@ class Tests(unittest.TestCase):
         if encrypted:
             fileName = u"encrypted"
             if wrongEncryptionKey:
-                fileName += "Wrong"
+                fileName += u"Wrong"
         else:
             fileName = u"unencrypted"
         if signed:

@@ -53,7 +53,7 @@ class IncomingMessage:
 
         with email_sec_cache.Pgp(self.emailAddress, gpgVerbose) as pgp:
             self.isEncrypted, self.isVerified, self.plainMessage = pgp.parseMessage(self.originalMessage)
-        logging.debug(u"The message with id %s was %sencrypted and %sverified" % (self.id, ("" if self.isEncrypted else "not "), ("" if self.isVerified else "not ")))
+        logging.debug(u"The message with id %s was %sencrypted and %sverified" % (self.id, (u"" if self.isEncrypted else u"not "), (u"" if self.isVerified else u"not ")))
             
     def getMessageTexts(self):
         return self.getMessageTextsAux(self.plainMessage)
