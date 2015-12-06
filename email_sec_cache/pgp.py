@@ -5,6 +5,7 @@ import gpgmime
 import email.utils
 import tempfile
 import email_sec_cache
+import logging
 
 
 class PgpException(email_sec_cache.EmailSecCacheException):
@@ -13,10 +14,6 @@ class PgpException(email_sec_cache.EmailSecCacheException):
 
 class Pgp:
     
-    configDir = "/data/email_sec_cache"
-    dataDir = "/data/email_sec_cache"
-    tempDir = "/tmp/email_sec_cache"
-
     initialized = False        
     keyServer = None
     botKeys = None
@@ -34,27 +31,31 @@ class Pgp:
         if Pgp.initialized:
             return
         
-        if not os.access(Pgp.dataDir, os.F_OK):
-            os.makedirs(Pgp.dataDir)
-        if not os.access(Pgp.tempDir, os.F_OK):
-            os.makedirs(Pgp.tempDir)
+        if not os.access(email_sec_cache.dataDir, os.F_OK):
+            os.makedirs(email_sec_cache.dataDir)
+        if not os.access(email_sec_cache.tempDir, os.F_OK):
+            os.makedirs(email_sec_cache.tempDir)
 
-        with open(os.path.join(Pgp.configDir, "bot.asc"), "r") as botKeysFile:
+        with open(os.path.join(email_sec_cache.configDir, "bot.asc"), "r") as botKeysFile:
             Pgp.botKeys = botKeysFile.read()
 
-        Pgp.dbConn = sqlite3.connect(os.path.join(Pgp.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
+        Pgp.dbConn = sqlite3.connect(os.path.join(email_sec_cache.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
         cursor = Pgp.dbConn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS correspondents (email_address TEXT PRIMARY KEY, key TEXT)")
+        logging.info("Created the correspondents DB table")
         
+        logging.info("Pgp static initialization successful")
         Pgp.initialized = True
     
     def __init__(self, emailAddress, gpgVerbose = False):
         Pgp.staticInit()
         
         self.emailAddress = emailAddress
+        logging.info("Creating a Pgp instance for %s" % self.emailAddress)
         
-        self.gnupgHomeDir = tempfile.mkdtemp(dir = Pgp.tempDir, prefix = self.emailAddress + "_")
+        self.gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir, prefix = self.emailAddress + "_")
         self.gpg = gpgmime.GPG(gnupghome = self.gnupgHomeDir, verbose = gpgVerbose)
+        logging.info("Created a GPG home directory in %s for %s" % (self.gnupgHomeDir, self.emailAddress))
         
         self.gpg.import_keys(Pgp.botKeys)
         self.loadCorrespondentKeyFromDb()
@@ -67,6 +68,7 @@ class Pgp:
         
     def close(self):
         shutil.rmtree(self.gnupgHomeDir, ignore_errors=True)
+        logging.info("Deleted the GPG home directory %s for %s" % (self.gnupgHomeDir, self.emailAddress))
         
     def loadCorrespondentKeyFromDb(self):
         cursor = Pgp.dbConn.cursor()
@@ -75,7 +77,7 @@ class Pgp:
         self.importPublicKey()
         
     def loadCorrespondentKey(self, correspondentKey_):
-        tmpFile = tempfile.NamedTemporaryFile(dir = Pgp.tempDir, delete=False, mode="w")
+        tmpFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
         tmpFileName = getattr(tmpFile, "name")
         tmpFile.write(correspondentKey_)
         tmpFile.close()
@@ -104,10 +106,13 @@ class Pgp:
             cursor.execute("SELECT key FROM correspondents WHERE email_address = ?", (self.emailAddress, ))
             if cursor.fetchone() is None:
                 cursor.execute("INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (self.emailAddress, self.correspondentKey))
+                logging.info("Added a new correspondent key in the DB for %s" % self.emailAddress)
             else:
                 cursor.execute("UPDATE correspondents SET key = ? WHERE email_address = ?", (self.correspondentKey, self.emailAddress))
+                logging.info("Updated the new correspondent key in the DB for %s" % self.emailAddress)
         else:
             cursor.execute("DELETE FROM correspondents WHERE email_address = ?", (self.emailAddress))
+            logging.info("Removed the new correspondent key from the DB for %s" % self.emailAddress)
             
     def importPublicKey(self):
         if self.correspondentFingerprints is not None:
@@ -118,6 +123,9 @@ class Pgp:
             self.correspondentFingerprints = importResult.fingerprints
             
     def parseMessage(self, msg):
+        if self.correspondentKey is None:
+            logging.warning("No correspondent key in DB for %s" % self.emailAddress)
+        
         _, emailAddress = email.utils.parseaddr(msg["From"])
         if not emailAddress:
             raise PgpException("Missing From header in message: %s" % msg)

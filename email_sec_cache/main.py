@@ -1,6 +1,14 @@
 import mailbox
 import time
 import email_sec_cache
+import logging
+
+
+configDir = "/data/email_sec_cache"
+dataDir = "/data/email_sec_cache"
+tempDir = "/tmp/email_sec_cache"
+geocacheName = "GC65Z29"
+logLevel = logging.INFO
 
 
 class EmailSecCacheException(Exception):
@@ -19,26 +27,52 @@ class MailBot:
         self.mbox = mailbox.Maildir("~/Maildir", factory = mailbox.MaildirMessage)
     
     def run(self):
+        logging.info("Mailbot started")
+        
         while True:
             time.sleep(1)
+            
             self.mbox.lock()
-            
-            while self.mbox:
-                _, origMsg = self.mbox.popitem()
-                
-                try:
-                    msg = email_sec_cache.Message(origMsg)
-                    print str(msg.isEncrypted) + " " + str(msg.isVerified)
-                    texts = msg.getMessageTexts()
-                    for text in texts:
-                        print text + "\n"
-                except email_sec_cache.EmailSecCacheException as e:
-                    print e
-                    print origMsg
-            
-            self.mbox.unlock()
+            try:
+                while self.mbox:
+                    _, origMsg = self.mbox.popitem()
+                    
+                    try:
+                        from_ = origMsg["From"]
+                        msgId = origMsg["Message-ID"]
+                        msg = email_sec_cache.Message(origMsg)
+                        
+                        words = email_sec_cache.extractWords(msg.getMessageTexts())
+                        if unicode.upper(email_sec_cache.geocacheName) in map(unicode.upper, words):
+                            logging.info("Received valid request from %s (%s)" % (from_, msgId))
+                            spam = False
+                        else:
+                            spam = True
+                            logging.warning("Received invalid request (spam) from %s (%s)" % (from_, msgId))
+                        
+                        goshkoMayReply = msg.isEncrypted or not spam
+                        mariykaMayReply = msg.isEncrypted and msg.isVerified and not spam
+
+                        if goshkoMayReply:
+                            logging.info("Goshko may reply to %s (%s)" % (from_, msgId))
+                        if mariykaMayReply:
+                            logging.info("Mariyka may reply to %s (%s)" % (from_, msgId))
+                            
+                        
+                        
+                    except Exception:
+                        logging.exception("Failed processing message %s" % msgId)
+
+            finally:            
+                self.mbox.unlock()
 
 
 if __name__ == "__main__":
-    mailBot = MailBot()
-    mailBot.run()
+    
+    logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logLevel)
+
+    try:
+        mailBot = MailBot()
+        mailBot.run()
+    except:
+        logging.exception("Mailbot stopped with an exception")

@@ -5,9 +5,10 @@ import email
 import os
 import tempfile
 import shutil
+import logging
 
 
-class PgpTests(unittest.TestCase):
+class Tests(unittest.TestCase):
     
     pgp = None
     tempDir = None
@@ -15,28 +16,30 @@ class PgpTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.INFO)
+        
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         configDir = os.path.join(moduleDir, "config")
         
-        if not os.access(email_sec_cache.Pgp.tempDir, os.F_OK):
-            os.makedirs(email_sec_cache.Pgp.tempDir)
-        PgpTests.tempDir = tempfile.mkdtemp(dir = email_sec_cache.Pgp.tempDir)
+        if not os.access(email_sec_cache.tempDir, os.F_OK):
+            os.makedirs(email_sec_cache.tempDir)
+        Tests.tempDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
         
-        email_sec_cache.Pgp.configDir = configDir
-        email_sec_cache.Pgp.dataDir = PgpTests.tempDir
-        email_sec_cache.Pgp.tempDir = PgpTests.tempDir
+        email_sec_cache.configDir = configDir
+        email_sec_cache.dataDir = Tests.tempDir
+        email_sec_cache.tempDir = Tests.tempDir
         email_sec_cache.Pgp.initialized = False
         
-        PgpTests.pgp = email_sec_cache.Pgp("gbr@voidland.org")
+        Tests.pgp = email_sec_cache.Pgp("gbr@voidland.org")
         
         with open(os.path.join(configDir, "correspondent.asc"), "r") as correspondentKeyFile:
             correspondentKey = correspondentKeyFile.read()
-        PgpTests.pgp.loadCorrespondentKey(correspondentKey)
+        Tests.pgp.loadCorrespondentKey(correspondentKey)
     
     @classmethod
     def tearDownClass(cls):
-        PgpTests.pgp.close()
-        shutil.rmtree(PgpTests.tempDir, ignore_errors=True)
+        Tests.pgp.close()
+        shutil.rmtree(Tests.tempDir, ignore_errors=True)
         
 
     def getMessageFilePath(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment):
@@ -78,12 +81,18 @@ class PgpTests(unittest.TestCase):
         self.assertIn(u"Алабала", words)
 
 
-    def testEncryptedWrong(self):
+    def testEncryptedWrongKey(self):
         try:
             self.parseMessage(True, False, wrongEncryptionKey = True, plaintext = True)
             self.fail()
         except email_sec_cache.PgpException as e:
             self.assertIn("secret key not available", str(e))
+
+    def testEncryptedWrongSender(self):
+        encrypted = True
+        signed = True
+        parsedMsg = self.parseMessage(encrypted, signed, wrongEncryptionKey = True, html = True)
+        self.assertParsedMessage(parsedMsg, encrypted, False)
 
     
     def testUnencryptedUnsignedPlaintext(self):
