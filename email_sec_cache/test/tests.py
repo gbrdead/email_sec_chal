@@ -16,10 +16,10 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.DEBUG)
+        logging.basicConfig(format=u"%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.DEBUG)
         
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        configDir = os.path.join(moduleDir, "config")
+        configDir = os.path.join(moduleDir, u"config")
         
         if not os.access(email_sec_cache.tempDir, os.F_OK):
             os.makedirs(email_sec_cache.tempDir)
@@ -30,9 +30,9 @@ class Tests(unittest.TestCase):
         email_sec_cache.tempDir = Tests.tempDir
         email_sec_cache.Pgp.initialized = False
         
-        Tests.pgp = email_sec_cache.Pgp("gbr@voidland.org")
+        Tests.pgp = email_sec_cache.Pgp(u"gbr@voidland.org")
         
-        with open(os.path.join(configDir, "correspondent.asc"), "r") as correspondentKeyFile:
+        with open(os.path.join(configDir, u"correspondent.asc"), "r") as correspondentKeyFile:
             correspondentKey = correspondentKeyFile.read()
         Tests.pgp.loadCorrespondentKey(correspondentKey)
     
@@ -44,26 +44,26 @@ class Tests(unittest.TestCase):
 
     def getMessageFilePath(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment):
         if encrypted:
-            fileName = "encrypted"
+            fileName = u"encrypted"
             if wrongEncryptionKey:
                 fileName += "Wrong"
         else:
-            fileName = "unencrypted"
+            fileName = u"unencrypted"
         if signed:
-            fileName += "_signed"
+            fileName += u"_signed"
             if wrongSignatureKey:
-                fileName += "Wrong"
+                fileName += u"Wrong"
         else:
-            fileName += "_unsigned"
+            fileName += u"_unsigned"
         if plaintext:
-            fileName += "_plaintext"
+            fileName += u"_plaintext"
         if html:
-            fileName += "_html"
+            fileName += u"_html"
         if attachment:
-            fileName += "_attachment"
+            fileName += u"_attachment"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        msgDir = os.path.join(moduleDir, "messages")             
-        return os.path.join(msgDir, fileName + ".msg")
+        msgDir = os.path.join(moduleDir, u"messages")             
+        return os.path.join(msgDir, fileName + u".msg")
     
     def getMessage(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment):
         with open(self.getMessageFilePath(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment), "r") as f:
@@ -77,7 +77,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(encryptedExpected, parsedMsg.isEncrypted)
         self.assertEqual(signedExpected, parsedMsg.isVerified)
         words = email_sec_cache.extractWords(parsedMsg.getMessageTexts())
-        self.assertIn("Alabala", words)
+        self.assertIn(u"Alabala", words)
         self.assertIn(u"Алабала", words)
 
 
@@ -86,7 +86,7 @@ class Tests(unittest.TestCase):
             self.parseMessage(True, False, wrongEncryptionKey = True, plaintext = True)
             self.fail()
         except email_sec_cache.PgpException as e:
-            self.assertIn("secret key not available", str(e))
+            self.assertIn(u"secret key not available", unicode(e))
 
     def testEncryptedWrongSender(self):
         encrypted = True

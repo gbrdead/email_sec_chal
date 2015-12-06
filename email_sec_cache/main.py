@@ -4,10 +4,10 @@ import email_sec_cache
 import logging
 
 
-configDir = "/data/email_sec_cache"
-dataDir = "/data/email_sec_cache"
-tempDir = "/tmp/email_sec_cache"
-geocacheName = "GC65Z29"
+configDir = u"/data/email_sec_cache"
+dataDir = u"/data/email_sec_cache"
+tempDir = u"/tmp/email_sec_cache"
+geocacheName = u"GC65Z29"
 logLevel = logging.INFO
 
 
@@ -24,10 +24,10 @@ class MailBot:
 
     
     def __init__(self):
-        self.mbox = mailbox.Maildir("~/Maildir", factory = mailbox.MaildirMessage)
+        self.mbox = mailbox.Maildir(u"~/Maildir", factory = mailbox.MaildirMessage)
     
     def run(self):
-        logging.info("Mailbot started")
+        logging.info(u"Mailbot started")
         
         while True:
             time.sleep(1)
@@ -38,30 +38,31 @@ class MailBot:
                     _, origMsg = self.mbox.popitem()
                     
                     try:
-                        from_ = origMsg["From"]
-                        msgId = origMsg["Message-ID"]
-                        msg = email_sec_cache.IncomingMessage(origMsg)
+                        from_ = email_sec_cache.getHeaderAsUnicode(origMsg, "From")
+                        msgId = email_sec_cache.getHeaderAsUnicode(origMsg, "Message-ID")
+                        incomingMsg = email_sec_cache.IncomingMessage(origMsg)
                         
-                        words = email_sec_cache.extractWords(msg.getMessageTexts())
+                        words = email_sec_cache.extractWords(incomingMsg.getMessageTexts())
                         if unicode.upper(email_sec_cache.geocacheName) in map(unicode.upper, words):
-                            logging.info("Received valid request from %s (%s)" % (from_, msgId))
+                            logging.info(u"Received valid request from %s (%s)" % (from_, msgId))
                             spam = False
                         else:
                             spam = True
-                            logging.warning("Received invalid request (spam) from %s (%s)" % (from_, msgId))
+                            logging.warning(u"Received invalid request (spam) from %s (%s)" % (from_, msgId))
                         
-                        goshkoMayReply = msg.isEncrypted or not spam
-                        mariykaMayReply = msg.isEncrypted and msg.isVerified and not spam
+                        goshkoMayReply = incomingMsg.isEncrypted or not spam
+                        mariykaMayReply = incomingMsg.isEncrypted and incomingMsg.isVerified and not spam
 
                         if goshkoMayReply:
-                            logging.info("Goshko may reply to %s (%s)" % (from_, msgId))
+                            logging.info(u"Goshko may reply to %s (%s)" % (from_, msgId))
                         if mariykaMayReply:
-                            logging.info("Mariyka may reply to %s (%s)" % (from_, msgId))
-                            
+                            logging.info(u"Mariyka may reply to %s (%s)" % (from_, msgId))
+                        
+                        outgoingMsg = email_sec_cache.OutgoingMessage(incomingMsg)    
                         
                         
                     except Exception:
-                        logging.exception("Failed processing message %s" % msgId)
+                        logging.exception(u"Failed processing message %s" % msgId)
 
             finally:            
                 self.mbox.unlock()
@@ -69,10 +70,10 @@ class MailBot:
 
 if __name__ == "__main__":
     
-    logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logLevel)
+    logging.basicConfig(format=u"%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logLevel)
 
     try:
         mailBot = MailBot()
         mailBot.run()
     except:
-        logging.exception("Mailbot stopped with an exception")
+        logging.exception(u"Mailbot stopped with an exception")
