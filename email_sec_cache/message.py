@@ -39,6 +39,7 @@ class IncomingMessage:
     plainMessage = None
     isEncrypted = False
     isVerified = False
+    isForImpostor = False
     
     def __init__(self, originalMessage_, gpgVerbose = False):
         self.originalMessage = originalMessage_
@@ -52,7 +53,7 @@ class IncomingMessage:
         logging.debug(u"Parsing a message with id %s from %s" % (self.id, self.emailAddress))
 
         with email_sec_cache.Pgp(self.emailAddress, gpgVerbose) as pgp:
-            self.isEncrypted, self.isVerified, self.plainMessage = pgp.parseMessage(self.originalMessage)
+            self.isEncrypted, self.isVerified, self.plainMessage, self.isForImpostor = pgp.parseMessage(self.originalMessage)
         logging.debug(u"The message with id %s was %sencrypted and %sverified" % (self.id, (u"" if self.isEncrypted else u"not "), (u"" if self.isVerified else u"not ")))
             
     def getMessageTexts(self):
@@ -101,6 +102,8 @@ class OutgoingMessage:
     def __init__(self, incomingMsg):
         
         self.msg = email.mime.multipart.MIMEMultipart()
-        subject = getReSubject(incomingMsg.plainMessage)
-        setHeaderFromUnicode(self.msg, "Subject", subject)        
         
+        self.msg["To"] = incomingMsg.plainMessage["From"]
+        
+        subject = getReSubject(incomingMsg.plainMessage)
+        setHeaderFromUnicode(self.msg, "Subject", subject) 

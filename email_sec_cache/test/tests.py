@@ -42,11 +42,13 @@ class Tests(unittest.TestCase):
         shutil.rmtree(Tests.tempDir, ignore_errors=True)
         
 
-    def getMessageFilePath(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment):
+    def getMessageFilePath(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, forImpostor, plaintext, html, attachment):
         if encrypted:
             fileName = u"encrypted"
             if wrongEncryptionKey:
                 fileName += u"Wrong"
+            if forImpostor:
+                fileName += u"ForImpostor"
         else:
             fileName = u"unencrypted"
         if signed:
@@ -65,17 +67,19 @@ class Tests(unittest.TestCase):
         msgDir = os.path.join(moduleDir, u"messages")             
         return os.path.join(msgDir, fileName + u".msg")
     
-    def getMessage(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment):
-        with open(self.getMessageFilePath(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment), "r") as f:
+    def getMessage(self, encrypted, signed, wrongEncryptionKey, wrongSignatureKey, forImpostor, plaintext, html, attachment):
+        with open(self.getMessageFilePath(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, forImpostor, plaintext, html, attachment), "r") as f:
             return email.message_from_file(f)
         
-    def parseMessage(self, encrypted, signed, wrongEncryptionKey = False, wrongSignatureKey = False, plaintext = False, html = False, attachment = False):
-        msg = self.getMessage(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, plaintext, html, attachment)
+    def parseMessage(self, encrypted, signed, wrongEncryptionKey = False, wrongSignatureKey = False, forImpostor = False, plaintext = False, html = False, attachment = False):
+        msg = self.getMessage(encrypted, signed, wrongEncryptionKey, wrongSignatureKey, forImpostor, plaintext, html, attachment)
         return email_sec_cache.IncomingMessage(msg)
     
-    def assertParsedMessage(self, parsedMsg, encryptedExpected, signedExpected):
+    def assertParsedMessage(self, parsedMsg, encryptedExpected, signedExpected, forImpostorExpected = False):
         self.assertEqual(encryptedExpected, parsedMsg.isEncrypted)
         self.assertEqual(signedExpected, parsedMsg.isVerified)
+        if parsedMsg.isEncrypted:
+            self.assertEqual(forImpostorExpected, parsedMsg.isForImpostor)
         words = email_sec_cache.extractWords(parsedMsg.getMessageTexts())
         self.assertIn(u"Alabala", words)
         self.assertIn(u"Алабала", words)
@@ -241,6 +245,13 @@ class Tests(unittest.TestCase):
         signed = True
         parsedMsg = self.parseMessage(encrypted, signed, wrongSignatureKey = True, plaintext = True, attachment = True)
         self.assertParsedMessage(parsedMsg, encrypted, False)
+
+    def testEncryptedForImpostorSignedAttachment(self):
+        encrypted = True
+        signed = True
+        forImpostor = True
+        parsedMsg = self.parseMessage(encrypted, signed, forImpostor = forImpostor, plaintext = True, attachment = True)
+        self.assertParsedMessage(parsedMsg, encrypted, signed, forImpostor)
 
 
 if __name__ == "__main__":
