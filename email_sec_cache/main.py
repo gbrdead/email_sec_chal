@@ -2,6 +2,7 @@ import mailbox
 import time
 import email_sec_cache
 import logging
+import email
 
 
 configDir = u"/data/email_sec_cache"
@@ -21,10 +22,12 @@ class EmailSecCacheException(Exception):
 class MailBot:
     
     mbox = None
+    db = None
 
     
     def __init__(self):
         self.mbox = mailbox.Maildir(u"~/Maildir", factory = mailbox.MaildirMessage)
+        self.db = email_sec_cache.Db()
     
     def run(self):
         logging.info(u"Mailbot started")
@@ -39,27 +42,34 @@ class MailBot:
                     
                     try:
                         from_ = email_sec_cache.getHeaderAsUnicode(origMsg, "From")
+                        _, emailAddress = email.utils.parseaddr(from_)
                         msgId = email_sec_cache.getHeaderAsUnicode(origMsg, "Message-ID")
                         incomingMsg = email_sec_cache.IncomingMessage(origMsg)
-                        
-                        words = email_sec_cache.extractWords(incomingMsg.getMessageTexts())
-                        if unicode.upper(email_sec_cache.geocacheName) in map(unicode.upper, words):
-                            logging.info(u"Received valid request from %s (%s)" % (from_, msgId))
-                            spam = False
-                        else:
-                            spam = True
-                            logging.warning(u"Received invalid request (spam) from %s (%s)" % (from_, msgId))
-                        
-                        goshkoMayReply = incomingMsg.isEncrypted or not spam
-                        mariykaMayReply = incomingMsg.isEncrypted and incomingMsg.isVerified and not spam
 
-                        if goshkoMayReply:
-                            logging.info(u"Goshko may reply to %s (%s)" % (from_, msgId))
-                        if mariykaMayReply:
-                            logging.info(u"Mariyka may reply to %s (%s)" % (from_, msgId))
+                        ignore = False                        
+                        if not incomingMsg.isEncrypted:
+                            logging.warning(u"Ignoring invalid request (unencrypted) from %s (%s)" % (emailAddress, msgId))
+                            ignore = True
+                        if not incomingMsg.isVerified:
+                            logging.warning(u"Ignoring invalid request (unverified) from %s (%s)" % (emailAddress, msgId))
+                            ignore = True
+                        words = email_sec_cache.extractWords(incomingMsg.getMessageTexts())
+                        if not unicode.upper(email_sec_cache.geocacheName) in map(unicode.upper, words):
+                            logging.warning(u"Ignoring invalid request (spam) from %s (%s)" % (emailAddress, msgId))
+                            ignore = True
+                        if ignore:
+                            continue
                         
-                        outgoingMsg = email_sec_cache.OutgoingMessage(incomingMsg)    
-                        
+                        logging.info(u"Received valid request from %s (%s)" % (emailAddress, msgId))
+                        impostorShouldReply = incomingMsg.isForImpostor or not self.db.isRedHerringSent(emailAddress) 
+
+                        if impostorShouldReply:
+                            logging.info(u"Replying to %s as the impostor bot (%s)" % (emailAddress, msgId))
+                            # TODO
+                            self.db.redHerringSent(emailAddress)
+                        else:
+                            logging.info(u"Replying to %s as the official bot (%s)" % (emailAddress, msgId))
+                            # TODO
                         
                     except Exception:
                         logging.exception(u"Failed processing message %s" % msgId)

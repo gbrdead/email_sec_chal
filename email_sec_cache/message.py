@@ -45,7 +45,7 @@ class IncomingMessage:
         self.originalMessage = originalMessage_
         
         from_ = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "From")
-        _, self.emailAddress = email.utils.parseaddr(from_) 
+        _, self.emailAddress = email.utils.parseaddr(from_)
         if not self.emailAddress:
             raise MsgException(u"Missing From header in message: %s" % self.originalMessage)
         self.id = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "Message-ID")

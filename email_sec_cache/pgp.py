@@ -1,4 +1,3 @@
-import sqlite3
 import shutil
 import os
 import gpgmime
@@ -14,12 +13,11 @@ class PgpException(email_sec_cache.EmailSecCacheException):
 
 class Pgp:
     
-    initialized = False        
-    keyServer = None
+    initialized = False
     officialBotKeys = None
     impostorBotKeys = None
-    dbConn = None
 
+    db = None
     emailAddress = None
     officialGnupgHomeDir = None
     impostorGnupgHomeDir = None
@@ -34,8 +32,6 @@ class Pgp:
         if Pgp.initialized:
             return
         
-        if not os.access(email_sec_cache.dataDir, os.F_OK):
-            os.makedirs(email_sec_cache.dataDir)
         if not os.access(email_sec_cache.tempDir, os.F_OK):
             os.makedirs(email_sec_cache.tempDir)
 
@@ -45,17 +41,13 @@ class Pgp:
         with open(os.path.join(email_sec_cache.configDir, u"impostorBot.asc"), "r") as impostorBotKeysFile:
             Pgp.impostorBotKeys = impostorBotKeysFile.read()
 
-        Pgp.dbConn = sqlite3.connect(os.path.join(email_sec_cache.dataDir, u"email_sec_cache.sqlite3"), isolation_level=None)
-        cursor = Pgp.dbConn.cursor()
-        cursor.execute(u"CREATE TABLE IF NOT EXISTS correspondents (email_address TEXT PRIMARY KEY, key TEXT)")
-        logging.debug(u"Created the correspondents DB table")
-        
         logging.debug(u"Pgp static initialization successful")
         Pgp.initialized = True
     
     def __init__(self, emailAddress, gpgVerbose = False):
         Pgp.staticInit()
         
+        self.db = email_sec_cache.Db()
         self.emailAddress = emailAddress
         logging.debug(u"Creating a Pgp instance for %s" % self.emailAddress)
         
@@ -84,11 +76,8 @@ class Pgp:
         shutil.rmtree(gnupgHomeDir, ignore_errors=True)
         logging.debug(u"Deleted the GPG home directory %s" % gnupgHomeDir)
         
-        
     def loadCorrespondentKeyFromDb(self):
-        cursor = Pgp.dbConn.cursor()
-        for row in cursor.execute(u"SELECT key FROM correspondents WHERE email_address = ?", (self.emailAddress, )):
-            self.correspondentKey = row[0]
+        self.correspondentKey = self.db.getCorrespondentKey(self.emailAddress)
         self.importPublicKey()
         
     def loadCorrespondentKey(self, correspondentKey_):
@@ -112,23 +101,9 @@ class Pgp:
             raise PgpException(u"No correspondent key for email address %s found." % self.emailAddress)
         
         self.correspondentKey = correspondentKey_
-        self.saveCorrespondentKeyToDb()
+        self.db.setCorrespondentKey(self.emailAddress, self.correspondentKey)
         self.importPublicKey()
         
-    def saveCorrespondentKeyToDb(self):
-        cursor = Pgp.dbConn.cursor()
-        if self.correspondentKey is not None:
-            cursor.execute(u"SELECT key FROM correspondents WHERE email_address = ?", (self.emailAddress, ))
-            if cursor.fetchone() is None:
-                cursor.execute(u"INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (self.emailAddress, self.correspondentKey))
-                logging.debug(u"Added a new correspondent key in the DB for %s" % self.emailAddress)
-            else:
-                cursor.execute(u"UPDATE correspondents SET key = ? WHERE email_address = ?", (self.correspondentKey, self.emailAddress))
-                logging.debug(u"Updated the new correspondent key in the DB for %s" % self.emailAddress)
-        else:
-            cursor.execute(u"DELETE FROM correspondents WHERE email_address = ?", (self.emailAddress))
-            logging.debug(u"Removed the new correspondent key from the DB for %s" % self.emailAddress)
-            
     def importPublicKey(self):
         if self.correspondentFingerprints is not None:
             self.officialGpg.delete_keys(self.correspondentFingerprints)

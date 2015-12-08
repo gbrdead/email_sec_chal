@@ -28,6 +28,7 @@ class Tests(unittest.TestCase):
         email_sec_cache.configDir = configDir
         email_sec_cache.dataDir = Tests.tempDir
         email_sec_cache.tempDir = Tests.tempDir
+        email_sec_cache.Db.initialized = False
         email_sec_cache.Pgp.initialized = False
         
         Tests.pgp = email_sec_cache.Pgp(u"gbr@voidland.org")
