@@ -121,7 +121,7 @@ class Pgp:
         from_ = email_sec_cache.getHeaderAsUnicode(msg, "From")
         _, emailAddress = email.utils.parseaddr(from_) 
         if not emailAddress:
-            raise PgpException(u"Missing From header in message: %s" % msg)
+            raise PgpException(u"Missing From header")
         if emailAddress != self.emailAddress:
             raise PgpException(u"Wrong sender: %s (expected %s)" % (emailAddress, self.emailAddress))
         
