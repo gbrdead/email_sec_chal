@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import email_sec_cache
 import os
 import sqlite3
@@ -70,4 +71,4 @@ class Db:
             cursor.execute(u"INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, 1))
         else:
             cursor.execute(u"UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (1, emailAddress))
-        logging.debug(u"Set red herring as sent n DB for %s" % emailAddress)
+        logging.debug(u"Set red herring as sent in DB for %s" % emailAddress)

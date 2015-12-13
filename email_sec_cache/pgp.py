@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import shutil
 import os
 import gpgmime
@@ -16,6 +17,7 @@ class Pgp:
     initialized = False
     officialBotKeys = None
     impostorBotKeys = None
+    botFrom = None
 
     db = None
     emailAddress = None
@@ -35,30 +37,45 @@ class Pgp:
         if not os.access(email_sec_cache.tempDir, os.F_OK):
             os.makedirs(email_sec_cache.tempDir)
 
-        with open(os.path.join(email_sec_cache.configDir, u"officialBot.asc"), "r") as botKeysFile:
-            Pgp.officialBotKeys = botKeysFile.read()
-
-        with open(os.path.join(email_sec_cache.configDir, u"impostorBot.asc"), "r") as impostorBotKeysFile:
+        officialBotKeysFilePath = os.path.join(email_sec_cache.configDir, email_sec_cache.officialBotKeysFileName)
+        with open(officialBotKeysFilePath, "r") as officialBotKeysFile:
+            Pgp.officialBotKeys = officialBotKeysFile.read()
+            
+        impostorBotKeysFilePath = os.path.join(email_sec_cache.configDir, email_sec_cache.impostorBotKeysFileName)
+        with open(impostorBotKeysFilePath, "r") as impostorBotKeysFile:
             Pgp.impostorBotKeys = impostorBotKeysFile.read()
+            
+        Pgp.botFrom = Pgp.getBotFromHeaderValue(Pgp.officialBotKeys)
 
         logging.debug(u"Pgp static initialization successful")
         Pgp.initialized = True
     
-    def __init__(self, emailAddress, gpgVerbose = False):
+    @staticmethod    
+    def getBotFromHeaderValue(botKeys):
+        gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
+        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir)
+        gpg.import_keys(botKeys)
+        botFrom = gpg.list_keys(secret = True)[0]["uids"][0] 
+        shutil.rmtree(gnupgHomeDir, ignore_errors=True)
+        logging.info(u"The value for the bot From header is: " + botFrom)
+        return botFrom
+    
+    
+    def __init__(self, emailAddress):
         Pgp.staticInit()
         
         self.db = email_sec_cache.Db()
         self.emailAddress = emailAddress
         logging.debug(u"Creating a Pgp instance for %s" % self.emailAddress)
         
-        self.officialGnupgHomeDir, self.officialGpg = self.initBotGpg(u"official", Pgp.officialBotKeys, gpgVerbose)
-        self.impostorGnupgHomeDir, self.impostorGpg = self.initBotGpg(u"impostor", Pgp.impostorBotKeys, gpgVerbose)
+        self.officialGnupgHomeDir, self.officialGpg = self.initBotGpg(u"official", Pgp.officialBotKeys)
+        self.impostorGnupgHomeDir, self.impostorGpg = self.initBotGpg(u"impostor", Pgp.impostorBotKeys)
         self.loadCorrespondentKeyFromDb()
     
-    def initBotGpg(self, botName, keys, gpgVerbose = False):
+    def initBotGpg(self, botName, botKeys):
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir, prefix = self.emailAddress + "_" + botName + "_")
-        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir, verbose = gpgVerbose)
-        gpg.import_keys(keys)
+        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir)
+        gpg.import_keys(botKeys)
         logging.debug(u"Created a GPG home directory in %s" % gnupgHomeDir)
         return gnupgHomeDir, gpg
 

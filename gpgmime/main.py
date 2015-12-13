@@ -67,7 +67,7 @@ class GPG(gnupg.GPG):
         helper.copy_headers(msg, payload)
         return payload
 
-    def encrypt_email(self, msg, recipients=None):
+    def encrypt_email(self, msg, recipients=None,always_trust=False):
         """MIME-encrypt a message.
 
         :param msg: The message to encrypt (an instance of
@@ -86,7 +86,7 @@ class GPG(gnupg.GPG):
             body = MIMEText(msg.get_payload())
         if recipients is None:
             recipients = helper.infer_recipients(msg)
-        payload = self._encrypt_payload(body, recipients=recipients)
+        payload = self._encrypt_payload(body, recipients=recipients, always_trust=always_trust)
         helper.copy_headers(msg, payload)
         return payload
 
@@ -94,7 +94,8 @@ class GPG(gnupg.GPG):
                                msg,
                                recipients=None,
                                keyid=None,
-                               passphrase=None):
+                               passphrase=None,
+                               always_trust=False):
         """MIME-sign and encrypt the message.
 
         The parameters are the same as with encrypt_email and sign_email.
@@ -105,7 +106,8 @@ class GPG(gnupg.GPG):
                                      keyid=keyid,
                                      passphrase=passphrase)
         payload = self._encrypt_payload(payload,
-                                        recipients=recipients)
+                                        recipients=recipients,
+                                        always_trust=always_trust)
         helper.copy_headers(msg, payload)
         return payload
 
@@ -233,12 +235,12 @@ class GPG(gnupg.GPG):
 
         return unencrypted_msg
 
-    def _encrypt_payload(self, unencrypted_msg, recipients):
+    def _encrypt_payload(self, unencrypted_msg, recipients, always_trust=False):
 
         plaintext = helper.email_as_string(unencrypted_msg)
         logging.debug(_('encrypting plaintext %r') % plaintext)
 
-        ciphertext = self.encrypt(plaintext, recipients)
+        ciphertext = self.encrypt(plaintext, recipients, always_trust=always_trust)
         if not ciphertext:
             raise GPGProblem(ciphertext.stderr,
                              code=GPGCode.KEY_CANNOT_ENCRYPT)

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import mailbox
 import time
 import email_sec_cache
@@ -6,8 +7,12 @@ import email
 
 
 configDir = u"/data/email_sec_cache"
+officialBotKeysFileName = u"officialBot.asc"
+impostorBotKeysFileName = u"impostorBot.asc"
+
 dataDir = u"/data/email_sec_cache"
 tempDir = u"/tmp/email_sec_cache"
+
 geocacheName = u"GC65Z29"
 logLevel = logging.INFO
 
@@ -63,13 +68,15 @@ class MailBot:
                         logging.info(u"Received valid request from %s (%s)" % (emailAddress, msgId))
                         impostorShouldReply = incomingMsg.isForImpostor or not self.db.isRedHerringSent(emailAddress) 
 
+                        replyMsg = email_sec_cache.OutgoingMessage(incomingMsg)
                         if impostorShouldReply:
                             logging.info(u"Replying to %s as the impostor bot (%s)" % (emailAddress, msgId))
-                            # TODO
+                            replyMsg.sendAsImpostorBot()
                             self.db.redHerringSent(emailAddress)
                         else:
                             logging.info(u"Replying to %s as the official bot (%s)" % (emailAddress, msgId))
-                            # TODO
+                            replyMsg.sendAsOfficialBot()
+                            
                         
                     except Exception:
                         logging.exception(u"Failed processing message %s" % msgId)

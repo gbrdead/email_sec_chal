@@ -8,6 +8,7 @@ from email.generator import Generator
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.message import Message
+from email.utils import parseaddr
 from .errors import GPGProblem, GPGCode
 
 
@@ -34,7 +35,9 @@ def RFC3156_canonicalize(text):
     This function works as follows (in that order):
 
     1. Convert all line endings to \\\\r\\\\n (DOS line endings).
-    2. Ensure the text ends with a newline (\\\\r\\\\n).
+    2. 5.2 from RFC 3156 reads: "... the canonical line ending may or may not be present
+         on the last line of encoded data and MUST NOT be included in
+         the signature if absent".
     3. Encode all occurences of "From " at the beginning of a line
        to "From=20" in order to prevent other mail programs to replace
        this with "> From" (to avoid MBox conflicts) and thus invalidate
@@ -44,8 +47,6 @@ def RFC3156_canonicalize(text):
     :rtype: str
     """
     text = re.sub("\r?\n", "\r\n", text)
-    if not text.endswith("\r\n"):
-        text += "\r\n"
     text = re.sub("^From ", "From=20", text, flags=re.MULTILINE)
     return text
 
@@ -119,7 +120,8 @@ def copy_headers(src, dest):
     """
     for key in src.keys():
         if key not in dest:
-            dest[key] = src[key]
+            if not key.lower().startswith("content-"):
+                dest[key] = src[key]
 
 
 def clone_payload(src):
@@ -155,9 +157,12 @@ def infer_recipients(msg):
     """
     recipients = []
     for hdr in 'To', 'Cc', 'Bcc':
-        for addr in msg[hdr].split(','):
-            addr = addr.strip()
-            recipients.append(addr)
+        hdrValue = msg[hdr]
+        if hdrValue is not None:
+            for addr in hdrValue.split(','):
+                addr = addr.strip()
+                _, addr = parseaddr(addr)
+                recipients.append(addr)
     return addr
 
 

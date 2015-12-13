@@ -1,9 +1,12 @@
+# -*- coding: utf-8 -*-
 import email.utils
 import email_sec_cache
 import bs4
 import logging
-import email.mime.multipart
+import email.mime.text
 import email.header
+import smtplib
+import gpgmime
 
 
 class MsgException(email_sec_cache.EmailSecCacheException):
@@ -41,7 +44,7 @@ class IncomingMessage:
     isVerified = False
     isForImpostor = False
     
-    def __init__(self, originalMessage_, gpgVerbose = False):
+    def __init__(self, originalMessage_):
         self.originalMessage = originalMessage_
         
         from_ = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "From")
@@ -52,7 +55,7 @@ class IncomingMessage:
         
         logging.debug(u"Parsing a message with id %s from %s" % (self.id, self.emailAddress))
 
-        with email_sec_cache.Pgp(self.emailAddress, gpgVerbose) as pgp:
+        with email_sec_cache.Pgp(self.emailAddress) as pgp:
             self.isEncrypted, self.isVerified, self.plainMessage, self.isForImpostor = pgp.parseMessage(self.originalMessage)
         logging.debug(u"The message with id %s was %sencrypted and %sverified" % (self.id, (u"" if self.isEncrypted else u"not "), (u"" if self.isVerified else u"not ")))
             
@@ -97,13 +100,32 @@ class IncomingMessage:
     
 class OutgoingMessage:
     
+    pgp = None
     msg = None
+    correspondentEmailAddress = None
     
     def __init__(self, incomingMsg):
         
-        self.msg = email.mime.multipart.MIMEMultipart()
+        self.correspondentEmailAddress = incomingMsg.emailAddress 
+        
+        self.pgp = email_sec_cache.Pgp(self.correspondentEmailAddress)
+        self.msg = email.mime.text.MIMEText(u"Alabala Алабала", "plain", "utf-8")
         
         self.msg["To"] = incomingMsg.plainMessage["From"]
+        setHeaderFromUnicode(self.msg, "From", email_sec_cache.Pgp.botFrom)
         
         subject = getReSubject(incomingMsg.plainMessage)
-        setHeaderFromUnicode(self.msg, "Subject", subject) 
+        setHeaderFromUnicode(self.msg, "Subject", subject)
+        
+    def sendAsOfficialBot(self):
+        self.sendAs(self.pgp.officialGpg)
+        
+    def sendAsImpostorBot(self):
+        self.sendAs(self.pgp.impostorGpg)
+         
+    def sendAs(self, gpg):
+        
+        encryptedAndSignedMsg = gpg.sign_and_encrypt_email(self.msg, always_trust=True)
+        s = smtplib.SMTP('localhost')
+        s.sendmail(email_sec_cache.Pgp.botFrom, self.correspondentEmailAddress, encryptedAndSignedMsg.as_string())
+        s.quit()
