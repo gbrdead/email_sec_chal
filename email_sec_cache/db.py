@@ -26,7 +26,7 @@ class Db:
                 email_address TEXT PRIMARY KEY,
                 key TEXT DEFAULT NULL,
                 red_herring_sent INTEGER DEFAULT 0)""")
-        logging.debug(u"Created the correspondents DB table")
+        logging.debug(u"EmailSecCache: Created the correspondents DB table")
         
         Db.initialized = True
 
@@ -52,10 +52,10 @@ class Db:
         if not self.correspondentExists(emailAddress):
             if key is not None:
                 cursor.execute(u"INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (emailAddress, key))
-                logging.debug(u"Added a new correspondent key in the DB for %s" % emailAddress)
+                logging.debug(u"EmailSecCache: Added a new correspondent key in the DB for %s" % emailAddress)
         else:
             cursor.execute(u"UPDATE correspondents SET key = ? WHERE email_address = ?", (key, emailAddress))
-            logging.debug(u"Updated the correspondent key in the DB for %s" % emailAddress)
+            logging.debug(u"EmailSecCache: Updated the correspondent key in the DB for %s" % emailAddress)
 
     def isRedHerringSent(self, emailAddress):
         cursor = Db.conn.cursor()
@@ -71,4 +71,4 @@ class Db:
             cursor.execute(u"INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, 1))
         else:
             cursor.execute(u"UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (1, emailAddress))
-        logging.debug(u"Set red herring as sent in DB for %s" % emailAddress)
+        logging.debug(u"EmailSecCache: Set red herring as sent in DB for %s" % emailAddress)

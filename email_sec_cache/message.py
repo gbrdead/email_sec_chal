@@ -52,11 +52,11 @@ class IncomingMessage:
             raise MsgException(u"Missing From header")
         self.id = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "Message-ID")
         
-        logging.debug(u"Parsing a message with id %s from %s" % (self.id, self.emailAddress))
+        logging.debug(u"EmailSecCache: Parsing a message with id %s from %s" % (self.id, self.emailAddress))
 
         with email_sec_cache.Pgp(self.emailAddress) as pgp:
             self.isEncrypted, self.isVerified, self.plainMessage, self.isForImpostor = pgp.parseMessage(self.originalMessage)
-        logging.debug(u"The message with id %s was %sencrypted and %sverified" % (self.id, (u"" if self.isEncrypted else u"not "), (u"" if self.isVerified else u"not ")))
+        logging.debug(u"EmailSecCache: The message with id %s was %sencrypted and %sverified" % (self.id, (u"" if self.isEncrypted else u"not "), (u"" if self.isVerified else u"not ")))
             
     def getMessageTexts(self):
         return self.getMessageTextsAux(self.plainMessage)
@@ -79,7 +79,7 @@ class IncomingMessage:
         
     def convertToPlainText(self, msg):
         if msg.get_content_maintype() != "text":
-            logging.warning(u"A non-text part in a message from %s with id %s encountered (possible spam)" % (self.emailAddress, self.id))
+            logging.warning(u"EmailSecCache: A non-text part in a message from %s with id %s encountered (possible spam)" % (self.emailAddress, self.id))
             return None
         
         text = msg.get_payload(decode=True)
@@ -91,7 +91,7 @@ class IncomingMessage:
         else:
             charset = msg.get_content_charset()
             if charset is None:
-                logging.warning(u"No charset specified for a part in a message from %s with id %s; assuming UTF-8" % (self.emailAddress, self.id))
+                logging.warning(u"EmailSecCache: No charset specified for a part in a message from %s with id %s; assuming UTF-8" % (self.emailAddress, self.id))
                 charset = "utf-8"
             plainText = text.decode(charset, "ignore")
         return plainText
@@ -108,6 +108,8 @@ class OutgoingMessage:
         self.correspondentEmailAddress = incomingMsg.emailAddress 
         
         self.pgp = email_sec_cache.Pgp(self.correspondentEmailAddress)
+        # TODO: close self.pgp
+        
         self.msg = email.mime.text.MIMEText(u"Alabala Алабала", "plain", "utf-8")
         
         self.msg["To"] = incomingMsg.plainMessage["From"]
