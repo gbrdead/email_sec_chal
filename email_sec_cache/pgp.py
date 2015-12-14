@@ -53,7 +53,7 @@ class Pgp:
     @staticmethod    
     def getBotFromHeaderValue(botKeys):
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
-        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir)
+        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
         gpg.import_keys(botKeys)
         botFrom = gpg.list_keys(secret = True)[0]["uids"][0] 
         shutil.rmtree(gnupgHomeDir, ignore_errors=True)
