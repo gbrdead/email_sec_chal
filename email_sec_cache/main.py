@@ -14,7 +14,7 @@ dataDir = u"/data/email_sec_cache"
 tempDir = u"/tmp/email_sec_cache"
 
 geocacheName = u"GC65Z29"
-logLevel = logging.DEBUG
+logLevel = logging.INFO
 
 
 class EmailSecCacheException(Exception):
