@@ -6,7 +6,6 @@ import logging
 import email.mime.text
 import email.header
 import smtplib
-import gpgmime
 
 
 class MsgException(email_sec_cache.EmailSecCacheException):

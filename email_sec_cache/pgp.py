@@ -134,16 +134,18 @@ class Pgp:
     def parseMessage(self, msg):
         if self.correspondentKey is None:
             logging.warning(u"No correspondent key in DB for %s" % self.emailAddress)
+            
+        msgId = email_sec_cache.getHeaderAsUnicode(msg, "Message-ID")
         
         from_ = email_sec_cache.getHeaderAsUnicode(msg, "From")
         _, emailAddress = email.utils.parseaddr(from_) 
         if not emailAddress:
-            raise PgpException(u"Missing From header")
+            raise PgpException(u"Missing From header (%s)" % msgId)
         if emailAddress != self.emailAddress:
-            raise PgpException(u"Wrong sender: %s (expected %s)" % (emailAddress, self.emailAddress))
+            raise PgpException(u"Wrong sender: %s (expected %s) (%s)" % (emailAddress, self.emailAddress, msgId))
         
         isForImpostor = False
-        isEncrypted = gpgmime.is_encrypted(msg) 
+        isEncrypted = gpgmime.is_encrypted(msg)
         if isEncrypted:
             saveMsg = msg
             msg, status = self.officialGpg.decrypt_email(msg)

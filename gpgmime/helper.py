@@ -118,9 +118,10 @@ def copy_headers(src, dest):
     dest will be modified in place, adding all of the headers in src which
     are not already present.
     """
+    transferContentHeaders = not "content-type" in (headerName.lower() for headerName in dest.keys())
     for key in src.keys():
         if key not in dest:
-            if not key.lower().startswith("content-"):
+            if transferContentHeaders or not key.lower().startswith("content-"):
                 dest[key] = src[key]
 
 
