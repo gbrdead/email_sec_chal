@@ -185,7 +185,6 @@ class PgpInlineIncomingMessage(IncomingMessage):
             msgPart.isVerified = decrypted.valid
             msgPart.plainText = unicode(decrypted)
         
-        print msgPart.getPlainText()
         return msgPart
 
 
