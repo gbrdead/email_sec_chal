@@ -1,0 +1,71 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 4D651142023B
+	for <gbr@voidland.voidland.org>; Mon, 21 Dec 2015 22:23:41 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 2D2F840EB9
+	for <gbr@voidland.voidland.org>; Mon, 21 Dec 2015 22:23:41 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450729421; bh=Xat1tjlCi+NeQRVkvlvxKNlhh77saaNUXCJGwEu8uOo=;
+	h=From:Subject:To:Date;
+	b=XgpLhAZLS77+7rfw7BzkBzXtZcGqKK67l0jN4k/qKaUMQ+JGy8XAKNA48PeTXJq8k
+	 KAUvIIoX1WSAsEPdzwHdXuU6r0rSVAf4AKvFPtjWfwV8qq9ixcOenN7+Nv/qULyBLZ
+	 B5wCBDnR72sL49Cxs3mXSWmgza2zITlG7WF8RFFg=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 0F8E534E004A
+	for <gbr@voidland.voidland.org>; Mon, 21 Dec 2015 22:23:41 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450729421; bh=Xat1tjlCi+NeQRVkvlvxKNlhh77saaNUXCJGwEu8uOo=;
+	h=From:Subject:To:Date;
+	b=XgpLhAZLS77+7rfw7BzkBzXtZcGqKK67l0jN4k/qKaUMQ+JGy8XAKNA48PeTXJq8k
+	 KAUvIIoX1WSAsEPdzwHdXuU6r0rSVAf4AKvFPtjWfwV8qq9ixcOenN7+Nv/qULyBLZ
+	 B5wCBDnR72sL49Cxs3mXSWmgza2zITlG7WF8RFFg=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <56785FCC.3050402@voidland.org>
+Date: Mon, 21 Dec 2015 22:23:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+-----BEGIN PGP MESSAGE-----
+Charset: UTF-8
+Version: GnuPG v2
+
+hQMOAxJFBmWPsF+tEAv+IAUmCmmYXylYlxRCfXP8+orT63zlhnmpKIA3LMjgCBns
+6d2OiV/Tz8QNO2LMBZIIGIXjIQskb9KGjF4CUNQAMX1X0IdC3I5GemfOprGvGzdL
+m6NH9qtL5hFGQYvjwgscGt8fD8iaMp70g24fH2nWXt3YCihO3y8TKsltt8w8FfXC
++xeudTdj8P/vOvXGLQSO4o04lFykBWkV4ETWB/0iQHGqlhXKUkK+/CPO39MTCcfp
+zB/tHrrUK3WRPufyg6kDpk05jtygiYd8URIICq46gt3BM+CK2A2q0KUE0A/Ymfwc
+jIMkJ6Sm2PTqy+n1EjlIS2ttD8BxPpKaWtUfeVV2RFiImOUVyyTWNINmGviqW68j
+h6Ag5i4NxCufA3hMn/D+SyHsNspVmfcuL4xYok84/wZ9QpsZAtX8yNdeRfzOTIQ7
+KlT8odyVZOH4Hn6CFq4Ce0x+nOyg+BWzJYKE4NTEDb9c6OIhQnTZ4dReXqNWget2
+YCD/71t8BJN8ildR/yEKC/wNB9VbBOi8F3W+Od08/wvsmUFVKDTlLzfLT2bzK9+k
+VneJ7YZCqnMl2lkM8/TfFrqwuDYsQQxGWQZCwLXJr/zf8AnPaMnryAxsmuQRhbz5
+wDXGMIpp2HdYp4pWaoFPzsTxLDaEJLViQmW5bBUvFD9CxHXxGG4pFxLUaYF4LX46
+pxetWiykkCXozv5taptJMkwotRA+yw0KZV7hpNCBDL+jH8h4PaNta3E4OjK0IMWQ
+r3AExakmJmDScJe0FYf39Ucvo23PtoljeDQCVh5FUhOR15hjW1HeypoH1IuSy23Y
+IjqPjTecbVqyL8ZiEl/TSAn7cuzKhtzLkINTqAsei5aMyXS7DoA2AstsBfdIa1LZ
+kBNDXlPgKYqx2J1cneydGrh8r+vP1Qy/MUrsteeOysDirFPT+uNBPqAd17x3HmLk
+Lk+NDYZeNjcd+9bVmTomTZKVtefYPhxY6LJWsSKQBRwLo0IBVPhD4NEQqP1//9Ui
+Pc3Nz2qRJ0c79WgbtYFwSyGFAgwDKA/jsTGjsHwBEACa2D2hW3FDGFf8buXT3l0w
+OhHjvdnKqye/glNqV7uK9eFkEsYI8cztxRAGjmrx94DP13fuJd6Meeyy8V4a/HJD
+pWty4zIq60+pXosg9MkMN1b08HvBPCjp03t2PJQwwrgadWnPU9LBExrSSjVxg/8E
+aoPr52W/cRlmEw0Nj5NBe7zVTXd8pRrKwbZy/YKHpI7SHkfMz8qQn1SFEv8ZrDzF
+ktQBPLDlS7lWuYCn1SoWQUlV0E50Hg7lbPNi4VUMHFUIvC1Kq1HLWp+TeR7RzSIG
+xfvJlDGqN1PAe7WkG0BYlAB8W8/ICRvZ9ZWLa/jhg2kioPOafxTMFto/o4TEKYup
+RlR8u52FBKvK3aIkcjN8uge9MQnzTcHwStZHtWsDU63Z36yqY2bZ2KOzrxUUbs6d
+9Vzg0X9mkQtuy8FfEsGI5gzZaeZ8lvVR8vw1wqn+f8G7XiFz8U3ugvzLz9g7zYP0
+Co3JkYuFbAqJn3m3cUbmantecxL0sczWUH1+NotXsi7LSujibpN9F4fTZRKwCbqr
+9435vTdVnFkm5foG4MGq5VlUrbGaS87ySp3WjqX5uYEzVJiTNyqFBJTvdhA/hcNp
+UhTzriYVNlnNARqEXE7cmJ7BrhvUHEwR+E9gdeTnIr4CD6oi+vmdd84/4/6H+vlK
+ILF0+eh68Z7834nkfFLN5tJTAdLOHJZPVC0EgsiESfalmoQTLlJMl5jeKNMS5ARl
+7Tcga94JSPCl2wxU/PWMtM7+57UsOMNQ2YnD6hp1DgSuPZB16fxPs0thtHGGXZIs
+Q9rVUtw=
+=mXXD
+-----END PGP MESSAGE-----

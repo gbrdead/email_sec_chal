@@ -1,0 +1,47 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 3746014205E8
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 22:55:29 +0200 (EET)
+Received: from mail-wm0-f41.google.com (mail-wm0-f41.google.com [74.125.82.41])
+	by mail.voidland.org (Postfix) with ESMTPS id A723340A01
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 22:55:28 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=XDyYd2bl;
+	dkim-atps=neutral
+Received: by mail-wm0-f41.google.com with SMTP id b14so159842867wmb.1
+        for <gbr@voidland.voidland.org>; Sun, 03 Jan 2016 12:55:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=vyeWYzPx0vUbObOLkLs2PLiTXHdG4UvlgEY+Nic0aiM=;
+        b=XDyYd2bl8yl931FjaBupGRthj1vMMcnEBZhxvNCG+oH+HjclM6y+kymd1GlO2htoi2
+         fvakZCvAfxGfSGGHC7yy9AzVQU4f1SxkI/fsv+9WDyLNWQRbOKl9T4aJjFYFkT9ep0uV
+         eBg8aLQNlejEX0hzGDKRgujpYljCkpY5MgIht/sDsiKMXSFn/qI7kzNfE6FElpXsdZlw
+         /e36KiXwiGtSjmnNAdCB5h33XjZiy/3bV+5vnKPB//yFHzPZ/a/ZA7Gz5eXuqo7wSg7t
+         mymYZi2hKyU4wvjO3RQXM5De4blztEKqi8V/roUQLhc2BSxaXV4A+MVvCA/O+YP1wTcs
+         nkug==
+MIME-Version: 1.0
+X-Received: by 10.28.173.208 with SMTP id w199mr44333386wme.45.1451854527512;
+ Sun, 03 Jan 2016 12:55:27 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Sun, 3 Jan 2016 12:55:27 -0800 (PST)
+Date: Sun, 3 Jan 2016 22:55:27 +0200
+Message-ID: <CAFxyasPN-cJ2ij0subpkRTBLLgVj8yFhnpPRqpcBsG-3zfu7bg@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: multipart/alternative; boundary=001a11443ca260c9df0528743939
+
+--001a11443ca260c9df0528743939
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+KkFsYWJhbGEqICrQkNC70LDQsdCw0LvQsCoNCg==
+--001a11443ca260c9df0528743939
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+PGRpdiBkaXI9Imx0ciI+PGI+QWxhYmFsYTwvYj4gPGk+0JDQu9Cw0LHQsNC70LA8L2k+PGJyPjxi
+cj48L2Rpdj4NCg==
+--001a11443ca260c9df0528743939--

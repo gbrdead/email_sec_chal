@@ -1,0 +1,90 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id C3DEC1420204
+	for <gbr@voidland.voidland.org>; Tue, 22 Dec 2015 22:38:06 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id A3D0A40EB9
+	for <gbr@voidland.voidland.org>; Tue, 22 Dec 2015 22:38:06 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450816686; bh=CuyUrhD8bzk1U1pouHOGmPqVImQi9oMll1uWIPUbhww=;
+	h=From:Subject:To:Date;
+	b=pnAZOaRFOO3EMm324OcYXP2w8r2Tzd9Djr1p4ed97iZ8eoVuVqvdB1v+FbSUka1Dp
+	 B5IoXwoHndVf/LO+8aonTVZCA8aTRVa4FZtZqO6eiIw/Oh4rW3VMCs98aX2JfAWwV0
+	 7hNSRSOD6MDHYl6rMFb4O5ljPTD+/gfZhDXPvR78=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 85BAD34E0060
+	for <gbr@voidland.voidland.org>; Tue, 22 Dec 2015 22:38:06 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450816686; bh=CuyUrhD8bzk1U1pouHOGmPqVImQi9oMll1uWIPUbhww=;
+	h=From:Subject:To:Date;
+	b=pnAZOaRFOO3EMm324OcYXP2w8r2Tzd9Djr1p4ed97iZ8eoVuVqvdB1v+FbSUka1Dp
+	 B5IoXwoHndVf/LO+8aonTVZCA8aTRVa4FZtZqO6eiIw/Oh4rW3VMCs98aX2JfAWwV0
+	 7hNSRSOD6MDHYl6rMFb4O5ljPTD+/gfZhDXPvR78=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679B4AE.9070703@voidland.org>
+Date: Tue, 22 Dec 2015 22:38:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="eDPNXDiitUhxkeaGm2XiukawPjp0obh6S"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--eDPNXDiitUhxkeaGm2XiukawPjp0obh6S
+Content-Type: multipart/alternative;
+ boundary="------------060001060805050502060205"
+
+This is a multi-part message in MIME format.
+--------------060001060805050502060205
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+KkFsYWJhbGEqIC/QkNC70LDQsdCw0LvQsC8KCg==
+--------------060001060805050502060205
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
+-8">
+  </head>
+  <body bgcolor=3D"#FFFFFF" text=3D"#000000">
+    <pre wrap=3D""><b>Alabala</b> <i>=D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=
+=D0=B0</i>
+
+</pre>
+  </body>
+</html>
+
+--------------060001060805050502060205--
+
+--eDPNXDiitUhxkeaGm2XiukawPjp0obh6S
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWebSuAAoJEMl6bvU0WTOvNiMQAKgKQl0WcCnZxiUSJ50Z1eug
+MKAwcdrlRIs+LxZO2dUhsJtXb9yCfMPkIkOxwEZipi9J489goQUDgrzcNGeWndSm
+CMTkNrZW25WEvaHCcwg3KCE3RQjcRkIjktWpi8J4g757evFXwK+YT3bTRMV3HPKj
+xq8nAZzOw1jV4xQv+QYDJz+JhGeerHIcI2F7m4wizkODpuppL2vcqDRKjTV0sl8D
+sayaSl9z5rsuJh64uV5SCsNu5K/ETOGiHKHJ9bh1pXuM7ccKE5vYxHMyWB3X4iKr
+KUvL4tJLAUTCjJdQgTNwHee849GoXfxOhGSMdiseIqq7wWpGyCW6jGECIaQdP5pQ
+Q54VW+rVrn6WSMUt1v4jOq0aKZBUy/mhTLsGh+ym/qo7tsrBMhP2tOEQYB/uxIai
+mnXMyr7tpaXkqe2YNoO91uP4WN7g+kyTHmiLvdrLUM4OklCsPey5J4TrqcuXD2bU
+6TwRJsdRe3k1FGBI4yulpl7IDjkkOkZET0eMU1bBuq/9AYk4lGYPPKmdjUTOLrQT
+xTpWvvhKB8n0LXlAKtauywUaXr8b2D5O8Romls/FR2B+BVoM+odQp7DQP55oZnwj
+mV5cUJhbldmdKNYppP17FtuZ4saeKPDfh784Dbwzz+4f1jiy17D1dlpO1B8xeQpT
+gc/0EZOBhFRkx2U4kLP4
+=XsbX
+-----END PGP SIGNATURE-----
+
+--eDPNXDiitUhxkeaGm2XiukawPjp0obh6S--

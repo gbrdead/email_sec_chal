@@ -1,0 +1,121 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 555E6142045B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:32:29 +0200 (EET)
+Received: from mail-wm0-f45.google.com (mail-wm0-f45.google.com [74.125.82.45])
+	by mail.voidland.org (Postfix) with ESMTPS id 23C2C40EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:32:29 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=XUFDdAgJ;
+	dkim-atps=neutral
+Received: by mail-wm0-f45.google.com with SMTP id l126so158078024wml.0
+        for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 10:32:29 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=KlP8vWatnxEDPza22Gf9eAAGoYr3L1GG/acJy/gA6PQ=;
+        b=XUFDdAgJHRxsa9dC1ZU8fNYgr8n7+3OFj3DBXQtQY+pXZTYKnhlWokVopyTDP/9PTO
+         vJeNMu5WQk86nqqDUuCEUh2fGl0SHIAiQVxzuRjgjRgZjWs20iJG5B8O0PwsJUlBC5AK
+         K+kZA2X0yZ+yPKH4LZ0kQcOVLbZKIYSGtktq40HajFSJKePEPPxpU90FmAgWS+/tyloK
+         zJ3o4EqEUcUPKrOt7u2d4hwr+bxKX8Az/no/vM9NcsRjkqs+haYzavLfgd/UCRWJ2b/n
+         wyzMCZpZzPd2jQZtU8cYGF9gOwJRRWmn/6pb8H1yR317m6Z53ytTrGHKchDzn38Rq3lD
+         7KWw==
+MIME-Version: 1.0
+X-Received: by 10.194.110.35 with SMTP id hx3mr41689241wjb.0.1450895548559;
+ Wed, 23 Dec 2015 10:32:28 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Wed, 23 Dec 2015 10:32:28 -0800 (PST)
+Date: Wed, 23 Dec 2015 20:32:28 +0200
+Message-ID: <CAFxyasO9j1Z89=T1Axu2iqw5fknXLsKc9mD+xXwLHLyhkVRJxA@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: multipart/alternative; boundary=089e010d84a4c73c5e052794f1f8
+
+--089e010d84a4c73c5e052794f1f8
+Content-Type: text/plain; charset=UTF-8
+
+-----BEGIN PGP MESSAGE-----
+Version: Mailvelope v1.3.2
+Comment: https://www.mailvelope.com
+
+wcFMAz8PoYAxq8avARAAiC7OlZBy/Y+B0X98ZM6j6LuumSmiFqLnlSmF+DKG
+qUjjKgD5JR8Smj9T66WRYe8UcNXrJh4PK/4+20iB9MEq3//e0kmncLqJQoK5
+QbD7wzjOuiuLvB0pOy+qlKnBLuPcB2JTbLCeK28muAqICIBzyn9ibiA1Ekn/
+TaosvBRJnHFnpDlDzP1NoshttLE5cAyRHsG2boX1ZLYIZyAX9x7mtLX6WqkE
+UQeiqgD66MUo8OPHWu5vZmXBiggr2fIkdtaegC3xjElC89DN1qlIaUqlBj5B
+SeBQC+9EbwMnHi/5sWkURx9lF9Gn4urpKgKZyx7OTSCNzrji1xdhFe8bJ9Sf
+7xFjIPAXpKReUZjuRMOfJR5JitShqWgQVYrCaKr2vvOcdWMbZ5ySmR7fbKv0
+l0z0ZKhHckRQFrhgJk02TSiLU5NJQI5/SPeN0i+ZIabA9Up5jrkodbWWKT6i
+aQVdxqWxsk+iP0PXd70o0F2t6tan+RCTQjBbqk9rlHkmnMjiN8hmOQdPIGqs
+FBBDJYoqOx+MBCi/KvHEfULhYozEbgefBSk5G8jAivs95xVi2tK5VHrG2cTP
+1/JN680y6yJY/Q2efICPfpL/yNfHvvMUohVujwg1500Z8puvcmCM9sBetowu
+3LbO+p8XRUKCUeFibpPWRqbeSEcWES5C2zuR5MNkIlHBwk4DEkUGZY+wX60Q
+DACKAky4BeMRSQ5jWYD9FZbnOg9PYRMlXkOSZx1p4DhvISXBNjktPEq0IYZd
+/xn0lfm2AIOkJEEqEDzkk3w5MhWA6YURjgPrKzq5gPeBr54oofjYDUz/EqST
+b6CStD5MnqLN8vLxhGz8e0/WbNatZVMgLBf0mvBB++l8ZnDaH+5zpdFC2p43
+FXmboikRrFEFJVuTPjqHli4oKtZFwXkvHtYc++bMmAsk5GppguXmgnkLixtf
+ZwPw3Tpw+rlrf/TY3/2biZI0tnNfpUYdXxUlLhGjqU2fHQTudbx+MacNN7LH
+aPSNcMI1Bs9/77pfLkptOfSuVFKAUHg2Qq/M/bXTOR2Lpiv/aQ7nVI9wto5X
+N44+XgCTO+4u49uwYiZDnzpV9WOqGBXBmy6ZLIUEWWnL6x1qmBGulwJ0V9hz
+tfJ2gJgSwFKyUePp4EFWEdnPkLpJ3shmV3KF1hoZz9SDsb5ZuI2KfgFnF5Uv
+QHJ0O4G1lbwcfrY+OU/LBAvMJBgkQRKYYA4L/jsaYCwYISUHPoRCPc3hfpEK
+9KOEVNqGrPyDm8ugLSBMCrn4u/6OAOfReU2weclusUOP2XYwP2EeZt5Gxqx2
+oIQ9JLCS0dHR1IcYYHMVwCVq2lhWnTejI8kQ5JDCeI1s2JaZuKUX7a6+AxIR
+MiedsdF48vxbOPXUhGem85/oavmJuDpa4IVhVlEjF54yQ4+FcyJSaLDutpIP
+3Mdlc8YyWOr6vIftg4gH3E/90F7Yz6fb4vyJd/qdS5XzW/74vW+M4kQ7Jlvt
+FQTBq3h8v/L1pdXyMdWyQievl/Bmlg0Jh/O0S5EiutcxqWZfwh5pUTeZK9xQ
+Unz8UYBR40zx9x7O+VB+rXDYktnrDOqohZ+MeXIrIhDp5R9ab1Idn2lecP4k
+WNf1tXKz9fb5rXv0JTYHoQn80DHiIzN44i5KI60A5kpYTJcwsxkOpu9ncbBo
+N1sfUln3H+Ollg3i65RfhudNrlNkl70hHCgB3EFTLtt56KruVGjB5A4xMXoW
+8bGQgIoK9tJSAaP48D8JoaHKYY4DmLudj+/sV38Wt4P0gGnYFxdl+6eBVVlr
+xZOUaW9UmrSeE84tbcUkeZV0E9aOtU767ZscETMZCHntXQ8WP7tr96eRfsNy
+jQ==
+=AIl5
+-----END PGP MESSAGE-----
+
+--089e010d84a4c73c5e052794f1f8
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr"><pre>-----BEGIN PGP MESSAGE-----
+Version: Mailvelope v1.3.2
+Comment: <a href="https://www.mailvelope.com">https://www.mailvelope.com</a>
+
+wcFMAz8PoYAxq8avARAAiC7OlZBy/Y+B0X98ZM6j6LuumSmiFqLnlSmF+DKG
+qUjjKgD5JR8Smj9T66WRYe8UcNXrJh4PK/4+20iB9MEq3//e0kmncLqJQoK5
+QbD7wzjOuiuLvB0pOy+qlKnBLuPcB2JTbLCeK28muAqICIBzyn9ibiA1Ekn/
+TaosvBRJnHFnpDlDzP1NoshttLE5cAyRHsG2boX1ZLYIZyAX9x7mtLX6WqkE
+UQeiqgD66MUo8OPHWu5vZmXBiggr2fIkdtaegC3xjElC89DN1qlIaUqlBj5B
+SeBQC+9EbwMnHi/5sWkURx9lF9Gn4urpKgKZyx7OTSCNzrji1xdhFe8bJ9Sf
+7xFjIPAXpKReUZjuRMOfJR5JitShqWgQVYrCaKr2vvOcdWMbZ5ySmR7fbKv0
+l0z0ZKhHckRQFrhgJk02TSiLU5NJQI5/SPeN0i+ZIabA9Up5jrkodbWWKT6i
+aQVdxqWxsk+iP0PXd70o0F2t6tan+RCTQjBbqk9rlHkmnMjiN8hmOQdPIGqs
+FBBDJYoqOx+MBCi/KvHEfULhYozEbgefBSk5G8jAivs95xVi2tK5VHrG2cTP
+1/JN680y6yJY/Q2efICPfpL/yNfHvvMUohVujwg1500Z8puvcmCM9sBetowu
+3LbO+p8XRUKCUeFibpPWRqbeSEcWES5C2zuR5MNkIlHBwk4DEkUGZY+wX60Q
+DACKAky4BeMRSQ5jWYD9FZbnOg9PYRMlXkOSZx1p4DhvISXBNjktPEq0IYZd
+/xn0lfm2AIOkJEEqEDzkk3w5MhWA6YURjgPrKzq5gPeBr54oofjYDUz/EqST
+b6CStD5MnqLN8vLxhGz8e0/WbNatZVMgLBf0mvBB++l8ZnDaH+5zpdFC2p43
+FXmboikRrFEFJVuTPjqHli4oKtZFwXkvHtYc++bMmAsk5GppguXmgnkLixtf
+ZwPw3Tpw+rlrf/TY3/2biZI0tnNfpUYdXxUlLhGjqU2fHQTudbx+MacNN7LH
+aPSNcMI1Bs9/77pfLkptOfSuVFKAUHg2Qq/M/bXTOR2Lpiv/aQ7nVI9wto5X
+N44+XgCTO+4u49uwYiZDnzpV9WOqGBXBmy6ZLIUEWWnL6x1qmBGulwJ0V9hz
+tfJ2gJgSwFKyUePp4EFWEdnPkLpJ3shmV3KF1hoZz9SDsb5ZuI2KfgFnF5Uv
+QHJ0O4G1lbwcfrY+OU/LBAvMJBgkQRKYYA4L/jsaYCwYISUHPoRCPc3hfpEK
+9KOEVNqGrPyDm8ugLSBMCrn4u/6OAOfReU2weclusUOP2XYwP2EeZt5Gxqx2
+oIQ9JLCS0dHR1IcYYHMVwCVq2lhWnTejI8kQ5JDCeI1s2JaZuKUX7a6+AxIR
+MiedsdF48vxbOPXUhGem85/oavmJuDpa4IVhVlEjF54yQ4+FcyJSaLDutpIP
+3Mdlc8YyWOr6vIftg4gH3E/90F7Yz6fb4vyJd/qdS5XzW/74vW+M4kQ7Jlvt
+FQTBq3h8v/L1pdXyMdWyQievl/Bmlg0Jh/O0S5EiutcxqWZfwh5pUTeZK9xQ
+Unz8UYBR40zx9x7O+VB+rXDYktnrDOqohZ+MeXIrIhDp5R9ab1Idn2lecP4k
+WNf1tXKz9fb5rXv0JTYHoQn80DHiIzN44i5KI60A5kpYTJcwsxkOpu9ncbBo
+N1sfUln3H+Ollg3i65RfhudNrlNkl70hHCgB3EFTLtt56KruVGjB5A4xMXoW
+8bGQgIoK9tJSAaP48D8JoaHKYY4DmLudj+/sV38Wt4P0gGnYFxdl+6eBVVlr
+xZOUaW9UmrSeE84tbcUkeZV0E9aOtU767ZscETMZCHntXQ8WP7tr96eRfsNy
+jQ==
+=AIl5
+-----END PGP MESSAGE-----
+<pre></pre></pre></div>
+
+--089e010d84a4c73c5e052794f1f8--

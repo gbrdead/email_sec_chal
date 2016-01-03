@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from .main import EmailSecCacheException, configDir, dataDir, tempDir, geocacheName, officialBotKeysFileName, impostorBotKeysFileName
-from .pgp import Pgp, PgpException
-from .message import IncomingMessage, OutgoingMessage, MsgException, getHeaderAsUnicode
-from .util import extractWords
+from .main import configDir, dataDir, tempDir, geocacheName, officialBotKeysFileName, impostorBotKeysFileName
+from .pgp import Pgp
+from .incoming_message import IncomingMessage
+from .outgoing_message import OutgoingMessage
+from .util import extractWords, getHeaderAsUnicode, setHeaderFromUnicode
 from .db import Db
+from .exception import EmailSecCacheException, MsgException, PgpException

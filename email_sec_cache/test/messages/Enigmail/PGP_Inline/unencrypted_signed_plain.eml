@@ -1,0 +1,57 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 404E41420054
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 23:53:55 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 2118A40A01
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 23:53:55 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1451858035; bh=Ey7AYPiTe/PIxTr/we8tijw53qD2yAAFE1tHYfm/M5A=;
+	h=From:Subject:To:Date;
+	b=XDjO/FoLfGOJHcnHOqAd976j/mNVaF4gbuwDkDoLlfXHeuUzWfYRmg/g+FJ/NrzHO
+	 ebtI7uvDNVI7a9Jgc0whnEFcAR07MwasaGvjjfptQ5RO6BTmsxCNaMaLxayIYdruOp
+	 gsvGRFZBY49GqVlauXeuyzq+oso0E76GOlm7Da1E=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 0CC0A34E00D2
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 23:53:55 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1451858035; bh=Ey7AYPiTe/PIxTr/we8tijw53qD2yAAFE1tHYfm/M5A=;
+	h=From:Subject:To:Date;
+	b=XDjO/FoLfGOJHcnHOqAd976j/mNVaF4gbuwDkDoLlfXHeuUzWfYRmg/g+FJ/NrzHO
+	 ebtI7uvDNVI7a9Jgc0whnEFcAR07MwasaGvjjfptQ5RO6BTmsxCNaMaLxayIYdruOp
+	 gsvGRFZBY49GqVlauXeuyzq+oso0E76GOlm7Da1E=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <56899872.7030501@voidland.org>
+Date: Sun, 3 Jan 2016 23:53:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Alabala Алабала
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWiZhyAAoJEH+wSfeQEeGpPKsP/0UmVokSxXRxkllsIeiUH9Ux
+i8cqrbwyKmROV6hD9u4jFCdbDaODbFsI4JnknNfnNGM6/JzfQ+OlyNKWRYacLLov
+IreESHH0Zc8thfKuZbunIiAeJfaO5hBnMigfbN/0JPHiw9lkKxhJlpeS+u8qRMp4
+Y2hK6u9K1Cs28Pm7nmycoWKbfk0Yj71c3Pr4GyIBFycwSrMDBTvJ9XLQVFk22X7S
+bCNSRvBoxlhbZxjVFggy1nuxnsI2GFJtGiCTn4tWk2vZ0fLNuSfrjkDDgI6vnqmk
+jqu177C/Vj/rsQayUMjJp6SB10WUWxc9XWEOqwC+FeswmXTPhA97T+KL2nRGvDnT
+vm5gqzIZFJaLX7BAMnrL9gALufAIyycyQg+RtWazCw6uoJG5vk2yyNOtsGfSM/i9
+y/sUQ22oVnbi7rTlvmM9Al5b1a8/Da/rmaU5eMd7Fdm0Ahd/nv81Qam5ow+j9d8z
+xY6uTUN9Ze1Sytn+SI5w9JYH+RIs/T9+kgjDzU8I4xdWtHxOSWaR0qSyfCySLTg4
+aF/qcM1VrUw7E3s4WffVhTGNxsdONvt/TJemsPXJV8068NJjb7XOfHrClMukMtCE
+IcReEk8aA08WV97J1RO/nz7m2UKndL5fx4A1AxQoZDKUGk86ycAdCzHhWCMqsNJM
+LkWnSrAZ/lF0f/vRaGen
+=ihl7
+-----END PGP SIGNATURE-----

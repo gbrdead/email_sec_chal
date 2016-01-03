@@ -1,0 +1,47 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 23B47142023B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:44:31 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 01D3A40EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:44:31 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824271; bh=CkDlDrDQgXwuivqtO5qwiNzZpjGRSC776VJoSiaDIFI=;
+	h=To:From:Subject:Date;
+	b=c96I0VMYbH8K5viApkPGx7b4Nk+e2EwthUrs6s2AmQC5Uin0rujV0p9NRqdsKfCvL
+	 bD9bR4PZl5uVgPJVzkxlx418xBfeHOKiCG1UIV0i09mMSzHM6XOwvQmfFnE40VBCKw
+	 tyHHY+Kz6OkXZrjCNuqGI+ZqSzCHYmZL7BU3lRXs=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id E051234E01B4
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:44:30 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824270; bh=CkDlDrDQgXwuivqtO5qwiNzZpjGRSC776VJoSiaDIFI=;
+	h=To:From:Subject:Date;
+	b=qTjuSK/c/reaEUTZ8zZrSsa1oP6tpXaa0f9CsjJxDf0ZyoN1l8oIKZ9BRf2AGol7l
+	 jczoh4utRPjTVcMrVi07tMH+C/k8quXAhpDTF3ISMFQuOB6a5yX0fOZiFaWZ6vN+f8
+	 8PuqJ67xvoqjo9FHRdR7aI+KthhdRlIQZy7eriwI=
+To: gbr@voidland.voidland.org
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+X-Enigmail-Draft-Status: N1110
+Message-ID: <5679D24E.3030003@voidland.org>
+Date: Wed, 23 Dec 2015 00:44:30 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <pre wrap=""><b>Alabala</b> <i>Алабала</i>
+
+</pre>
+  </body>
+</html>

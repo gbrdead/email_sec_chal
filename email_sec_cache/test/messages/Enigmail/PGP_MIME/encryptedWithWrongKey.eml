@@ -1,0 +1,83 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 0269F14205E8
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 04:04:54 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id C07B540E9D
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 04:04:54 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1451786694; bh=q9wnRpCmWTg+IL2t7HpzjrvnM+epHU846ahINTHNa84=;
+	h=From:Subject:To:Date;
+	b=rK+qjUGmQ3H0zaQyfBeMaK6REqaXcYGlsPTNjlc/176gZGMHu80rEr/WMX0GRABxn
+	 +Jtoc2U3c//j8LDtw0lAU6fgrh1VenDFT21CIYJN2jQdKAsodSIx/Q/A1efLBJSffV
+	 GL0S5U9Zw2n5IMOx2jMlws/EfnVJVD6kC3kP1t/c=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 86F3134E00ED
+	for <gbr@voidland.voidland.org>; Sun,  3 Jan 2016 04:04:54 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1451786694; bh=q9wnRpCmWTg+IL2t7HpzjrvnM+epHU846ahINTHNa84=;
+	h=From:Subject:To:Date;
+	b=rK+qjUGmQ3H0zaQyfBeMaK6REqaXcYGlsPTNjlc/176gZGMHu80rEr/WMX0GRABxn
+	 +Jtoc2U3c//j8LDtw0lAU6fgrh1VenDFT21CIYJN2jQdKAsodSIx/Q/A1efLBJSffV
+	 GL0S5U9Zw2n5IMOx2jMlws/EfnVJVD6kC3kP1t/c=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <568881C6.6070209@voidland.org>
+Date: Sun, 3 Jan 2016 04:04:54 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/encrypted;
+ protocol="application/pgp-encrypted";
+ boundary="dvt14uXPqloVHSr7PPGd5GCpPUhJW5Ioc"
+
+This is an OpenPGP/MIME encrypted message (RFC 4880 and 3156)
+--dvt14uXPqloVHSr7PPGd5GCpPUhJW5Ioc
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME version identification
+
+Version: 1
+
+--dvt14uXPqloVHSr7PPGd5GCpPUhJW5Ioc
+Content-Type: application/octet-stream; name="encrypted.asc"
+Content-Description: OpenPGP encrypted message
+Content-Disposition: inline; filename="encrypted.asc"
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+hQIMA8TdiiDB7RaIARAAsOFEOW4t2HFRmCkP0FE3rEOVI7Tpms9PUw+TsTTEu2p4
+lVo9Y/o5LkFxKiCOiVbeVAzZve7lhrZs5lboJdfbD0DVU8N2ZrOokN4becgsarS7
+e9qPoJUPPKHcN/sEAlGC6VRN2cwBhYbk/HhyJ9gjdGhNQtohAlkLmaFUVGUryl81
+v0UroPW29ZhbddbyZlMmTXd5wsBautRwHpdelRqtMh5aPsLNlptZTkZqoIW41knQ
+Q68UKvaAS0sgeWaVp7jOR96xxEFnDSeKKR08aqxBGFUlBB2QzeNfnKY5XJGMmAQC
+KYt1bs/bELCam8mf58+Zv/kUAcSTKMFj2PoVVOFoOdIhYhGJpy+0Uqes4giKEI9f
++f2ZK6oLbjP7QSgE86oP5COp3OhV5p55d2Xa3xrNDLM8sAOTkpBC4fv4OArJcFod
+D0fOvnOIjl99btWyBTgVsp1rg+bm823CbQ/VIJSWP5TQHhXX5K5SkVVFDEQZnv9q
+m/mk0CgvAiZSR/NtGcuyuf37m+QIEbZhxK+E/owEyYSJxGLxINC8jdwftcgjwEC6
+8EwY7ghYzQPCc6up7c8LaN0j3YkUjJbKNA1PtfuSIy9CObXr3dts4lb8JtM5UDTC
+OdTyr678+FkTKedoQZzxZaBFvB5Uv+n8aS4ZLR2YKciBqPlcbY7TIyzJhrKa1UuF
+AgwDKA/jsTGjsHwBEACXOYWSaIARiwDpIdB4TyOKsz1W8kHj8vebb8V6MtaJfKUv
+1R+S6ykM+qu3cVj4ySWM0LSoA0tWlPBtTGCBVbA6Iufxlm+tuskn8DTk1scKEm0c
+Qn0mI2HbTceSHxeVs3o37vk8skSI6+QEkYUiFywLXsGsm8pgGUbQ6+KdPXxLo3GD
+Ux+eIfJIvT8zYAMMRDJG7YlWRf4Q2pUjHzFF3b7vod9sQberykPldmaYNRQ2STeG
+Neq44g1B1ZOhHLzFV+GafbeMi8GP1O+7qTXQR3rMaPCWtbeWsbja0TxyruTgosvD
+zDiHShSUNiPS562RkXLTgTNdBL0eB5jiC4E0P86Lso2qQrcCL6DMqHIJHHned6PQ
+JkhQPcAoiGP1mD+buK8d6YFiCEeZa6ceCqL79RMfk5bu/H9kKSpDpJYypXekGkNL
+T1P+y6UqLxujO4nC0zjNFsRsECu2hLKexD0fs+73gc+iulYhfkujQ2QkQcInd7F/
+PlUQn+YCt/6gJwbmIPxMh4ocuEr8r/GcMcDmzTGAolH+8CQcxdKDlMniAZNm6XuM
+VU3FUFOQm5Z1licYhizP64qhKA9OfQegoRqJhC5kpnU+yKgU7r5/L4yWPl/ASTjZ
+w2d6sMHMaoJqD9tjnwJzAz6h1UCyWNSdmpV3g6TI94hCo0PxXITa50zWVHTyVNLA
+NQGjywijd1uDWOT3GP0GihD8VdtomhPaS8lQIPTQ5xg3eapAZI1eYcWqqLjhQ41k
+R2I+3ZjZmP+N3YwABjI4M/3QuqBrWQQPdi8mzbhI12jSTECne/UNhyHbjomVOqkT
+QWpGCkihMRfrnEcI85gWgSFYRHitq8V4RgSw+6K+qS3vaBpKUyRbaR6Kf41MItF8
+7tkklN791aVViSd/EakgvbedBpZzzfuXIgARRvYPF97VodcgH+jVQDiHZvDT6nFM
+3xVbbA88a9333jKGd4rhkFIEJgPlQAz4L4gumjcZ0rP+mJoAvBjMyX68ACfGs5OL
+CozOH9Wh
+=rHHH
+-----END PGP MESSAGE-----
+
+--dvt14uXPqloVHSr7PPGd5GCpPUhJW5Ioc--

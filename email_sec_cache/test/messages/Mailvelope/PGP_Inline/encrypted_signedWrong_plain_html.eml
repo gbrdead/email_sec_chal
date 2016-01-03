@@ -1,0 +1,161 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 6D817142045B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:37:56 +0200 (EET)
+Received: from mail-wm0-f51.google.com (mail-wm0-f51.google.com [74.125.82.51])
+	by mail.voidland.org (Postfix) with ESMTPS id 2F4F240EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:37:56 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=Xs8zX6A6;
+	dkim-atps=neutral
+Received: by mail-wm0-f51.google.com with SMTP id l126so156453608wml.1
+        for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 10:37:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=X7033BcMGeui2MKK852AsnxUQyr77BLENHDzqfEcAjs=;
+        b=Xs8zX6A6VruXgNaXFsmKFy/9BM7cDRiv8wGpKYJjWlYQduDZ5Gt5lGgK0e9EkqvGsm
+         BZsl7V4xCtHh4E1fth/gqJqItO42KQSmPlDExnWKWNCDyqILnUuhuPmWTpljEIHmjMUt
+         zICLUq3eiF+MuyjSEJyP+s3iGOYwQRWMTJ5aB/D2AxBwydva7CTSfbRamfv6seimrblG
+         yBUHab3KxZZGABAsbszunEyAKJBarwm7POYN/bLtOZYWwA6Em6RNZxMo447c8g5DOUUC
+         qwnRnMLOME+bM2iaruSgNs6EC12ZJVO2GhjaeXB/5a6+UGMUahM+8AFkwoxvIs7NFpwx
+         HWEQ==
+MIME-Version: 1.0
+X-Received: by 10.194.112.130 with SMTP id iq2mr23358384wjb.102.1450895875678;
+ Wed, 23 Dec 2015 10:37:55 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Wed, 23 Dec 2015 10:37:55 -0800 (PST)
+Date: Wed, 23 Dec 2015 20:37:55 +0200
+Message-ID: <CAFxyasMRzqAxB=8x3fS0=MGVKUFChnN_1nHrUHbiWKXkkWv3jQ@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: multipart/alternative; boundary=001a1130cae246a7ee0527950545
+
+--001a1130cae246a7ee0527950545
+Content-Type: text/plain; charset=UTF-8
+
+-----BEGIN PGP MESSAGE-----
+Version: Mailvelope v1.3.2
+Comment: https://www.mailvelope.com
+
+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
+9aswZSyTvO6tf12a5MBh1yMOkvj4y/bMA0oRxIsL/yQxc8fJJ45X4kncYbBr
+Jbn5lB6HKDcOKWSh4yrF6PUr4i+RpSztt/Yw0eVRjbHMwXaDKlWXZ3nx8PQ4
+k0UDy6h6Trw4VCNKrTYeW56sx09ImR785uQXOxYrgurLjDIXLx1+I0R9uTWh
+KFKdbFYgyMCeswkNE+mEgkhDqOYGa7pr/5AB0rvKY5s/kPdmcqdUzHDT2aN1
+DhMTJgXlcpHzyCzdLa0AXJ1aPSQfwJqjDddl0cQj/SPHDnmaCzRJ4o9MJFY9
+QFqnIVEO5h674hYGhG7OWzYE0J8b82p65O+WS1jKMuiA8/jxMZHc4cSS9Qag
+1SHilpIQOt5KHkWOabDiEuUdYkJIQlQimsd428/etF3acILbgXXvgklkLhnl
+HnPBWRjd3RGKxajnzAIrn+b9Eq7JOsw7cvZvxSfpp03ej2FaOnYunxQKcwkQ
+iS2I1VwSfF6W8hXSps68sstmd3TInhvpyLrQHenDUVxmqw3+4Furm8ApW6jW
+FyvQCHzL70qcjTH0Ar95swvkS9FOViswbJ+CwlT0W4Q6NaiMMWIaeapHKS6m
+YXVgy0bIDEmqEs2Zd7b3YpvdG0vhHbjvnEsLQ9ClJgHvGzmc83JMWeR/sBu5
++9m0gBtJ1SmsdBvmaLE5+nuWBTwNC+uboJHANEjHFYMQ5R0W+zT49/ZO/w==
+=C+gi
+-----END PGP MESSAGE-----
+
+--001a1130cae246a7ee0527950545
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr"><pre>-----BEGIN PGP MESSAGE-----
+Version: Mailvelope v1.3.2
+Comment: <a href="https://www.mailvelope.com">https://www.mailvelope.com</a>
+
+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
+9aswZSyTvO6tf12a5MBh1yMOkvj4y/bMA0oRxIsL/yQxc8fJJ45X4kncYbBr
+Jbn5lB6HKDcOKWSh4yrF6PUr4i+RpSztt/Yw0eVRjbHMwXaDKlWXZ3nx8PQ4
+k0UDy6h6Trw4VCNKrTYeW56sx09ImR785uQXOxYrgurLjDIXLx1+I0R9uTWh
+KFKdbFYgyMCeswkNE+mEgkhDqOYGa7pr/5AB0rvKY5s/kPdmcqdUzHDT2aN1
+DhMTJgXlcpHzyCzdLa0AXJ1aPSQfwJqjDddl0cQj/SPHDnmaCzRJ4o9MJFY9
+QFqnIVEO5h674hYGhG7OWzYE0J8b82p65O+WS1jKMuiA8/jxMZHc4cSS9Qag
+1SHilpIQOt5KHkWOabDiEuUdYkJIQlQimsd428/etF3acILbgXXvgklkLhnl
+HnPBWRjd3RGKxajnzAIrn+b9Eq7JOsw7cvZvxSfpp03ej2FaOnYunxQKcwkQ
+iS2I1VwSfF6W8hXSps68sstmd3TInhvpyLrQHenDUVxmqw3+4Furm8ApW6jW
+FyvQCHzL70qcjTH0Ar95swvkS9FOViswbJ+CwlT0W4Q6NaiMMWIaeapHKS6m
+YXVgy0bIDEmqEs2Zd7b3YpvdG0vhHbjvnEsLQ9ClJgHvGzmc83JMWeR/sBu5
++9m0gBtJ1SmsdBvmaLE5+nuWBTwNC+uboJHANEjHFYMQ5R0W+zT49/ZO/w==
+=C+gi
+-----END PGP MESSAGE-----
+<pre></pre></pre></div>
+
+--001a1130cae246a7ee0527950545--

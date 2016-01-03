@@ -1,0 +1,61 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 4DC65142045B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:02:10 +0200 (EET)
+Received: from mail-wm0-f51.google.com (mail-wm0-f51.google.com [74.125.82.51])
+	by mail.voidland.org (Postfix) with ESMTPS id 140A040EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:02:10 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=mw6DpwOC;
+	dkim-atps=neutral
+Received: by mail-wm0-f51.google.com with SMTP id l126so159389068wml.1
+        for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 10:02:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type
+         :content-transfer-encoding;
+        bh=3pYFLHwZY4/Ows++pRU1mXZSTKoXTrxz7Ow6dg1KQCs=;
+        b=mw6DpwOChFXi3vX8zYODgW6SLnvbf7ej4UuAMUDivLreY2BqQvlkrhBoM0SHYBMcVi
+         K8b6sraSl5SiFXanJpmMeA5Dzx/w6+reLayJRtTjQ6YggmySkDz0KVNjtanfYxFXuzCf
+         G+8nQ4FrxMOQTiXBgaq+79ICemUnuAIkw9Wo92pA338ZYZjenR8Q1lgwsOWU+8bzUwGV
+         kkF7Fx5nrWIDBu0ON6Tg4qfB+3cEfMY1pGY4ZvOz0742+JiGfwGC9FiA6pCKZXbhomYv
+         Qm8r+JtPrA8JCA4FEU0Ap9Kb76bpcxGKVbogBr9PelDRKc0nW09d+RW3QAfXtooVeiAm
+         EWag==
+MIME-Version: 1.0
+X-Received: by 10.28.50.70 with SMTP id y67mr36071853wmy.91.1450893729157;
+ Wed, 23 Dec 2015 10:02:09 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Wed, 23 Dec 2015 10:02:09 -0800 (PST)
+Date: Wed, 23 Dec 2015 20:02:09 +0200
+Message-ID: <CAFxyasMYa9Umh49AAAxdtkpUB7ktkBd3EqfsrRrqzeZuBxPPaQ@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Alabala =D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=D0=B0
+
+-----BEGIN PGP SIGNATURE-----
+Version: Mailvelope v1.3.2
+Comment: https://www.mailvelope.com
+
+wsFcBAEBCAAQBQJWeuGaCRADMxxJZwTiGAAAG0UP/2Hc2y4ilre3nOkB8lVy
+3W6k9n7iNSeBItOYNQX392RTQgVKgYVOloVhLfdVOaiBf3zUJ7C9hCN37+WT
+o/VnS48uEsgbqGcChaVU68V9uR0j0XJX1MDCyjikDhbuTGPu1V6vxLtf+dnG
+7y+hrmZTJZ8IjlsAlbevAKahljvxWRVn9ToOJEPWBawamT5hdq3aRE8A95FP
+rtQ7XWhZwNyRHHpfbl7SDyr5lVXySdY40azYr9wvKTtjeyO1eBpmnVTL+SWk
+KuMYKB/BW2mrUXDNQWT+WHKA1Nl4jh+V3KQjBHD27yeOozXbCSSstcyiO7pY
+Sfo8yvpadvGul414btJzzzqScIHFQmRLLhAFH5Fhjo1phSrtBtxfhvfIBCUk
+PerCONVTHE5LhH/asD6iVsjA0Dt/G3Ai/PLMgxBU6q65kVX0Pksw5oCHGth0
+Pgmj7N2FSN3p242p5UMaC4Hi1ABA+9lHwg1+jnwY5huIvHvx9gvf2dcgHRQx
+C+/rThLs2WwLwQmRJPwErLjSJPQgX2+BZi3QzM3OQDrKBunVcZ+SNK2BAVbM
+SL84KUlgpONecos2iFQjwhl3USyuQHE2IJNUGvzdphLgZkT33+uJ2NAQogJo
+AZiyIUDAknTKLi9s0/nlsVrGxYs6U3EYM9+BhWS+6em0UH5gkEJODnEJUOc0
+xRXg
+=3Dg18x
+-----END PGP SIGNATURE-----

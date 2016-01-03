@@ -1,0 +1,38 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id BE926142045B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 19:58:01 +0200 (EET)
+Received: from mail-wm0-f51.google.com (mail-wm0-f51.google.com [74.125.82.51])
+	by mail.voidland.org (Postfix) with ESMTPS id 2155C40EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 19:58:01 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=un5QCr/I;
+	dkim-atps=neutral
+Received: by mail-wm0-f51.google.com with SMTP id p187so155398115wmp.1
+        for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 09:58:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type
+         :content-transfer-encoding;
+        bh=EK1QK4T6itFMLTu26OEIcJRYxYChlM7DrFu1YGD2zdE=;
+        b=un5QCr/I7kgbtimr90iFPOIEMV6FbSoCAIz0fU9YO2qXt0pmNwYU37FKtl1LJp07Hk
+         3T6/0XRS8AXSlDmsGCU258XOBDr8Nxq7IO6GXV9aueahNzAnLu+UUR0YopXKizCGlF5g
+         a2tiK0/oSnr4uMgXd0sDZ8UaIzbNch3NpvC1EW4+cQmAYmH0v60hlovsQokSZSVe0vZQ
+         kUFlaAwtDuLSxLVWf64T3m6L5KlABJBUqEeak01gS2uasJ0if9IYjJI0MkCJhHcwL54L
+         AB4CeXjZ7lEnxSJW2SJvfp9M82ALjOGfzI6GIfUKJYclT1bkdOg8M/JOeYtvkH3eTK7e
+         iAlw==
+MIME-Version: 1.0
+X-Received: by 10.28.212.21 with SMTP id l21mr36075296wmg.91.1450893480168;
+ Wed, 23 Dec 2015 09:58:00 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Wed, 23 Dec 2015 09:58:00 -0800 (PST)
+Date: Wed, 23 Dec 2015 19:58:00 +0200
+Message-ID: <CAFxyasMZSV9VTuttN-kJrY14gozMarcxgUQ1SvF7pj1Cu-gRGQ@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0K

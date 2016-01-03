@@ -1,0 +1,66 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 308011420212
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:48:59 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 117CC40EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:48:59 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824539; bh=OZW+jL0hMTZUojiLfUeJOWOrOEytNucAk/wRXd4EIDs=;
+	h=From:Subject:To:Date;
+	b=iWPdFojnzyMrlXmurOBk/hEgQYWmOyFxM4ZccjbGj+vXoO2GBYf+evnnhIjhFDivQ
+	 bJgy6xEQXXdgoSTMPSTlHMdNYhT+YpVfOnEd0cDzC57VYSgDVNIRypw2r6Id1yTk27
+	 7/pqUhcX6RG25n7Yt45ZgNMW2AcGD8Zrb8J/7VSc=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id EDBEE34E01B4
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:48:58 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824538; bh=OZW+jL0hMTZUojiLfUeJOWOrOEytNucAk/wRXd4EIDs=;
+	h=From:Subject:To:Date;
+	b=LqS3agt1z1nh+3RH8WvU8kYj9JRSnj88PEnaIUR6ge9Rt33JGCW2OyeplHBB9YNUt
+	 Vk9bTRsu9kkBnHZ8XFRCpDBoG/+YNtjgSRmpZs6cEKWv7O7IZy76XQqcO7AGrVTUlx
+	 Zf3Xia6kwMEAy++qDeQEApK6Kklbzis3lufyTlyk=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679D35A.6090803@voidland.org>
+Date: Wed, 23 Dec 2015 00:48:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <br>
+    -----BEGIN PGP SIGNED MESSAGE-----<br>
+    Hash: SHA256<br>
+    <br>
+    *Alabala* /Алабала/<br>
+    <br>
+    -----BEGIN PGP SIGNATURE-----<br>
+    Version: GnuPG v2<br>
+    <br>
+    iQIcBAEBCAAGBQJWedNaAAoJEMl6bvU0WTOvizgP/1iNDTsjJio+rqMsryOG+g8a<br>
+    UBvVzdzTOkWkKG+97uraKkgVNVRQD7qwqTZ280BBi9gKoPpwHnSfvhwZr69RsLkX<br>
+    Z6J1eT071ZpiYloRCMiDiOGilmHMIknDdmkWbpohsq2UjbM4vTGzeZr7zdBD8NQt<br>
+    4HDNy+SpVByOpVxZsyFtCjFGAjQbsGMEL5LXObZgsW3DSJsz6V4rVaHkWrx9d33s<br>
+    4546SuG0QiFyx8fxvOt4SMEbYSbBvCIdY8JlQMxDOWmpKVRS8YXczSRqtUmfXhVk<br>
+    7RCyNHOv+MJo9OYmexTlbrtcwq39e3TvExXKfOT4mGRrqACRt9Sd64MX+Oj8Dy6O<br>
+    7h3kcKizEFTX2bqPTwYbmprNTSnypkbeE8BUFkmIUP5UkAglo2qEfEcKy6YAawQq<br>
+    5dtzt/2Lu/88WHI+jXas/PTpfAQogEQpZaz3r1oJKyyKzpKfin7BUVvWCDmKgjsj<br>
+    9VRnVAO6OmQHgwE6msipC4d4ZoI84/pa9YZPuZt0lJHc6yWRKkv8MQz5kl+YHYDx<br>
+    b+BPW6/xNqkDIaZRG9aJiZ2TFIXvohvCQYtxziBtqsGJ2TtFz3EpM1/G5VUOD3+i<br>
+    850DFHVSE0ffCaZ/k9hncIhyVSGYB6epwRyE9rLZTrihrDD0jdStZHThdaPdtL5R<br>
+    COz/RUeWdpbc6jO7cQqz<br>
+    =H4Az<br>
+    -----END PGP SIGNATURE-----<br>
+    <br>
+  </body>
+</html>

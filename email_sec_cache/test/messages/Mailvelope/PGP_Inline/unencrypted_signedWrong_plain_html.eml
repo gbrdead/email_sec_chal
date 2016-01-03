@@ -1,0 +1,98 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id AD5C9142045B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:31:18 +0200 (EET)
+Received: from mail-wm0-f41.google.com (mail-wm0-f41.google.com [74.125.82.41])
+	by mail.voidland.org (Postfix) with ESMTPS id 6BCE140EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:31:18 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=xj9u1Kh6;
+	dkim-atps=neutral
+Received: by mail-wm0-f41.google.com with SMTP id l126so160238809wml.1
+        for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 10:31:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=SGy+ADf1s1uAtwPZeJYlMf6WwuadDF15pLTNBSb2qPE=;
+        b=xj9u1Kh6PzCszFzZ8LPe955R5RmYQlr8WaAsqFV3XJGVockO6VCUs7okyXc0PtNaCK
+         wJyMiDtuVw88lmCqpaaXrrqolklqoMMA+ixS6nX2UJi/V90alS4bSpgPohuLwEgQ+tuL
+         mKqCerrJ0Mfpw4Oq9Py5xpdsHjTxjzfEJxkuQ97ZJAjmRGMPkFIlsKBwFpym8dk4geau
+         b5lWoEVdtW+GuvdZQH0VM6WLKAwTL9e5LirPxgt3CHc+V2iWmlb8iCCCLROmprgSdw5t
+         9JnGa+Lbf9BzmOO+XdavKOctPHkqWHfp9Ruqpz1tDfKoPk/aUSj18Azkuo/Oq5WTWM9X
+         THeQ==
+MIME-Version: 1.0
+X-Received: by 10.194.204.166 with SMTP id kz6mr35641546wjc.174.1450895477715;
+ Wed, 23 Dec 2015 10:31:17 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Wed, 23 Dec 2015 10:31:17 -0800 (PST)
+Date: Wed, 23 Dec 2015 20:31:17 +0200
+Message-ID: <CAFxyasPLkq55i96HEEguSLD4ztHRK32b=opHcLcAJoZV3PZN6g@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: multipart/alternative; boundary=047d7b8736b08e3d40052794ed09
+
+--047d7b8736b08e3d40052794ed09
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Alabala =D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=D0=B0
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: Mailvelope v1.3.2
+Comment: https://www.mailvelope.com
+
+wsFcBAEBCAAQBQJWeuhyCRDvOM13IXC4jwAAMBQP/RM6Do1qjN7X75Z0yPuJ
+LRaQlEHGjhCojm7meJHDL0VHQT7kQ9/Us1V+fDsGC3yahO9o4uvb1pWMZ/nC
+CEjzrgaxaLoYGN7kc3XSig/nOx6+lzNSxyUd/A5emLoSYP3Ir94StczysFWl
+N1e434DW4aiykb8Q+6jkNSQHrUxsTDo8govXI1/TE3aDUPDDhX1s+b3OIpa0
+kImld/QQgeCdlmXg0yPNhnhRWY+T62lQATPdzttK4kNVcpeo4aFKq1cCqbOJ
+OcPaD//XoM865MOK2J0SwFtSzZQR1p4kZBrsblMQxyQ1sQAb/CFc7KQ0fYrj
+JimF2d8WjROaOJh2RLT7mgyVbluPfAeM3IjnraFiuj5NsvLwASRdW92Xu4yP
+Mj2vWpu5XgBiwhQKvMmQOYqvVMSQutjcXcxsRxxtzinWspWzK1UTwKZDVUhK
+6Nv6iGrYDXANLR7FSZJlRm8xrE7XeII5lWW15OTvhv0K9hejql/qh/oO+ZP1
+iSP96f2eHcAZ+XypAHtqLBAeNlcDU/3yY42nTxXECPMuyroxgvREA8EdQmgu
+xvouMo0b3vi4v+wA9SQFyQsPbE6pKzHZQVTB6zUcNMBhzrXXrEI4yJ7ccWp/
+ZDhWSFqWo5yETG9pjRRKJE8XlrVYhlHaxr1uoRD/oBE7EYBBMNDcVGAU+DRW
+F16s
+=3D5DhW
+-----END PGP SIGNATURE-----
+
+--047d7b8736b08e3d40052794ed09
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><pre>-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Alabala =D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=D0=B0
+
+
+-----BEGIN PGP SIGNATURE-----
+Version: Mailvelope v1.3.2
+Comment: <a href=3D"https://www.mailvelope.com">https://www.mailvelope.com<=
+/a>
+
+wsFcBAEBCAAQBQJWeuhyCRDvOM13IXC4jwAAMBQP/RM6Do1qjN7X75Z0yPuJ
+LRaQlEHGjhCojm7meJHDL0VHQT7kQ9/Us1V+fDsGC3yahO9o4uvb1pWMZ/nC
+CEjzrgaxaLoYGN7kc3XSig/nOx6+lzNSxyUd/A5emLoSYP3Ir94StczysFWl
+N1e434DW4aiykb8Q+6jkNSQHrUxsTDo8govXI1/TE3aDUPDDhX1s+b3OIpa0
+kImld/QQgeCdlmXg0yPNhnhRWY+T62lQATPdzttK4kNVcpeo4aFKq1cCqbOJ
+OcPaD//XoM865MOK2J0SwFtSzZQR1p4kZBrsblMQxyQ1sQAb/CFc7KQ0fYrj
+JimF2d8WjROaOJh2RLT7mgyVbluPfAeM3IjnraFiuj5NsvLwASRdW92Xu4yP
+Mj2vWpu5XgBiwhQKvMmQOYqvVMSQutjcXcxsRxxtzinWspWzK1UTwKZDVUhK
+6Nv6iGrYDXANLR7FSZJlRm8xrE7XeII5lWW15OTvhv0K9hejql/qh/oO+ZP1
+iSP96f2eHcAZ+XypAHtqLBAeNlcDU/3yY42nTxXECPMuyroxgvREA8EdQmgu
+xvouMo0b3vi4v+wA9SQFyQsPbE6pKzHZQVTB6zUcNMBhzrXXrEI4yJ7ccWp/
+ZDhWSFqWo5yETG9pjRRKJE8XlrVYhlHaxr1uoRD/oBE7EYBBMNDcVGAU+DRW
+F16s
+=3D5DhW
+-----END PGP SIGNATURE-----
+<pre></pre></pre></div>
+
+--047d7b8736b08e3d40052794ed09--

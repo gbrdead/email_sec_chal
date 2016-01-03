@@ -1,0 +1,79 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 830DF1420212
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:51:21 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 57CD440EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:51:21 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824681; bh=1a+akL8UjDwyO3msijprxcP4lcMDTVu2XvarEzX0Lto=;
+	h=From:Subject:To:Date;
+	b=tlLJ7SOw6v9IJrckkia5UfgISfLyPMD4gbZSfLLsxkFiNF6pdS5jdffmdpFR/AHQ9
+	 OM6Nk+1hBZTvmkjzhJaBJywl1FrBbBTE/F49RUsyWMdKdmzB0Ui3stFkbXXDRS9DXi
+	 L/okEv/Ywt2vhAxoyA0WuD1Gah047DTHgSlW/z6s=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 18E6734E01B4
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:51:21 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824681; bh=1a+akL8UjDwyO3msijprxcP4lcMDTVu2XvarEzX0Lto=;
+	h=From:Subject:To:Date;
+	b=tlLJ7SOw6v9IJrckkia5UfgISfLyPMD4gbZSfLLsxkFiNF6pdS5jdffmdpFR/AHQ9
+	 OM6Nk+1hBZTvmkjzhJaBJywl1FrBbBTE/F49RUsyWMdKdmzB0Ui3stFkbXXDRS9DXi
+	 L/okEv/Ywt2vhAxoyA0WuD1Gah047DTHgSlW/z6s=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679D3E8.8080800@voidland.org>
+Date: Wed, 23 Dec 2015 00:51:20 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="TOrW2Ie3FAG6kMtiRmeiieC3tAv3TqB8L"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--TOrW2Ie3FAG6kMtiRmeiieC3tAv3TqB8L
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
+-8">
+  </head>
+  <body bgcolor=3D"#FFFFFF" text=3D"#000000">
+    <pre wrap=3D""><b>Alabala</b> <i>=D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=
+=D0=B0</i>
+
+</pre>
+  </body>
+</html>
+
+
+--TOrW2Ie3FAG6kMtiRmeiieC3tAv3TqB8L
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWedPpAAoJEMl6bvU0WTOvv7UP/jn/2EvIdh3fdhB3pj84L1+Z
+I0fz8DYxxKzDsSESvWJAEU7m+Fek3rGppSXn9S8p3ABywUjoqapcKMMSzO/3gEUm
+8hpKjewEHjRBHxsmF8EgCw38kPi4j2CMdcbYSToKQnJLJZirAIun7dqfz57D6uCA
+lIRlLkJ87tLbmh7Yg3YovDl6ePMqCNk5jSE5vNzCazWEq78Y1Mn3JrNdf7NOyVYO
+aAyGHH+NgONxeACTMkmIMkeIFLyabAdktKve2GpB2flrUu8kGT9FvyjgbuAa278H
+uN4q7+wbDpvrU0avRdgUDJeiYzd8U0qvc+egxKwNkIbLXykS99w1MKd0u28jqNp6
+vXk23x+Ayb8P1gKHcTdkgTu/2rdrEYKFeIDe9DoDrNUP4Nmi4sFPKorUnx857M+M
+ERHwnsAnGkCA3dfnBBLAJFmtGiZeiGiNnNSzCEqySCcMViS4f87EqfR+KO1H2S8I
+sJUSdWRmQQVrbft3GFF52AxzPz9PFRK5zUcCOGDuXKGt1lFDWXRhu3ynNse8vxQd
+FBOUX6bws615qZfVs55DH/kXceT9yZzANccnHr0Etp+/ZndnrnUOxq8h80EbFWmk
+QnZTS3SYJxBZf4r8aqROKkJEiXcQXqTpAJq/+BX9Ano4SzTsgKjzESPp5Q60tb1I
+0kWkst9YK5Bv6fcQO1g0
+=K88G
+-----END PGP SIGNATURE-----
+
+--TOrW2Ie3FAG6kMtiRmeiieC3tAv3TqB8L--

@@ -1,0 +1,45 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id CDFA9142023B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:46:25 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id A070C40EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:46:25 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824385; bh=d8Nn6CivNhd4A9cOUeLtHFb8bbctZO4mIbq3wST1Ngg=;
+	h=From:Subject:To:Date;
+	b=ZZTc6PUdsxGgSCJA9EbKn55hP6JSi5/uHH3YPkXroL3c5a3EBPAoyt99X9r76xqP7
+	 STF03BRCy4DqPzkDNtiklZtHMdrSPfZQ3AbvrUg/0iHRLmUBL9TXhHLP2nsNmvBCQ0
+	 FPxelQQH1ypEhWAAFAFfu4w2XE1haG7DZBUpRq9M=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 617AA34E01B4
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:46:25 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824385; bh=d8Nn6CivNhd4A9cOUeLtHFb8bbctZO4mIbq3wST1Ngg=;
+	h=From:Subject:To:Date;
+	b=ZZTc6PUdsxGgSCJA9EbKn55hP6JSi5/uHH3YPkXroL3c5a3EBPAoyt99X9r76xqP7
+	 STF03BRCy4DqPzkDNtiklZtHMdrSPfZQ3AbvrUg/0iHRLmUBL9TXhHLP2nsNmvBCQ0
+	 FPxelQQH1ypEhWAAFAFfu4w2XE1haG7DZBUpRq9M=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679D2C1.9090303@voidland.org>
+Date: Wed, 23 Dec 2015 00:46:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <pre wrap=""><b>Alabala</b> <i>Алабала</i>
+
+</pre>
+  </body>
+</html>

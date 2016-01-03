@@ -1,0 +1,59 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id DACD81420204
+	for <gbr@voidland.voidland.org>; Tue, 22 Dec 2015 21:50:22 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 94F8840EB9
+	for <gbr@voidland.voidland.org>; Tue, 22 Dec 2015 21:50:22 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450813822; bh=y5koVQ+cgaGnoZlndaev1sQwoIxpEfUz+G/IpObEwjo=;
+	h=To:From:Subject:Date;
+	b=Cqxi9SkueABZQ0X+ldRnlC2osO2MU32/smGJNkkaOYEh3fN7KCxK7SLvCNJvghuY1
+	 7KABZWD4Sk0i7fLKUCIu1Y7hdmnJkkHCRjqfNNi8oJI0rrj+Du75fcsQFCCNLP4xyP
+	 JsAZ+Ze95apq1/sLmpy+oUbfP5s1nI5femZ3W7as=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 4643534E0060
+	for <gbr@voidland.voidland.org>; Tue, 22 Dec 2015 21:50:22 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450813822; bh=y5koVQ+cgaGnoZlndaev1sQwoIxpEfUz+G/IpObEwjo=;
+	h=To:From:Subject:Date;
+	b=Cqxi9SkueABZQ0X+ldRnlC2osO2MU32/smGJNkkaOYEh3fN7KCxK7SLvCNJvghuY1
+	 7KABZWD4Sk0i7fLKUCIu1Y7hdmnJkkHCRjqfNNi8oJI0rrj+Du75fcsQFCCNLP4xyP
+	 JsAZ+Ze95apq1/sLmpy+oUbfP5s1nI5femZ3W7as=
+To: gbr@voidland.voidland.org
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+X-Enigmail-Draft-Status: N0110
+Message-ID: <5679A97D.5050104@voidland.org>
+Date: Tue, 22 Dec 2015 21:50:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="------------000304050001090402020305"
+
+This is a multi-part message in MIME format.
+--------------000304050001090402020305
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+
+KkFsYWJhbGEqIC/QkNC70LDQsdCw0LvQsC8KCg==
+--------------000304050001090402020305
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <pre wrap=""><b>Alabala</b> <i>Алабала</i>
+
+</pre>
+  </body>
+</html>
+
+--------------000304050001090402020305--

@@ -1,0 +1,158 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id CEFF3142023B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 01:04:21 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id ACDB340EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 01:04:21 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450825461; bh=EZcc6F3jeZYSa4rRp3sDOV40sXYxuXPi+C9xJxa8cgo=;
+	h=From:Subject:To:Date;
+	b=WcMsNISNPjNp9XStNyzXTZoVecSIaQmMggQuGu7mFrYdMGg0maxStlXGNNHEldSL3
+	 9mAIRcWi06JjrG2xJ70gm1373LCNkkdIY5QYhR1xDyac4ZEoc+46pZXISwXyrwDC8Z
+	 IPEDuJW1xnDmKspwq7Y65R6H25z4nt6sT2A2EmIY=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 97A1234E0060
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 01:04:21 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450825461; bh=EZcc6F3jeZYSa4rRp3sDOV40sXYxuXPi+C9xJxa8cgo=;
+	h=From:Subject:To:Date;
+	b=WcMsNISNPjNp9XStNyzXTZoVecSIaQmMggQuGu7mFrYdMGg0maxStlXGNNHEldSL3
+	 9mAIRcWi06JjrG2xJ70gm1373LCNkkdIY5QYhR1xDyac4ZEoc+46pZXISwXyrwDC8Z
+	 IPEDuJW1xnDmKspwq7Y65R6H25z4nt6sT2A2EmIY=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679D6F5.4060101@voidland.org>
+Date: Wed, 23 Dec 2015 01:04:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/encrypted;
+ protocol="application/pgp-encrypted";
+ boundary="hxuDmkGH5dlxjiHnFiJomHGH4k6XSjbaK"
+
+This is an OpenPGP/MIME encrypted message (RFC 4880 and 3156)
+--hxuDmkGH5dlxjiHnFiJomHGH4k6XSjbaK
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME version identification
+
+Version: 1
+
+--hxuDmkGH5dlxjiHnFiJomHGH4k6XSjbaK
+Content-Type: application/octet-stream; name="encrypted.asc"
+Content-Description: OpenPGP encrypted message
+Content-Disposition: inline; filename="encrypted.asc"
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+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
+=WkxB
+-----END PGP MESSAGE-----
+
+--hxuDmkGH5dlxjiHnFiJomHGH4k6XSjbaK--

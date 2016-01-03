@@ -1,0 +1,102 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id E6F58142023B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:14:43 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id B888440EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:14:43 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450822483; bh=YBZDHReOPqs7Hi/ufxCnOfNHE+rIC0q9GJHYh4oCRD4=;
+	h=From:Subject:To:Date;
+	b=IuGSZGYzMGNAVN//IqTNniBpJbQYf1WiVbGPC80lVdikzDBLXfH/pIGAQrgwR+U67
+	 gfORTgOyU+OB2fPq7Pabqo8jYM3imkKxX1LiRSbkUpTlOjkOPrxHSHqMl7Q2IYz3ZY
+	 cdMCh2awG+XF5KEZPA9omb014COxen9qEwA8YGkM=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 86F7934E0060
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:14:43 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450822483; bh=YBZDHReOPqs7Hi/ufxCnOfNHE+rIC0q9GJHYh4oCRD4=;
+	h=From:Subject:To:Date;
+	b=IuGSZGYzMGNAVN//IqTNniBpJbQYf1WiVbGPC80lVdikzDBLXfH/pIGAQrgwR+U67
+	 gfORTgOyU+OB2fPq7Pabqo8jYM3imkKxX1LiRSbkUpTlOjkOPrxHSHqMl7Q2IYz3ZY
+	 cdMCh2awG+XF5KEZPA9omb014COxen9qEwA8YGkM=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679CB53.8000106@voidland.org>
+Date: Wed, 23 Dec 2015 00:14:43 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="------------070108060103070602010102"
+
+This is a multi-part message in MIME format.
+--------------070108060103070602010102
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+*Alabala* /Алабала/
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJWectTAAoJEH+wSfeQEeGp7JIQALV+F2Z5UoF8L0C6/x8y2Qv/
+of+kp0fcfTVG2V3VuHV7w/yVbBS+dIGrshzCmtg9BizicT9hh8h3uDS/ciUJ+aFJ
+FVH50Hj5JXdwfdThkOPNcE8HxcItrCHS3qZ7DEpoMZs3XdYLWV6sY++9JDf3oHgp
+zpNORBCHuOW1ZD10GsdEb/4csLsabOrUgBSP684uiQj46qkw1KP1xCztc0zyt+XE
+BnSt1GVocMwyAYIglqjfhXE7iGtCn05gq5jGN+NjTfk4jk2/3A5OgOnm5LLELUli
+AROMa6Nc7pqB98s4F3X1kHHWW3N6lfHVltUNsVGORr09lcgllczsw9V2I90bQXk8
+cB4b+rc1ovemi+9fYVZczJ3I6XCajgbYcSX8JwRkfDx7xc8tIHvwsMm/coYphr81
+c5a+y88xJwD0OuOTUvzZPSRMHc9eQLXgmijE59qGkYgTPJTTUll/OL6abjI6vjLT
+vVtuGGHLSW3ub4bd9U5YCaBuyDwybsnpOdKMrUYxXm4ED+CqbP6z3pRPTPjP2fXi
+viccr6LyHpplYLLTWAAfqBIup5jlh5jAnJ6CgSWwJ8N1cRzAaZMd0ftguEwnZ+5C
+wrUPKaW59C1N33mosHemrkv5j4qYJHEmNR3duV7t4uAlzLJvIDQiLUKFbof1kgHH
+7tEVNNecP7dqUkDDTWXP
+=wQhM
+-----END PGP SIGNATURE-----
+
+
+--------------070108060103070602010102
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <br>
+    -----BEGIN PGP SIGNED MESSAGE-----<br>
+    Hash: SHA256<br>
+    <br>
+    *Alabala* /Алабала/<br>
+    <br>
+    -----BEGIN PGP SIGNATURE-----<br>
+    Version: GnuPG v2<br>
+    <br>
+    iQIcBAEBCAAGBQJWectTAAoJEH+wSfeQEeGp7JIQALV+F2Z5UoF8L0C6/x8y2Qv/<br>
+    of+kp0fcfTVG2V3VuHV7w/yVbBS+dIGrshzCmtg9BizicT9hh8h3uDS/ciUJ+aFJ<br>
+    FVH50Hj5JXdwfdThkOPNcE8HxcItrCHS3qZ7DEpoMZs3XdYLWV6sY++9JDf3oHgp<br>
+    zpNORBCHuOW1ZD10GsdEb/4csLsabOrUgBSP684uiQj46qkw1KP1xCztc0zyt+XE<br>
+    BnSt1GVocMwyAYIglqjfhXE7iGtCn05gq5jGN+NjTfk4jk2/3A5OgOnm5LLELUli<br>
+    AROMa6Nc7pqB98s4F3X1kHHWW3N6lfHVltUNsVGORr09lcgllczsw9V2I90bQXk8<br>
+    cB4b+rc1ovemi+9fYVZczJ3I6XCajgbYcSX8JwRkfDx7xc8tIHvwsMm/coYphr81<br>
+    c5a+y88xJwD0OuOTUvzZPSRMHc9eQLXgmijE59qGkYgTPJTTUll/OL6abjI6vjLT<br>
+    vVtuGGHLSW3ub4bd9U5YCaBuyDwybsnpOdKMrUYxXm4ED+CqbP6z3pRPTPjP2fXi<br>
+    viccr6LyHpplYLLTWAAfqBIup5jlh5jAnJ6CgSWwJ8N1cRzAaZMd0ftguEwnZ+5C<br>
+    wrUPKaW59C1N33mosHemrkv5j4qYJHEmNR3duV7t4uAlzLJvIDQiLUKFbof1kgHH<br>
+    7tEVNNecP7dqUkDDTWXP<br>
+    =wQhM<br>
+    -----END PGP SIGNATURE-----<br>
+    <br>
+  </body>
+</html>
+
+--------------070108060103070602010102--

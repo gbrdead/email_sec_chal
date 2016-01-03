@@ -1,0 +1,90 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id F2E7E1420212
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:52:26 +0200 (EET)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id B68EB40EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:52:26 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824746; bh=5lkFzHgGZlP6JHN0S/JN/Y7df/4HlWkpfmOxs5V7xLY=;
+	h=From:Subject:To:Date;
+	b=J6dAgjzM1ktVotU+7GBaicB4t9UE4DHe8QBTqeAft+hXC3OU6QBY68d22PvPACmAj
+	 PG7y32TtTv9NiKruH+okGo3IXOGfw3TAQj9LNGr6SgyOAP1tl++cs7QXBtJlk+FCux
+	 sUoVSTpGXULv3m+1AhMNawuLLCi+05qsM9zzJjVM=
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id A38F834E01B4
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 00:52:26 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=voidland.org; s=mail;
+	t=1450824746; bh=5lkFzHgGZlP6JHN0S/JN/Y7df/4HlWkpfmOxs5V7xLY=;
+	h=From:Subject:To:Date;
+	b=J6dAgjzM1ktVotU+7GBaicB4t9UE4DHe8QBTqeAft+hXC3OU6QBY68d22PvPACmAj
+	 PG7y32TtTv9NiKruH+okGo3IXOGfw3TAQj9LNGr6SgyOAP1tl++cs7QXBtJlk+FCux
+	 sUoVSTpGXULv3m+1AhMNawuLLCi+05qsM9zzJjVM=
+From: Vladmir Panov <gbr@voidland.org>
+Subject: Opa
+To: gbr@voidland.voidland.org
+Message-ID: <5679D42A.8010504@voidland.org>
+Date: Wed, 23 Dec 2015 00:52:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:42.0) Gecko/20100101
+ Firefox/42.0 SeaMonkey/2.39
+MIME-Version: 1.0
+Content-Type: multipart/encrypted;
+ protocol="application/pgp-encrypted";
+ boundary="xflfhDQkXT29swEo076uKdKsoJba7krxw"
+
+This is an OpenPGP/MIME encrypted message (RFC 4880 and 3156)
+--xflfhDQkXT29swEo076uKdKsoJba7krxw
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME version identification
+
+Version: 1
+
+--xflfhDQkXT29swEo076uKdKsoJba7krxw
+Content-Type: application/octet-stream; name="encrypted.asc"
+Content-Description: OpenPGP encrypted message
+Content-Disposition: inline; filename="encrypted.asc"
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+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
+=voVf
+-----END PGP MESSAGE-----
+
+--xflfhDQkXT29swEo076uKdKsoJba7krxw--

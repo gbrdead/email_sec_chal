@@ -1,0 +1,125 @@
+Return-Path: <gbrdead@gmail.com>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 36635142045B
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:19:44 +0200 (EET)
+Received: from mail-wm0-f51.google.com (mail-wm0-f51.google.com [74.125.82.51])
+	by mail.voidland.org (Postfix) with ESMTPS id EB5F840EB9
+	for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 20:19:43 +0200 (EET)
+Authentication-Results: mail.voidland.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b=lnThArzb;
+	dkim-atps=neutral
+Received: by mail-wm0-f51.google.com with SMTP id p187so154477676wmp.0
+        for <gbr@voidland.voidland.org>; Wed, 23 Dec 2015 10:19:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=5KYGyvQ6OjJlPiSz+qbkZG8YKclYthEW9vqEMoAOmGA=;
+        b=lnThArzbFM2528VjriH71C+MvLXbq5IsXUosQjkbHX+uRFH1+q01QXGlWpBoNLxVk4
+         D5+ogRKiHhZALYntsbbJi/dcq6bDRym2PtpYXf9syqYh6GhsfBVfK1Qj0T1vD/Zg+cLd
+         dmzRlsMJMh30hkkqdTl0cFO9kGFoOsP7m0PdjMOLA47uaX2RGG4zJK+XHrZQNhff/NBV
+         jdbMBpgfBHmN96a9AC2TADIHhDcQ79GpvhDRLKOKxSi3UUPGyWe8Y7QpmXhSaOZCkf6J
+         AIihYFwj/xz1NFIeutIcnlnCJD8XKVYB6X/YpsZTp/So7nJKG+mTFCXDeFNC0rMWnzJk
+         xZkg==
+MIME-Version: 1.0
+X-Received: by 10.28.57.69 with SMTP id g66mr37383127wma.63.1450894783078;
+ Wed, 23 Dec 2015 10:19:43 -0800 (PST)
+Received: by 10.28.146.136 with HTTP; Wed, 23 Dec 2015 10:19:42 -0800 (PST)
+Date: Wed, 23 Dec 2015 20:19:42 +0200
+Message-ID: <CAFxyasNAtCmCvOG--XjSLteru9PvAV1c=Xc6LodCTNvUc4q3nw@mail.gmail.com>
+Subject: Opa
+From: Vladimir Panov <gbrdead@gmail.com>
+To: gbr@voidland.voidland.org
+Content-Type: multipart/mixed; boundary=001a1148e710282542052794c4ae
+
+--001a1148e710282542052794c4ae
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
+
+Alabala =D0=90=D0=BB=D0=B0=D0=B1=D0=B0=D0=BB=D0=B0
+
+-----BEGIN PGP SIGNATURE-----
+Version: Mailvelope v1.3.2
+Comment: https://www.mailvelope.com
+
+wsFcBAEBCAAQBQJWeuW5CRADMxxJZwTiGAAAnr0P/jQTJ/mtlXg+7hL49y42
+9w+0vA7A9ZxwNJvHWPWaYoPAI9jhokvOLmeZanN9lqMkN2K8kY5q+g5FVGwL
+J1ryZHTlZFNuF9FTn0nh74sqkKkMIpzeVPrb8U1l/+Ud7tG/brulyPSgM2s6
+RdET/w2noiuozYzCIip0Qct5Ag4bPbQc5t/eoiwuOR9yNrx4COiNPhmatIOg
+XZ77yiFAPS+DKV6kVzBVmLo4AwdqVsFd/WXDoQf7Wyy+fVNQIAvMkKfAolXm
+kylzo2c3x0Qv4i/lzB1JmTna/OafmJGVEPZUiCrWsVgF0el7EY7fP6/YwN5i
+UqslczomMnVfra1ROJI73f42DSxbcYQ3C6CrwPyHOhi+Xd77GqyrtDFQLk9W
+X1hbhaaUYPIE7QMO+fl0VGi/Xe9WiJDGagf/o5WRlnrOAP2QzA1VbybCmxNk
+97oabPCorMURglQU0A1HFS8Iz0Hh7cdk5UgobYennxr81AbLwa1QFDC8svd5
+ViiEs0oIgnSh4HdDReZFxIF8P/FeYLl2KHzoD9Bg+hgcgWnu/Kxt5bxBFKc1
+Loc2VBli2OlcW0kSJ3letP+amQ5sSKJVgO6QqxKz6thyDZdpffcHRhxrkYjr
+3R0KW8VPaOSG0HromXQ9cHoq64JTi421c1h5t6JSGHzqg9rgZ9tzL1EikuCJ
+ubbj
+=3DaAKf
+-----END PGP SIGNATURE-----
+
+--001a1148e710282542052794c4ae
+Content-Type: text/plain; charset=UTF-8; name="attachment.txt"
+Content-Disposition: attachment; filename="attachment.txt"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_iij5a5952
+
+UG9ydG9rYWxhINCf0L7RgNGC0L7QutCw0LvQsAo=
+--001a1148e710282542052794c4ae
+Content-Type: text/html; charset=windows-1251; name="attachment.html"
+Content-Disposition: attachment; filename="attachment.html"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_iij5a57t0
+
+PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMDEgVHJhbnNpdGlvbmFs
+Ly9FTiI+CjxodG1sPjxoZWFkPgo8bWV0YSBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9d2lu
+ZG93cy0xMjUxIiBodHRwLWVxdWl2PSJjb250ZW50LXR5cGUiPgo8dGl0bGU+YXR0YWNobWVudDwv
+dGl0bGU+PC9oZWFkPjxib2R5PjxpPkthc2hrYXZhbGE8L2k+IDxiPsrg+Org4uDr4DwvYj48YnI+
+Cjxicj4KPC9ib2R5PjwvaHRtbD4=
+--001a1148e710282542052794c4ae
+Content-Type: image/jpeg; name="attachment.jpg"
+Content-Disposition: attachment; filename="attachment.jpg"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_iij5a58o1
+
+/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAQCAwMDAgQDAwMEBAQEBQkGBQUFBQsICAYJDQsNDQ0L
+DAwOEBQRDg8TDwwMEhgSExUWFxcXDhEZGxkWGhQWFxb/2wBDAQQEBAUFBQoGBgoWDwwPFhYWFhYW
+FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhb/wAARCAA6ADADASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3J/GX
+hpbpmiBaOGKIgKcAhs54PORj6VxXiHxPFda5O4hkktfLJgAMahhzuQkZG7GD39K8c0XUb3UPJQsA
+ZmWMFjt3469e3J/Kpop9dttEuUvbMpa20JSN0jxgjlGHvjI56/jXNHNqlSM+RfCcMcKtbvUwPFeo
+Xn/CUSw21t9htbtvkRMMiNzn9D+ntVW0F9batI9xtcrGr2/mFShbPOR/wHH410svh3SZ/DNnfvrM
+i6zIcvaG3MscKkkAuV5B24boe1cf4gm1IXUaWcsgu7eQxxzLbkr8p58tiMORnOBnrXiPD1q01N7u
+3nrdfodEqMktiT+0QfEEr3uG3NhYkUFSvcemetdh8O7600VY5NTsIfKkO/yZ4EZdpzwMjI7HAIrl
+fES67BfWc3iC5bUZJocwzyhPOU8H59oGRyMbhnqM1n6lcanEJIuWZwNoAG7I757dO1ceLlXwuJfs
+Hquv9fjfQyrUp7NanpNjZ+H5/EsqwXF1eLFbeZFuIx8wIJJGMbTntycVleJks9L0a5Nzr8llptnb
+y3DROoZmlVflVT15YKAOlTR6Np5kDqJQQu3du6r2XjtXJ/HOwtbT4c3YtUH2iR0QbgW4Jy2M9DxX
+bgsZQ5lRow0k/wAzvVNQV7GFr3j61t7vwnqWmaWbaKLTFN5bJMgN6GcB1LDJLblPzn5skjHFe5t4
+b1tPCuo/2rd+ZbaXozXUcVjJtnjuEi8xVUEH5VPHfeOuK+JbWG5REkMbAszENjAyew9Tn0r63+FP
+ja2na+1SW41CGys9CgF1dPcxjZOdwk8wP2O37uMg/WvqcLQUJLljrf0t+Gv4DrYypV5m3bS3qXPi
+P4e1u/8AA+keNNPuv7a0O8tYJJb1Y/mtJHRSVZAThGbOCOAeOOK82inmlkubfT7Vg6KWaWVflUdM
+Dp+Rr0+JW0fwLqHh+x1Flt9UnS7h0yWRVNhDgEgopO0O53BCARnoK5LVrS/Ofs6zKwGwGLDcfjwe
+lfN53RVTFLlXu2Sdv61IlRqOzbu3v3RoXnjlLAyQwSebcYGXldWDbuhAGMemKg1bxLpuqN4f8PeI
+HhW0unbUdQuFjRmTYH2KVbKlcAEr3zzmua13VtOs7IWWkWscFtHEHKpbrnkfeZsZJz+VcV4rn1jx
+DfSXekaXe7Li3MCK0eHjBwOn+76etfRYCvhYKc6kl0SXrv8Ah+Zx4qVSTjGn6/dt+P5Fb4g+INGv
+vipqmseFdMENiwPlmYAnfgbnRQAqZAJAUAAk4qvH4Yu7/R21ifVBDucFEXGzHBG4nqeeKdo3hPxF
+beX9p0u4hjZl3yvBIAo7kgKT+ldP4f8ACGv3cjJFp85ihbMccgCrgd2GTgc55PpWdbGc0HKCtrsj
+WEWkk3d+ZX0W9v7PSw0N3M00snzSliNwUjOR3yR0Nei+DviU06rp15GtqdpPyw/K/GOefSudsPCG
+owXiyXD28SsQrf8AExTEY/3ApJOfRqsw6XBcapJYosc2xCzuWwpHqSR7nj2ry8diqka0ZRhdNJef
+Ute76mJb2F4jRtFcYmQ8BCct75GMHBrT0S18QyzIGa5Zny0myUqoGOoz3yPwr0vwPa2ot2YW0IbP
+URjNaDEi6MQP7v5vk7flXFhcC1Hm5yo04tpdTh4rDXoxGZXZ/LUhy4w2BycnHJ/Gqc2oXt2XCXCw
+tcbEaTkqAO+1Tj/Irs/Ek0vm6tF5r+WtgCE3HAO48gV5hdO8d5IqOyhZBtCnGOe1Riq1Sg705P56
+9vuNJU9dzoNI0SCXUI7G0uP7VvJk+ZZQVjgGfvcHJxXe+HvB1to9sPOVr+RVLtIwCIp/ujJ6f4Vw
+Xg+R01kujsrMoyQcE813EN1cvBHvuJW+YjlyeMV2ZfetD20nq/wsY3d7s//Z
+--001a1148e710282542052794c4ae--
