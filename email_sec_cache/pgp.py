@@ -44,7 +44,7 @@ class Pgp:
             
         Pgp.botFrom = Pgp.getBotFromHeaderValue(Pgp.officialBotKeys)
 
-        logging.debug(u"EmailSecCache: Pgp static initialization successful")
+        logging.debug("EmailSecCache: Pgp static initialization successful")
         Pgp.initialized = True
     
     @staticmethod    
@@ -54,7 +54,7 @@ class Pgp:
         gpg.import_keys(botKeys)
         botFrom = gpg.list_keys(secret = True)[0]["uids"][0] 
         shutil.rmtree(gnupgHomeDir, ignore_errors=True)
-        logging.info(u"EmailSecCache: The value for the bot From header is: " + botFrom)
+        logging.info("EmailSecCache: The value for the bot From header is: " + botFrom)
         return botFrom
     
     
@@ -63,10 +63,10 @@ class Pgp:
         
         self.db = email_sec_cache.Db()
         self.emailAddress = emailAddress
-        logging.debug(u"EmailSecCache: Creating a Pgp instance for %s" % self.emailAddress)
+        logging.debug("EmailSecCache: Creating a Pgp instance for %s" % self.emailAddress)
         
-        self.officialGnupgHomeDir, self.officialGpg = self.initBotGpg(u"official", Pgp.officialBotKeys)
-        self.impostorGnupgHomeDir, self.impostorGpg = self.initBotGpg(u"impostor", Pgp.impostorBotKeys)
+        self.officialGnupgHomeDir, self.officialGpg = self.initBotGpg("official", Pgp.officialBotKeys)
+        self.impostorGnupgHomeDir, self.impostorGpg = self.initBotGpg("impostor", Pgp.impostorBotKeys)
         self.loadCorrespondentKeyFromDb()
     
     def initBotGpg(self, botName, botKeys):
@@ -74,7 +74,7 @@ class Pgp:
         gpg = gpgmime.GPG(gnupghome = gnupgHomeDir)
         gpg.encoding = "utf-8"
         gpg.import_keys(botKeys)
-        logging.debug(u"EmailSecCache: Created a GPG home directory in %s" % gnupgHomeDir)
+        logging.debug("EmailSecCache: Created a GPG home directory in %s" % gnupgHomeDir)
         return gnupgHomeDir, gpg
 
     def __enter__(self):
@@ -89,12 +89,12 @@ class Pgp:
         
     def removeGnupgHomeDir(self, gnupgHomeDir):
         shutil.rmtree(gnupgHomeDir, ignore_errors=True)
-        logging.debug(u"EmailSecCache: Deleted the GPG home directory %s" % gnupgHomeDir)
+        logging.debug("EmailSecCache: Deleted the GPG home directory %s" % gnupgHomeDir)
         
     def loadCorrespondentKeyFromDb(self):
         self.correspondentKey = self.db.getCorrespondentKey(self.emailAddress)
         if self.correspondentKey is None:
-            logging.warning(u"EmailSecCache: No correspondent key in DB for %s" % self.emailAddress)
+            logging.warning("EmailSecCache: No correspondent key in DB for %s" % self.emailAddress)
         self.importPublicKey()
         
     def loadCorrespondentKey(self, correspondentKey_):
@@ -105,7 +105,7 @@ class Pgp:
         keys = self.officialGpg.scan_keys(tmpFileName)
         os.remove(tmpFileName)
         
-        expectedUid = (u"<" + self.emailAddress + u">").lower()
+        expectedUid = ("<" + self.emailAddress + ">").lower()
         suitable = False
         for key in keys:
             for uid in key["uids"]:
@@ -115,7 +115,7 @@ class Pgp:
             if suitable:
                 break
         if not suitable:
-            raise email_sec_cache.PgpException(u"No correspondent key for email address %s found." % self.emailAddress)
+            raise email_sec_cache.PgpException("No correspondent key for email address %s found." % self.emailAddress)
         
         self.correspondentKey = correspondentKey_
         self.db.setCorrespondentKey(self.emailAddress, self.correspondentKey)
@@ -137,41 +137,41 @@ class Pgp:
         from_ = email_sec_cache.getHeaderAsUnicode(msg, "From")
         _, emailAddress = email.utils.parseaddr(from_) 
         if not emailAddress:
-            raise email_sec_cache.PgpException(u"Missing From header (%s)" % msgId)
+            raise email_sec_cache.PgpException("Missing From header (%s)" % msgId)
         if emailAddress != self.emailAddress:
-            raise email_sec_cache.PgpException(u"Wrong sender: %s (expected %s) (%s)" % (emailAddress, self.emailAddress, msgId))
+            raise email_sec_cache.PgpException("Wrong sender: %s (expected %s) (%s)" % (emailAddress, self.emailAddress, msgId))
         
         isForImpostor = False
         isEncrypted = gpgmime.is_encrypted(msg)
         if isEncrypted:
-            logging.debug(u"EmailSecCache: The message with ID %s is encrypted" % msgId)
+            logging.debug("EmailSecCache: The message with ID %s is encrypted" % msgId)
             saveMsg = msg
             msg, status = self.officialGpg.decrypt_email(msg)
             if status:
-                logging.debug(u"EmailSecCache: The message with ID %s was decrypted by the official bot's key" % msgId)
+                logging.debug("EmailSecCache: The message with ID %s was decrypted by the official bot's key" % msgId)
             else:
                 saveError = status.stderr
                 msg = saveMsg
                 msg, status = self.impostorGpg.decrypt_email(msg)
                 if not status:
                     raise email_sec_cache.PgpException(saveError)
-                logging.debug(u"EmailSecCache: The message with ID %s was decrypted by the impostor bot's key" % msgId)
+                logging.debug("EmailSecCache: The message with ID %s was decrypted by the impostor bot's key" % msgId)
                 isForImpostor = True
             isVerified = status.valid
         else:
-            logging.debug(u"EmailSecCache: The message with ID %s is not encrypted" % msgId)
+            logging.debug("EmailSecCache: The message with ID %s is not encrypted" % msgId)
             isSigned = gpgmime.is_signed(msg)
             if isSigned:
-                logging.debug(u"EmailSecCache: The message with ID %s is signed" % msgId)
+                logging.debug("EmailSecCache: The message with ID %s is signed" % msgId)
                 msg, status = self.officialGpg.verify_email(msg) 
                 isVerified = status.valid
             else:
-                logging.debug(u"EmailSecCache: The message with ID %s is not signed" % msgId)
+                logging.debug("EmailSecCache: The message with ID %s is not signed" % msgId)
                 isVerified = False
                 
         if isVerified:
-            logging.debug(u"EmailSecCache: The message with ID %s has a valid signature" % msgId)
+            logging.debug("EmailSecCache: The message with ID %s has a valid signature" % msgId)
         else:
-            logging.debug(u"EmailSecCache: The message with ID %s does not have a valid signature" % msgId)
+            logging.debug("EmailSecCache: The message with ID %s does not have a valid signature" % msgId)
                 
         return isEncrypted, isVerified, msg, isForImpostor

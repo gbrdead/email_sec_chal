@@ -3,7 +3,7 @@
 # This file is released under the GNU GPL, version 3 or a later revision.
 # For further details see the COPYING file
 import re
-from cStringIO import StringIO
+from io import StringIO
 from email.generator import Generator
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -20,7 +20,7 @@ def normalize_payload(payload):
     """
     # Build body text part. To properly sign/encrypt messages later on, we
     # convert the text to its canonical format (as per RFC 2015).
-    if isinstance(payload, basestring):
+    if isinstance(payload, str):
         payload = payload.encode('utf-8')
         payload = payload.replace('\\t', ' ' * 4)
         payload = MIMEText(payload, 'plain', 'utf-8')
@@ -118,8 +118,8 @@ def copy_headers(src, dest):
     dest will be modified in place, adding all of the headers in src which
     are not already present.
     """
-    transferContentHeaders = not "content-type" in (headerName.lower() for headerName in dest.keys())
-    for key in src.keys():
+    transferContentHeaders = not "content-type" in (headerName.lower() for headerName in list(dest.keys()))
+    for key in list(src.keys()):
         if key not in dest:
             if transferContentHeaders or not key.lower().startswith("content-"):
                 dest[key] = src[key]
@@ -130,7 +130,7 @@ def clone_payload(src):
 
     :param src: The email payload to copy
     """
-    if isinstance(src, basestring):
+    if isinstance(src, str):
         return src
     else:
         return [clone_message(m) for m in src]
@@ -144,7 +144,7 @@ def clone_message(src):
     dest = Message()
     copy_headers(src, dest)
     payload = src.get_payload()
-    if not isinstance(payload, basestring):
+    if not isinstance(payload, str):
         payload = clone_payload(payload)
     dest.set_payload(payload)
     return dest

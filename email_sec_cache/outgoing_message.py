@@ -8,10 +8,10 @@ import smtplib
 def getReSubject(msg):
     subject = email_sec_cache.getHeaderAsUnicode(msg, "Subject")
     if not subject:
-        subject = u"Re:"
+        subject = "Re:"
     else:
-        if not subject.lower().startswith(u"re:"):
-            subject = u"Re: " + subject
+        if not subject.lower().startswith("re:"):
+            subject = "Re: " + subject
     return subject
 
 
@@ -29,7 +29,7 @@ class OutgoingMessage:
         self.pgp = email_sec_cache.Pgp(self.correspondentEmailAddress)
         # TODO: close self.pgp
         
-        self.msg = email.mime.text.MIMEText(u"Alabala Алабала", "plain", "utf-8")
+        self.msg = email.mime.text.MIMEText("Alabala Алабала", "plain", "utf-8")
         
         self.msg["To"] = incomingMsg.originalMessage["From"]
         email_sec_cache.setHeaderFromUnicode(self.msg, "From", email_sec_cache.Pgp.botFrom)

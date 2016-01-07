@@ -23,15 +23,15 @@ class IncomingMessageTests(unittest.TestCase):
     
     @classmethod
     def setUpClass(cls):
-        logging.basicConfig(format=u"%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.INFO)
+        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.INFO)
         
         if IncomingMessageTests.messagesDir is None or \
             IncomingMessageTests.senderEmailAddress is None or \
             IncomingMessageTests.correspondentPublicKeyFileName is None:
-            raise unittest.SkipTest(u"Abstract test class skipped")
+            raise unittest.SkipTest("Abstract test class skipped")
         
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        configDir = os.path.join(moduleDir, u"config")
+        configDir = os.path.join(moduleDir, "config")
         
         if not os.access(email_sec_cache.tempDir, os.F_OK):
             os.makedirs(email_sec_cache.tempDir)
@@ -67,29 +67,29 @@ class IncomingMessageTests(unittest.TestCase):
     
     def getMessageFileName(self, encrypted, signed, signedWrong, plain, html, attachments):
         if encrypted:
-            fileName = u"encrypted"
+            fileName = "encrypted"
         else:
-            fileName = u"unencrypted"
+            fileName = "unencrypted"
         if signed:
-            fileName += u"_signed"
+            fileName += "_signed"
             if signedWrong:
-                fileName += u"Wrong"
+                fileName += "Wrong"
         else:
-            fileName += u"_unsigned"
+            fileName += "_unsigned"
         if plain:
-            fileName += u"_plain"
+            fileName += "_plain"
         if html:
-            fileName += u"_html"
+            fileName += "_html"
         if attachments:
-            fileName += u"_attachments"
+            fileName += "_attachments"
         return fileName
     
     def readMessage(self, msgFileName):
-        msgFilePath = os.path.join(self.messagesDir, msgFileName + u".eml")
+        msgFilePath = os.path.join(self.messagesDir, msgFileName + ".eml")
         if not os.access(msgFilePath, os.F_OK):
             self.skipTest("Message file does not exist")
-        with open(msgFilePath, "r") as f:
-            emailMsg = email.message_from_file(f)
+        with open(msgFilePath, "rb") as f:
+            emailMsg = email.message_from_binary_file(f)
             return email_sec_cache.IncomingMessage.create(emailMsg)
     
     def readMessageByAttributes(self, encrypted, signed, signedWrong, plain, html, attachments):
@@ -108,13 +108,13 @@ class IncomingMessageTests(unittest.TestCase):
                 self.assertEqual(signed and not signedWrong, msgPart.isVerified)
                 
             words = email_sec_cache.extractWords(texts)
-            self.assertIn(u"Alabala", words)
-            self.assertIn(u"Алабала", words)
+            self.assertIn("Alabala", words)
+            self.assertIn("Алабала", words)
             # The attachments should be ignored, even if containing text.
-            self.assertNotIn(u"Portokala", words)
-            self.assertNotIn(u"Портокала", words)
-            self.assertNotIn(u"Kashkavala", words)
-            self.assertNotIn(u"Кашкавала", words)
+            self.assertNotIn("Portokala", words)
+            self.assertNotIn("Портокала", words)
+            self.assertNotIn("Kashkavala", words)
+            self.assertNotIn("Кашкавала", words)
         
 
     def testUnencryptedUnsignedPlain(self):
@@ -442,7 +442,7 @@ class IncomingMessageTests(unittest.TestCase):
         self.assertMessage(encrypted, signed, signedWrong, plain, html, attachments)
         
     def testEncryptedForImpostor(self):
-        with self.readMessage(u"encryptedForImpostor") as incomingMsg:
+        with self.readMessage("encryptedForImpostor") as incomingMsg:
             msgParts = incomingMsg.getMessageParts()
             self.assertTrue(msgParts)
             texts = []        
@@ -450,19 +450,19 @@ class IncomingMessageTests(unittest.TestCase):
                 texts += [msgPart.getPlainText()]
                 self.assertTrue(msgPart.isForImpostor)
             words = email_sec_cache.extractWords(texts)
-            self.assertIn(u"Alabala", words)
-            self.assertIn(u"Алабала", words)
+            self.assertIn("Alabala", words)
+            self.assertIn("Алабала", words)
             
     def testEncryptedWithWrongKey(self):
         try:
-            with self.readMessage(u"encryptedWithWrongKey") as incomingMsg:
+            with self.readMessage("encryptedWithWrongKey") as incomingMsg:
                 incomingMsg.getMessageParts()
             self.fail()
         except email_sec_cache.PgpException as e:
-            self.assertIn(u"secret key not available", unicode(e))            
+            self.assertIn("secret key not available", str(e))            
 
     def testEncryptedSignedWrongSender(self):
-        with self.readMessage(u"encrypted_signedWrongSender") as incomingMsg:
+        with self.readMessage("encrypted_signedWrongSender") as incomingMsg:
             msgParts = incomingMsg.getMessageParts()
             self.assertTrue(msgParts)
             texts = []        
@@ -470,8 +470,8 @@ class IncomingMessageTests(unittest.TestCase):
                 texts += [msgPart.getPlainText()]
                 self.assertFalse(msgPart.isVerified)
             words = email_sec_cache.extractWords(texts)
-            self.assertIn(u"Alabala", words)
-            self.assertIn(u"Алабала", words)
+            self.assertIn("Alabala", words)
+            self.assertIn("Алабала", words)
 
 
 
@@ -479,18 +479,18 @@ class EnigmailTests(IncomingMessageTests):
         
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = u"gbr@voidland.org"
+        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, u"messages", u"Enigmail", u"correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
         IncomingMessageTests.setUpClass()
 
 
 class EnigmailPgpMimeTests(EnigmailTests):
-       
+        
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.messagesDir = os.path.join(moduleDir, u"messages", u"Enigmail", u"PGP_MIME")
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Enigmail", "PGP_MIME")
         EnigmailTests.setUpClass()
   
   
@@ -499,7 +499,7 @@ class EnigmailPgpInlineTests(EnigmailTests):
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.messagesDir = os.path.join(moduleDir, u"messages", u"Enigmail", u"PGP_Inline")
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Enigmail", "PGP_Inline")
         EnigmailTests.setUpClass()
 
 
@@ -508,18 +508,18 @@ class MailvelopeTests(IncomingMessageTests):
         
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = u"gbrdead@gmail.com"
+        IncomingMessageTests.senderEmailAddress = "gbrdead@gmail.com"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, u"messages", u"Mailvelope", u"correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mailvelope", "correspondent_public_key.asc")
         IncomingMessageTests.setUpClass()
 
 
 class MailvelopePgpInlineTests(MailvelopeTests):
-       
+        
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.messagesDir = os.path.join(moduleDir, u"messages", u"Mailvelope", u"PGP_Inline")
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Mailvelope", "PGP_Inline")
         MailvelopeTests.setUpClass()
 
 

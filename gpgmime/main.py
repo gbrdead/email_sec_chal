@@ -136,7 +136,7 @@ class GPG(gnupg.GPG):
             ret = helper.clone_message(msg)
 
             # Copy the headers/body from decrypted payload to the main message:
-            for k in payload.keys():
+            for k in list(payload.keys()):
                 if k in ret:
                     ret.replace_header(k, payload[k])
                 else:
@@ -159,18 +159,18 @@ class GPG(gnupg.GPG):
             raise TypeError(_('%r is not a mime-signed email.') % msg)
 
         tmp = tempfile.NamedTemporaryFile(delete=False)
-        tmp.write(msg.get_payload(1).get_payload())
+        tmp.write(bytes(msg.get_payload(1).get_payload(), "utf-8"))
         filename = tmp.name
         tmp.close()
         
-        from cStringIO import StringIO
+        from io import StringIO
         from email.generator import Generator
         fp = StringIO()
         g = Generator(fp, maxheaderlen=0)
         g.flatten(msg.get_payload(0))
         text = fp.getvalue()
         
-        verified = self.verify_data(filename, text)
+        verified = self.verify_data(filename, bytes(text, "utf-8"))
         os.remove(filename)
         
         ret = helper.clone_message(msg)

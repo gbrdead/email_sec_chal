@@ -25,7 +25,7 @@ class IncomingMessagePart:
             return
         
         if self.msgPart.get_content_maintype() != "text":
-            logging.warning(u"EmailSecCache: A non-text part in a message from %s with id %s encountered" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
+            logging.warning("EmailSecCache: A non-text part in a message from %s with id %s encountered" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
             self.plainText = ""
             return
         
@@ -38,7 +38,7 @@ class IncomingMessagePart:
         else:
             charset = self.msgPart.get_content_charset()
             if charset is None:
-                logging.warning(u"EmailSecCache: No charset specified for a part in a message from %s with id %s; assuming UTF-8" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
+                logging.warning("EmailSecCache: No charset specified for a part in a message from %s with id %s; assuming UTF-8" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
                 charset = "utf-8"
             self.plainText = text.decode(charset, "ignore")
     
@@ -64,7 +64,7 @@ class IncomingMessage:
         from_ = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "From")
         _, self.emailAddress = email.utils.parseaddr(from_)
         if not self.emailAddress:
-            raise email_sec_cache.MsgException(u"Missing From header in message with id %s" % self.id)
+            raise email_sec_cache.MsgException("Missing From header in message with id %s" % self.id)
         
         self.pgp = email_sec_cache.Pgp(self.emailAddress)
         
@@ -122,9 +122,9 @@ class PgpMimeIncomingMessage(IncomingMessage):
         if self.plainMessage is not None:
             return
         
-        logging.debug(u"EmailSecCache: Parsing a message with id %s from %s" % (self.id, self.emailAddress))
+        logging.debug("EmailSecCache: Parsing a message with id %s from %s" % (self.id, self.emailAddress))
         self.isEncrypted, self.isVerified, self.plainMessage, self.isForImpostor = self.pgp.parseMessage(self.originalMessage)
-        logging.debug(u"EmailSecCache: The message with id %s was %sencrypted and %sverified" % (self.id, (u"" if self.isEncrypted else u"not "), (u"" if self.isVerified else u"not ")))
+        logging.debug("EmailSecCache: The message with id %s was %sencrypted and %sverified" % (self.id, ("" if self.isEncrypted else "not "), ("" if self.isVerified else "not ")))
         
     def extractMessageParts(self):
         if self.messageParts is not None:
@@ -166,16 +166,16 @@ class PgpInlineIncomingMessage(IncomingMessage):
                 msgPart.isEncrypted = True
                 msgPart.isVerified = decrypted.valid
                 msgPart.isForImpostor = False
-                msgPart.plainText = unicode(decrypted)
+                msgPart.plainText = str(decrypted)
             else:
                 decrypted = self.pgp.impostorGpg.decrypt(plainText)
                 if decrypted:
                     msgPart.isEncrypted = True
                     msgPart.isVerified = decrypted.valid
                     msgPart.isForImpostor = True
-                    msgPart.plainText = unicode(decrypted)
+                    msgPart.plainText = str(decrypted)
                 else:
-                    raise email_sec_cache.PgpException(u"secret key not available")
+                    raise email_sec_cache.PgpException("secret key not available")
         
         plainText = msgPart.getPlainText().strip()                
         if self.isSigned(plainText):
@@ -183,7 +183,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
             
             decrypted = self.pgp.officialGpg.decrypt(plainText)
             msgPart.isVerified = decrypted.valid
-            msgPart.plainText = unicode(decrypted)
+            msgPart.plainText = str(decrypted)
         
         return msgPart
 
@@ -194,8 +194,8 @@ class PgpInlineIncomingMessage(IncomingMessage):
     def isSigned(self, plainText):
         return plainText.startswith("-----BEGIN PGP SIGNED MESSAGE-----")
     
-    stripAroundNewlinesRe = re.compile(u"[ \t]*\n[ \t]*", re.UNICODE | re.MULTILINE)
+    stripAroundNewlinesRe = re.compile("[ \t]*\n[ \t]*", re.UNICODE | re.MULTILINE)
     def normalizePgpHtml(self, msg, plainText):
         if msg.get_content_maintype() == "text" and msg.get_content_subtype() == "html":
-            return self.stripAroundNewlinesRe.sub(u"\n", plainText)
+            return self.stripAroundNewlinesRe.sub("\n", plainText)
         return plainText
