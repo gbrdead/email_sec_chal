@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import shutil
 import os
-import gpgmime
-import email.utils
 import tempfile
 import email_sec_cache
 import logging
+import gnupg
+import io
+import email.generator
 
 
 
@@ -46,11 +47,15 @@ class Pgp:
 
         logging.debug("EmailSecCache: Pgp static initialization successful")
         Pgp.initialized = True
+        
+    @staticmethod
+    def createGpg(gnupgHomeDir):
+        return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
     
     @staticmethod    
     def getBotFromHeaderValue(botKeys):
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
-        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
+        gpg = Pgp.createGpg(gnupgHomeDir)
         gpg.import_keys(botKeys)
         botFrom = gpg.list_keys(secret = True)[0]["uids"][0] 
         shutil.rmtree(gnupgHomeDir, ignore_errors=True)
@@ -71,7 +76,7 @@ class Pgp:
     
     def initBotGpg(self, botName, botKeys):
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir, prefix = self.emailAddress + "_" + botName + "_")
-        gpg = gpgmime.GPG(gnupghome = gnupgHomeDir)
+        gpg = Pgp.createGpg(gnupgHomeDir)
         gpg.encoding = "utf-8"
         gpg.import_keys(botKeys)
         logging.debug("EmailSecCache: Created a GPG home directory in %s" % gnupgHomeDir)
@@ -88,8 +93,12 @@ class Pgp:
         self.removeGnupgHomeDir(self.impostorGnupgHomeDir)
         
     def removeGnupgHomeDir(self, gnupgHomeDir):
-        shutil.rmtree(gnupgHomeDir, ignore_errors=True)
-        logging.debug("EmailSecCache: Deleted the GPG home directory %s" % gnupgHomeDir)
+        try:
+            shutil.rmtree(gnupgHomeDir)
+            logging.debug("EmailSecCache: Deleted the GPG home directory %s" % gnupgHomeDir)
+        except:
+            logging.warning("EmailSecCache: Cannot remove directory %s" % gnupgHomeDir, exc_info=True)
+
         
     def loadCorrespondentKeyFromDb(self):
         self.correspondentKey = self.db.getCorrespondentKey(self.emailAddress)
@@ -99,11 +108,10 @@ class Pgp:
         
     def loadCorrespondentKey(self, correspondentKey_):
         tmpFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
-        tmpFileName = getattr(tmpFile, "name")
         tmpFile.write(correspondentKey_)
         tmpFile.close()
-        keys = self.officialGpg.scan_keys(tmpFileName)
-        os.remove(tmpFileName)
+        keys = self.officialGpg.scan_keys(tmpFile.name)
+        email_sec_cache.removeFile(tmpFile.name)
         
         expectedUid = ("<" + self.emailAddress + ">").lower()
         suitable = False
@@ -131,47 +139,18 @@ class Pgp:
             self.correspondentFingerprints = importResult.fingerprints
             self.impostorGpg.import_keys(self.correspondentKey)
             
-    def parseMessage(self, msg):
-        msgId = email_sec_cache.getHeaderAsUnicode(msg, "Message-ID")
+
+    def verifyDataWithDetachedSignature(self, data, signature):
+        buf = io.BytesIO()
+        generator = email.generator.BytesGenerator(buf, maxheaderlen=0)
+        generator.flatten(data)
+        binaryData = buf.getvalue()
         
-        from_ = email_sec_cache.getHeaderAsUnicode(msg, "From")
-        _, emailAddress = email.utils.parseaddr(from_) 
-        if not emailAddress:
-            raise email_sec_cache.PgpException("Missing From header (%s)" % msgId)
-        if emailAddress != self.emailAddress:
-            raise email_sec_cache.PgpException("Wrong sender: %s (expected %s) (%s)" % (emailAddress, self.emailAddress, msgId))
+        signatureFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
+        signatureFile.write(signature)
+        signatureFile.close()
+        logging.debug("EmailSecCache: Wrote detached signature to temporary file %s" % signatureFile.name)
         
-        isForImpostor = False
-        isEncrypted = gpgmime.is_encrypted(msg)
-        if isEncrypted:
-            logging.debug("EmailSecCache: The message with ID %s is encrypted" % msgId)
-            saveMsg = msg
-            msg, status = self.officialGpg.decrypt_email(msg)
-            if status:
-                logging.debug("EmailSecCache: The message with ID %s was decrypted by the official bot's key" % msgId)
-            else:
-                saveError = status.stderr
-                msg = saveMsg
-                msg, status = self.impostorGpg.decrypt_email(msg)
-                if not status:
-                    raise email_sec_cache.PgpException(saveError)
-                logging.debug("EmailSecCache: The message with ID %s was decrypted by the impostor bot's key" % msgId)
-                isForImpostor = True
-            isVerified = status.valid
-        else:
-            logging.debug("EmailSecCache: The message with ID %s is not encrypted" % msgId)
-            isSigned = gpgmime.is_signed(msg)
-            if isSigned:
-                logging.debug("EmailSecCache: The message with ID %s is signed" % msgId)
-                msg, status = self.officialGpg.verify_email(msg) 
-                isVerified = status.valid
-            else:
-                logging.debug("EmailSecCache: The message with ID %s is not signed" % msgId)
-                isVerified = False
-                
-        if isVerified:
-            logging.debug("EmailSecCache: The message with ID %s has a valid signature" % msgId)
-        else:
-            logging.debug("EmailSecCache: The message with ID %s does not have a valid signature" % msgId)
-                
-        return isEncrypted, isVerified, msg, isForImpostor
+        verified = self.officialGpg.verify_data(signatureFile.name, binaryData)
+        email_sec_cache.removeFile(signatureFile.name)
+        return verified

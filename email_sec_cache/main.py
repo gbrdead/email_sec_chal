@@ -3,7 +3,7 @@ import mailbox
 import time
 import email_sec_cache
 import logging
-import email
+import email.utils
 
 
 configDir = "/data/email_sec_cache"
@@ -46,10 +46,10 @@ class MailBot:
                         incomingMsg = email_sec_cache.IncomingMessage(origMsg)
 
                         ignore = False                        
-                        if not incomingMsg.isEncrypted:
+                        if not incomingMsg.encrypted:
                             logging.warning("EmailSecCache: Ignoring invalid request (unencrypted) from %s (%s)" % (emailAddress, msgId))
                             ignore = True
-                        if not incomingMsg.isVerified:
+                        if not incomingMsg.signedAndVerified:
                             logging.warning("EmailSecCache: Ignoring invalid request (unverified) from %s (%s)" % (emailAddress, msgId))
                             ignore = True
                         words = email_sec_cache.extractWords(incomingMsg.getMessageTexts())
@@ -60,7 +60,7 @@ class MailBot:
                             continue
                         
                         logging.info("EmailSecCache: Received a valid request from %s (%s)" % (emailAddress, msgId))
-                        impostorShouldReply = incomingMsg.isForImpostor or not self.db.isRedHerringSent(emailAddress) 
+                        impostorShouldReply = incomingMsg.forImpostor or not self.db.isRedHerringSent(emailAddress) 
 
                         replyMsg = email_sec_cache.OutgoingMessage(incomingMsg)
                         if impostorShouldReply:

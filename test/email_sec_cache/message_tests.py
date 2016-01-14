@@ -104,8 +104,8 @@ class IncomingMessageTests(unittest.TestCase):
             texts = []        
             for msgPart in msgParts:
                 texts += [msgPart.getPlainText()]
-                self.assertEqual(encrypted, msgPart.isEncrypted)
-                self.assertEqual(signed and not signedWrong, msgPart.isVerified)
+                self.assertEqual(encrypted, msgPart.encrypted)
+                self.assertEqual(signed and not signedWrong, msgPart.signedAndVerified)
                 
             words = email_sec_cache.extractWords(texts)
             self.assertIn("Alabala", words)
@@ -448,7 +448,7 @@ class IncomingMessageTests(unittest.TestCase):
             texts = []        
             for msgPart in msgParts:
                 texts += [msgPart.getPlainText()]
-                self.assertTrue(msgPart.isForImpostor)
+                self.assertTrue(msgPart.forImpostor)
             words = email_sec_cache.extractWords(texts)
             self.assertIn("Alabala", words)
             self.assertIn("Алабала", words)
@@ -468,7 +468,7 @@ class IncomingMessageTests(unittest.TestCase):
             texts = []        
             for msgPart in msgParts:
                 texts += [msgPart.getPlainText()]
-                self.assertFalse(msgPart.isVerified)
+                self.assertFalse(msgPart.signedAndVerified)
             words = email_sec_cache.extractWords(texts)
             self.assertIn("Alabala", words)
             self.assertIn("Алабала", words)
@@ -495,7 +495,7 @@ class EnigmailPgpMimeTests(EnigmailTests):
   
   
 class EnigmailPgpInlineTests(EnigmailTests):
-        
+         
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
@@ -515,7 +515,7 @@ class MailvelopeTests(IncomingMessageTests):
 
 
 class MailvelopePgpInlineTests(MailvelopeTests):
-        
+         
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
