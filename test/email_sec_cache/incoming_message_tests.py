@@ -1,51 +1,22 @@
 # -*- coding: utf-8 -*-
 import unittest
 import email_sec_cache
-import logging
 import os
-import tempfile
-import shutil
 import email
+import test.email_sec_cache
 
 
 
-class IncomingMessageTests(unittest.TestCase):
+class IncomingMessageTests(test.email_sec_cache.Tests):
     
     messagesDir = None
     senderEmailAddress = None
     correspondentPublicKeyFileName = None
     
-    tempDir = None
-    saveConfigDir = None
-    saveDataDir = None
-    saveTempDir = None
-
     
     @classmethod
     def setUpClass(cls):
-        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.INFO)
-        
-        if IncomingMessageTests.messagesDir is None or \
-            IncomingMessageTests.senderEmailAddress is None or \
-            IncomingMessageTests.correspondentPublicKeyFileName is None:
-            raise unittest.SkipTest("Abstract test class skipped")
-        
-        moduleDir = os.path.dirname(os.path.abspath(__file__))
-        configDir = os.path.join(moduleDir, "config")
-        
-        if not os.access(email_sec_cache.tempDir, os.F_OK):
-            os.makedirs(email_sec_cache.tempDir)
-        IncomingMessageTests.tempDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
-        
-        IncomingMessageTests.saveConfigDir = email_sec_cache.configDir
-        IncomingMessageTests.saveDataDir = email_sec_cache.dataDir
-        IncomingMessageTests.saveTempDir = email_sec_cache.tempDir 
-        
-        email_sec_cache.configDir = configDir 
-        email_sec_cache.dataDir = IncomingMessageTests.tempDir
-        email_sec_cache.tempDir = IncomingMessageTests.tempDir
-        email_sec_cache.Db.initialized = False
-        email_sec_cache.Pgp.initialized = False
+        test.email_sec_cache.Tests.setUpClass()
         
         with open(IncomingMessageTests.correspondentPublicKeyFileName, "r") as correspondentPublicKeyFile:
             correspondentKey = correspondentPublicKeyFile.read()
@@ -54,16 +25,36 @@ class IncomingMessageTests(unittest.TestCase):
         
     @classmethod
     def tearDownClass(cls):
-        email_sec_cache.configDir = IncomingMessageTests.saveConfigDir 
-        email_sec_cache.dataDir = IncomingMessageTests.saveDataDir
-        email_sec_cache.tempDir = IncomingMessageTests.saveTempDir  
-        email_sec_cache.Db.initialized = False
-        email_sec_cache.Pgp.initialized = False
-        
-        shutil.rmtree(IncomingMessageTests.tempDir, ignore_errors=True)
         IncomingMessageTests.messagesDir = None
         IncomingMessageTests.senderEmailAddress = None
         IncomingMessageTests.correspondentPublicKeyFileName = None
+        
+        test.email_sec_cache.Tests.tearDownClass()
+    
+    def readMessage(self, msgFileName):
+        msgFilePath = os.path.join(self.messagesDir, msgFileName + ".eml")
+        with open(msgFilePath, "rb") as f:
+            emailMsg = email.message_from_binary_file(f)
+            return email_sec_cache.IncomingMessage.create(emailMsg)
+
+
+
+class FormatIncomingMessageTests(IncomingMessageTests):
+    
+    @classmethod
+    def setUpClass(cls):
+        if IncomingMessageTests.messagesDir is None or \
+            IncomingMessageTests.senderEmailAddress is None or \
+            IncomingMessageTests.correspondentPublicKeyFileName is None:
+            raise unittest.SkipTest("Abstract test class skipped")
+        
+        IncomingMessageTests.setUpClass()
+        
+    def readMessage(self, msgFileName):
+        try:
+            return IncomingMessageTests.readMessage(self, msgFileName)
+        except FileNotFoundError:
+            self.skipTest("Message file does not exist")
     
     def getMessageFileName(self, encrypted, signed, signedWrong, plain, html, attachments):
         if encrypted:
@@ -84,13 +75,6 @@ class IncomingMessageTests(unittest.TestCase):
             fileName += "_attachments"
         return fileName
     
-    def readMessage(self, msgFileName):
-        msgFilePath = os.path.join(self.messagesDir, msgFileName + ".eml")
-        if not os.access(msgFilePath, os.F_OK):
-            self.skipTest("Message file does not exist")
-        with open(msgFilePath, "rb") as f:
-            emailMsg = email.message_from_binary_file(f)
-            return email_sec_cache.IncomingMessage.create(emailMsg)
     
     def readMessageByAttributes(self, encrypted, signed, signedWrong, plain, html, attachments):
         msgFileName = self.getMessageFileName(encrypted, signed, signedWrong, plain, html, attachments)
@@ -98,7 +82,9 @@ class IncomingMessageTests(unittest.TestCase):
         
     def assertMessage(self, encrypted, signed, signedWrong, plain, html, attachments):
         with self.readMessageByAttributes(encrypted, signed, signedWrong, plain, html, attachments) as incomingMsg:
+            msgParts_ = incomingMsg.getMessageParts()
             msgParts = incomingMsg.getMessageParts()
+            self.assertEqual(msgParts, msgParts_)
             self.assertTrue(msgParts)
     
             texts = []        
@@ -475,14 +461,14 @@ class IncomingMessageTests(unittest.TestCase):
 
 
 
-class EnigmailTests(IncomingMessageTests):        
+class EnigmailTests(FormatIncomingMessageTests):        
         
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
-        IncomingMessageTests.setUpClass()
+        FormatIncomingMessageTests.setUpClass()
 
 
 class EnigmailPgpMimeTests(EnigmailTests):
@@ -504,14 +490,14 @@ class EnigmailPgpInlineTests(EnigmailTests):
 
 
 
-class MailvelopeTests(IncomingMessageTests):        
+class MailvelopeTests(FormatIncomingMessageTests):        
         
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbrdead@gmail.com"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mailvelope", "correspondent_public_key.asc")
-        IncomingMessageTests.setUpClass()
+        FormatIncomingMessageTests.setUpClass()
 
 
 class MailvelopePgpInlineTests(MailvelopeTests):
@@ -522,6 +508,52 @@ class MailvelopePgpInlineTests(MailvelopeTests):
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Mailvelope", "PGP_Inline")
         MailvelopeTests.setUpClass()
 
+
+
+class MiscMessageTests(IncomingMessageTests):
+
+    @classmethod
+    def setUpClass(cls):
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages")
+        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
+        IncomingMessageTests.setUpClass()
+
+
+    def testMissingFromHeader(self):
+        try:
+            self.readMessage("missing_from_header")
+            self.fail()
+        except email_sec_cache.MsgException as e:
+            self.assertIn("Missing From header", str(e))
+
+
+    def testHtmlStripping(self):
+        words = self._testSpecialContent("html")
+
+        self.assertNotIn("color", words)
+        self.assertNotIn("var", words)
+
+    def testMissingCharset(self):
+        self._testSpecialContent("missing_charset")
+
+    def testNonTextMessagePart(self):
+        self._testSpecialContent("non_text_msg_part")
+        
+    def _testSpecialContent(self, msgFileName):
+        incomingMsg = self.readMessage(msgFileName)
+        msgParts = incomingMsg.getMessageParts()
+        
+        words = []
+        for msgPart in msgParts:
+            words += email_sec_cache.extractWords(msgPart.getPlainText())
+            
+        self.assertIn("Alabala", words)
+        self.assertIn("Алабала", words)
+        
+        return words
+        
 
 
 if __name__ == "__main__":

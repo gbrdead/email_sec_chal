@@ -138,8 +138,8 @@ class PgpMimeIncomingMessage(IncomingMessage):
         logging.debug("EmailSecCache: Created incoming message from %s with ID %s as PGP/MIME" % (self.emailAddress, self.id))
         
     def decryptAndVerify(self):
-        if self.plainMessage is not None:
-            return
+        self.signedAndVerified = False
+        self.plainMessage = self.originalMessage
         
         if self.isEncrypted():
             self.encrypted = True
@@ -168,10 +168,6 @@ class PgpMimeIncomingMessage(IncomingMessage):
                 signature = self.originalMessage.get_payload(1).get_payload()
                 verifiedResult = self.pgp.verifyDataWithDetachedSignature(self.plainMessage, signature)
                 self.signedAndVerified = verifiedResult.valid
-                
-            else:
-                self.signedAndVerified = False
-                self.plainMessage = self.originalMessage
             
         logging.debug("EmailSecCache: PGP/MIME incoming message from %s with ID %s is %s and %s" % \
             (self.emailAddress, self.id, \
