@@ -18,6 +18,7 @@ setuptools.setup(
                  
     install_requires=[
         "python-gnupg >= 0.3.8",
-        "beautifulsoup4 >= 4.4.0"],
+        "beautifulsoup4 >= 4.4.0",
+        "html2text >= 2016.1.8"],
                  
     test_suite = "test.email_sec_cache")

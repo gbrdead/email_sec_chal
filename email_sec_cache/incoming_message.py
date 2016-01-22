@@ -5,6 +5,7 @@ import bs4
 import logging
 import cgi
 import re
+import email.mime.multipart
 
 
 
@@ -24,7 +25,7 @@ class IncomingMessagePart:
             return
         
         if self.msgPart.get_content_maintype() != "text":
-            logging.warning("EmailSecCache: A non-text part in incoming message from %s with ID %s encountered" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
+            logging.warning("EmailSecCache: A non-text part in incoming message from %s (%s) encountered" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
             self.plainText = ""
             return
         
@@ -37,7 +38,7 @@ class IncomingMessagePart:
         else:
             charset = self.msgPart.get_content_charset()
             if charset is None:
-                logging.warning("EmailSecCache: No charset specified for a part in incoming message from %s with ID %s; assuming UTF-8" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
+                logging.warning("EmailSecCache: No charset specified for a part in incoming message from %s (%s); assuming UTF-8" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
                 charset = "utf-8"
             self.plainText = text.decode(charset, "ignore")
     
@@ -58,12 +59,12 @@ class IncomingMessage:
     
     def __init__(self, originalMessage_):
         self.originalMessage = originalMessage_
-        self.id = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "Message-ID")
+        self.id = self.originalMessage["Message-ID"]
         
-        from_ = email_sec_cache.getHeaderAsUnicode(self.originalMessage, "From")
+        from_ = self.originalMessage["From"]
         _, self.emailAddress = email.utils.parseaddr(from_)
         if not self.emailAddress:
-            raise email_sec_cache.MsgException("Missing From header in incoming message with ID %s" % self.id)
+            raise email_sec_cache.MsgException("Missing From header in incoming message (%s)" % self.id)
         
         self.pgp = email_sec_cache.Pgp(self.emailAddress)
         
@@ -75,7 +76,7 @@ class IncomingMessage:
         
     def close(self):
         self.pgp.close()
-        logging.debug("EmailSecCache: Closed incoming message from %s with ID %s" % (self.emailAddress, self.id))
+        logging.debug("EmailSecCache: Closed incoming message from %s (%s)" % (self.emailAddress, self.id))
         
     def getMessageParts(self):
         self.extractMessageParts()
@@ -119,10 +120,13 @@ class IncomingMessage:
         if contentDisposition is not None:
             contentDispositionValue, _ = cgi.parse_header(contentDisposition)
             if contentDispositionValue == "attachment":
-                logging.debug("EmailSecCache: Ignoring attachment in incoming message from %s with ID %s" % (self.emailAddress, self.id))
+                logging.debug("EmailSecCache: Ignoring attachment in incoming message from %s (%s)" % (self.emailAddress, self.id))
                 return []
             
-        return [self.processSinglePartMessage(msg)]
+        incomingMsgPart = self.processSinglePartMessage(msg)
+        if incomingMsgPart is not None:
+            return [incomingMsgPart]
+        return []
 
 
 class PgpMimeIncomingMessage(IncomingMessage):
@@ -135,7 +139,7 @@ class PgpMimeIncomingMessage(IncomingMessage):
     
     def __init__(self, originalMessage_):
         IncomingMessage.__init__(self, originalMessage_)
-        logging.debug("EmailSecCache: Created incoming message from %s with ID %s as PGP/MIME" % (self.emailAddress, self.id))
+        logging.debug("EmailSecCache: Created incoming message from %s (%s) as PGP/MIME" % (self.emailAddress, self.id))
         
     def decryptAndVerify(self):
         self.signedAndVerified = False
@@ -147,15 +151,21 @@ class PgpMimeIncomingMessage(IncomingMessage):
 
             decryptedResult = self.pgp.officialGpg.decrypt(encryptedPayload)
             if decryptedResult:
-                logging.debug("EmailSecCache: PGP/MIME incoming message from %s with ID %s was decrypted by the official bot's key" % (self.emailAddress, self.id))
+                logging.debug("EmailSecCache: PGP/MIME incoming message from %s (%s) was decrypted by the official bot's key" % \
+                    (self.emailAddress, self.id))
                 self.forImpostor = False
             else:
                 decryptedResult = self.pgp.impostorGpg.decrypt(encryptedPayload)
                 if decryptedResult:
-                    logging.warning("EmailSecCache: PGP/MIME incoming message from %s with ID %s was decrypted by the impostor bot's key" % (self.emailAddress, self.id))
+                    logging.warning("EmailSecCache: PGP/MIME incoming message from %s (%s) was decrypted by the impostor bot's key" % \
+                        (self.emailAddress, self.id))
                     self.forImpostor = True
                 else:
-                    raise email_sec_cache.PgpException(decryptedResult.stderr)
+                    logging.warning("EmailSecCache: PGP/MIME incoming message from %s (%s) could not be decrypted:\n%s" % \
+                        (self.emailAddress, self.id, decryptedResult.stderr))
+                    self.signedAndVerified = False
+                    self.plainMessage = email.mime.multipart.MIMEMultipart()
+                    return
                 
             self.signedAndVerified = decryptedResult.valid
             self.plainMessage = email.message_from_string(str(decryptedResult))
@@ -169,7 +179,7 @@ class PgpMimeIncomingMessage(IncomingMessage):
                 verifiedResult = self.pgp.verifyDataWithDetachedSignature(self.plainMessage, signature)
                 self.signedAndVerified = verifiedResult.valid
             
-        logging.debug("EmailSecCache: PGP/MIME incoming message from %s with ID %s is %s and %s" % \
+        logging.debug("EmailSecCache: PGP/MIME incoming message from %s (%s) is %s and %s" % \
             (self.emailAddress, self.id, \
              "encrypted" if self.encrypted else "not encrypted", \
              "has a valid signature" if self.signedAndVerified else "does not have a valid signature"))
@@ -201,7 +211,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
     
     def __init__(self, originalMessage_):
         IncomingMessage.__init__(self, originalMessage_)
-        logging.debug("EmailSecCache: Created incoming message from %s with ID %s as inline PGP" % (self.emailAddress, self.id))
+        logging.debug("EmailSecCache: Created incoming message from %s (%s) as inline PGP" % (self.emailAddress, self.id))
     
     def extractMessageParts(self):
         if self.messageParts is not None:
@@ -220,17 +230,19 @@ class PgpInlineIncomingMessage(IncomingMessage):
             
             decryptedResult = self.pgp.officialGpg.decrypt(plainText)
             if decryptedResult:
-                logging.debug("EmailSecCache: Inline PGP incoming message from %s with ID %s has a message part that was decrypted by the official bot's key" % \
+                logging.debug("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that was decrypted by the official bot's key" % \
                     (self.emailAddress, self.id))
                 msgPart.forImpostor = False
             else:
                 decryptedResult = self.pgp.impostorGpg.decrypt(plainText)
                 if decryptedResult:
-                    logging.warning("EmailSecCache: Inline PGP incoming message from %s with ID %s has a message part that was decrypted by the impostor bot's key" % \
+                    logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that was decrypted by the impostor bot's key" % \
                         (self.emailAddress, self.id))
                     msgPart.forImpostor = True
                 else:
-                    raise email_sec_cache.PgpException(decryptedResult.stderr)
+                    logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that could not be decrypted:\n%s" % \
+                        (self.emailAddress, self.id, decryptedResult.stderr))
+                    return None
 
             msgPart.signedAndVerified = decryptedResult.valid
             msgPart.plainText = str(decryptedResult)
@@ -243,7 +255,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
         if self.isSigned(plainText):
             
             if msgPart.encrypted:
-                logging.debug("EmailSecCache: Inline PGP incoming message from %s with ID %s has a message part that has been signed and encrypted in two separate steps" % \
+                logging.debug("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that has been signed and encrypted in two separate steps" % \
                     (self.emailAddress, self.id))
             
             plainText = self.normalizePgpHtml(msg, plainText)
@@ -252,7 +264,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
             msgPart.signedAndVerified = decryptedResult.valid
             msgPart.plainText = str(decryptedResult)
             
-        logging.debug("EmailSecCache: Inline PGP incoming message from %s with ID %s has a message part that is %s and %s" % \
+        logging.debug("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that is %s and %s" % \
             (self.emailAddress, self.id, \
              "encrypted" if msgPart.encrypted else "not encrypted", \
              "has a valid signature" if msgPart.signedAndVerified else "does not have a valid signature"))

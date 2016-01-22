@@ -440,12 +440,9 @@ class FormatIncomingMessageTests(IncomingMessageTests):
             self.assertIn("Алабала", words)
             
     def testEncryptedWithWrongKey(self):
-        try:
-            with self.readMessage("encryptedWithWrongKey") as incomingMsg:
-                incomingMsg.getMessageParts()
-            self.fail()
-        except email_sec_cache.PgpException as e:
-            self.assertIn("secret key not available", str(e))            
+        with self.readMessage("encryptedWithWrongKey") as incomingMsg:
+            msgParts = incomingMsg.getMessageParts()
+            self.assertEqual([], msgParts)
 
     def testEncryptedSignedWrongSender(self):
         with self.readMessage("encrypted_signedWrongSender") as incomingMsg:

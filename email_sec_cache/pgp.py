@@ -7,6 +7,7 @@ import logging
 import gnupg
 import io
 import email.generator
+import gpgmime
 
 
 
@@ -50,7 +51,7 @@ class Pgp:
         
     @staticmethod
     def createGpg(gnupgHomeDir):
-        return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
+        return gpgmime.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
     
     @staticmethod    
     def getBotFromHeaderValue(botKeys):

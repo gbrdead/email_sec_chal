@@ -37,39 +37,28 @@ class MailBot:
             self.mbox.lock()
             try:
                 while self.mbox:
-                    _, origMsg = self.mbox.popitem()
+                    _, origMsg = self.mbox.popitem()    # TODO: do not remove from the mailbox until successfully processed
                     
                     try:
-                        from_ = email_sec_cache.getHeaderAsUnicode(origMsg, "From")
+                        from_ = origMsg["From"]
                         _, emailAddress = email.utils.parseaddr(from_)
-                        msgId = email_sec_cache.getHeaderAsUnicode(origMsg, "Message-ID")
-                        incomingMsg = email_sec_cache.IncomingMessage(origMsg)
-
-                        ignore = False                        
-                        if not incomingMsg.encrypted:
-                            logging.warning("EmailSecCache: Ignoring invalid request (unencrypted) from %s (%s)" % (emailAddress, msgId))
-                            ignore = True
-                        if not incomingMsg.signedAndVerified:
-                            logging.warning("EmailSecCache: Ignoring invalid request (unverified) from %s (%s)" % (emailAddress, msgId))
-                            ignore = True
-                        words = email_sec_cache.extractWords(incomingMsg.getMessageTexts())
-                        if not str.upper(email_sec_cache.geocacheName) in list(map(str.upper, words)):
-                            logging.warning("EmailSecCache: Ignoring invalid request (spam) from %s (%s)" % (emailAddress, msgId))
-                            ignore = True
-                        if ignore:
-                            continue
-                        
-                        logging.info("EmailSecCache: Received a valid request from %s (%s)" % (emailAddress, msgId))
-                        impostorShouldReply = incomingMsg.forImpostor or not self.db.isRedHerringSent(emailAddress) 
-
-                        replyMsg = email_sec_cache.OutgoingMessage(incomingMsg)
-                        if impostorShouldReply:
-                            logging.info("EmailSecCache: Replying to %s as the impostor bot (%s)" % (emailAddress, msgId))
-                            replyMsg.sendAsImpostorBot()
-                            self.db.redHerringSent(emailAddress)
-                        else:
-                            logging.info("EmailSecCache: Replying to %s as the official bot (%s)" % (emailAddress, msgId))
-                            replyMsg.sendAsOfficialBot()
+                        msgId = origMsg["Message-ID"]
+                        with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
+                            msgPart = self.findValidMessagePart(incomingMsg, emailAddress, msgId)
+                            if msgPart is None:
+                                continue
+                            
+                            logging.info("EmailSecCache: Received a valid request from %s (%s)" % (emailAddress, msgId))
+                            impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(emailAddress) 
+    
+                            with email_sec_cache.OutgoingMessage(incomingMsg) as replyMsg:
+                                if impostorShouldReply:
+                                    replyMsg.sendAsImpostorBot()
+                                    logging.info("EmailSecCache: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
+                                    self.db.redHerringSent(emailAddress)
+                                else:
+                                    replyMsg.sendAsOfficialBot()
+                                    logging.info("EmailSecCache: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
                             
                         
                     except Exception:
@@ -78,9 +67,23 @@ class MailBot:
             finally:            
                 self.mbox.unlock()
 
+    def findValidMessagePart(self, incomingMsg, emailAddress, msgId):
+        for msgPart in incomingMsg.getMessageParts():
+            if not msgPart.encrypted:
+                logging.warning("EmailSecCache: Ignoring unencrypted message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                continue
+            if not msgPart.signedAndVerified:
+                logging.warning("EmailSecCache: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                continue
+            words = email_sec_cache.extractWords(msgPart.getPlainText())
+            if not str.upper(email_sec_cache.geocacheName) in list(map(str.upper, words)):
+                logging.warning("EmailSecCache: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                continue
+            return msgPart
+        return None
+
 
 if __name__ == "__main__":
-    
     logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logLevel)
 
     try:
