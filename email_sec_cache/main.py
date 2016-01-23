@@ -22,11 +22,13 @@ class MailBot:
     
     mbox = None
     db = None
+    failedMessagesKeys = None
 
     
     def __init__(self):
         self.mbox = mailbox.Maildir("~/Maildir", factory = mailbox.MaildirMessage)
         self.db = email_sec_cache.Db()
+        self.failedMessagesKeys = set()
     
     def run(self):
         logging.info("EmailSecCache: Mailbot started")
@@ -36,13 +38,17 @@ class MailBot:
             
             self.mbox.lock()
             try:
-                while self.mbox:
-                    _, origMsg = self.mbox.popitem()    # TODO: do not remove from the mailbox until successfully processed
+                for msgKey in self.mbox.iterkeys():
+                    if msgKey in self.failedMessagesKeys:
+                        logging.debug("EmailSecCache: Skipping previously failed message with key %s" % msgKey)
+                        continue
                     
                     try:
+                        origMsg = self.mbox[msgKey]
                         from_ = origMsg["From"]
                         _, emailAddress = email.utils.parseaddr(from_)
                         msgId = origMsg["Message-ID"]
+                        
                         with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
                             msgPart = self.findValidMessagePart(incomingMsg, emailAddress, msgId)
                             if msgPart is None:
@@ -59,11 +65,13 @@ class MailBot:
                                 else:
                                     replyMsg.sendAsOfficialBot()
                                     logging.info("EmailSecCache: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
-                            
+                                    
+                        self.mbox.discard(msgKey)
                         
                     except Exception:
-                        logging.exception("Failed processing message %s" % msgId)
-
+                        logging.exception("Failed processing message %s" % msgKey)
+                        self.failedMessagesKeys.add(msgKey)
+                        
             finally:            
                 self.mbox.unlock()
 

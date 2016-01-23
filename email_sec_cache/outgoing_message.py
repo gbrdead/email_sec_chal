@@ -62,19 +62,21 @@ class OutgoingMessage:
         multipartAlt.attach(email.mime.text.MIMEText(plainTextResponse, "plain"))            
         multipartAlt.attach(email.mime.text.MIMEText(htmlResponse, "html"))
         
-        hintPicturePath = os.path.join(email_sec_cache.configDir, filePrefix + "Hint.jpg")
-        with open(hintPicturePath, "rb") as hintPictureFile:
-            hintPicture = hintPictureFile.read()
+        spoilerPicturePath = os.path.join(email_sec_cache.configDir, filePrefix + "Spoiler.jpg")
+        with open(spoilerPicturePath, "rb") as spoilerPictureFile:
+            spoilerPicture = spoilerPictureFile.read()
+        spoilerPictureAttachment = email.mime.image.MIMEImage(spoilerPicture)
+        spoilerPictureAttachment.add_header("Content-Disposition", "attachment", filename="spoiler.jpg")
         
         msg = email.mime.multipart.MIMEMultipart("mixed")
         msg.attach(multipartAlt)
-        msg.attach(email.mime.image.MIMEImage(hintPicture)) # TODO: make an attachment; take care of the file name
+        msg.attach(spoilerPictureAttachment)
         
         msg["To"] = self.incomingMsg.originalMessage["From"]
         msg["From"] = email_sec_cache.Pgp.botFrom
         msg["Subject"] = getReSubject(self.incomingMsg.originalMessage)
         
-        encryptedAndSignedMsg = msg #TODO: reimplement correclty gpg.sign_and_encrypt_email(msg, always_trust=True)
+        encryptedAndSignedMsg = msg #TODO: reimplement correclty gpgmime.Gpg.sign_and_encrypt_email(msg, always_trust=True)
         
         smtpConn = smtplib.SMTP('localhost')
         smtpConn.sendmail(email_sec_cache.Pgp.botFrom, self.incomingMsg.emailAddress , encryptedAndSignedMsg.as_string())
