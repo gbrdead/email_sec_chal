@@ -51,19 +51,17 @@ class MailBot:
                         
                         with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
                             msgPart = self.findValidMessagePart(incomingMsg, emailAddress, msgId)
-                            if msgPart is None:
-                                continue
-                            
-                            logging.info("EmailSecCache: Received a valid request from %s (%s)" % (emailAddress, msgId))
-                            impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(emailAddress) 
-    
-                            with email_sec_cache.OutgoingMessage(incomingMsg) as replyMsg:
-                                replyMsg.send(asImpostor=impostorShouldReply)
-                                if impostorShouldReply:
-                                    logging.info("EmailSecCache: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
-                                    self.db.redHerringSent(emailAddress)
-                                else:
-                                    logging.info("EmailSecCache: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
+                            if msgPart is not None:
+                                logging.info("EmailSecCache: Received a valid request from %s (%s)" % (emailAddress, msgId))
+                                impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(emailAddress) 
+        
+                                with email_sec_cache.OutgoingMessage(incomingMsg) as replyMsg:
+                                    replyMsg.send(asImpostor=impostorShouldReply)
+                                    if impostorShouldReply:
+                                        logging.info("EmailSecCache: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
+                                        self.db.redHerringSent(emailAddress)
+                                    else:
+                                        logging.info("EmailSecCache: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
                                     
                         self.mbox.discard(msgKey)
                         
