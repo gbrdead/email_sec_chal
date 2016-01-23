@@ -176,7 +176,7 @@ class PgpMimeIncomingMessage(IncomingMessage):
             if self.isSigned():
                 self.plainMessage = self.originalMessage.get_payload(0)
                 signature = self.originalMessage.get_payload(1).get_payload()
-                verifiedResult = self.pgp.verifyDataWithDetachedSignature(self.plainMessage, signature)
+                verifiedResult = self.pgp.verifyMessageWithDetachedSignature(self.plainMessage, signature)
                 self.signedAndVerified = verifiedResult.valid
             
         logging.debug("EmailSecCache: PGP/MIME incoming message from %s (%s) is %s and %s" % \

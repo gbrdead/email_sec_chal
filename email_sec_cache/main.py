@@ -58,12 +58,11 @@ class MailBot:
                             impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(emailAddress) 
     
                             with email_sec_cache.OutgoingMessage(incomingMsg) as replyMsg:
+                                replyMsg.send(asImpostor=impostorShouldReply)
                                 if impostorShouldReply:
-                                    replyMsg.sendAsImpostorBot()
                                     logging.info("EmailSecCache: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
                                     self.db.redHerringSent(emailAddress)
                                 else:
-                                    replyMsg.sendAsOfficialBot()
                                     logging.info("EmailSecCache: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
                                     
                         self.mbox.discard(msgKey)
