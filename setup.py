@@ -13,7 +13,6 @@ setuptools.setup(
     
     packages=[
         "email_sec_cache",
-        "gpgmime",
         "test.email_sec_cache"],
                  
     install_requires=[
