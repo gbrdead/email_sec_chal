@@ -181,5 +181,5 @@ class Pgp:
     def convertToBinary(self, msg):
         buf = io.BytesIO()
         generator = email.generator.BytesGenerator(buf, maxheaderlen=0)
-        generator.flatten(msg)
+        generator.flatten(msg, linesep="\r\n")
         return buf.getvalue()

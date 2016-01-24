@@ -94,14 +94,13 @@ class FormatIncomingMessageTests(IncomingMessageTests):
                 self.assertEqual(signed and not signedWrong, msgPart.signedAndVerified)
                 
             words = email_sec_cache.extractWords(texts)
-            self.assertIn("Alabala", words)
-            self.assertIn("Алабала", words)
-            # The attachments should be ignored, even if containing text.
-            self.assertNotIn("Portokala", words)
-            self.assertNotIn("Портокала", words)
-            self.assertNotIn("Kashkavala", words)
-            self.assertNotIn("Кашкавала", words)
-        
+            self.assertWords(words)
+
+    def assertWords(self, words):
+        self.assertIn("Alabala", words)
+        self.assertIn("Алабала", words)
+        for word in words:
+            self.assertIn(word, ["Alabala", "Алабала"])
 
     def testUnencryptedUnsignedPlain(self):
         encrypted = False
@@ -436,8 +435,7 @@ class FormatIncomingMessageTests(IncomingMessageTests):
                 texts += [msgPart.getPlainText()]
                 self.assertTrue(msgPart.forImpostor)
             words = email_sec_cache.extractWords(texts)
-            self.assertIn("Alabala", words)
-            self.assertIn("Алабала", words)
+            self.assertWords(words)
             
     def testEncryptedWithWrongKey(self):
         with self.readMessage("encryptedWithWrongKey") as incomingMsg:
@@ -453,57 +451,76 @@ class FormatIncomingMessageTests(IncomingMessageTests):
                 texts += [msgPart.getPlainText()]
                 self.assertFalse(msgPart.signedAndVerified)
             words = email_sec_cache.extractWords(texts)
-            self.assertIn("Alabala", words)
-            self.assertIn("Алабала", words)
+            self.assertWords(words)
 
 
 
 class EnigmailTests(FormatIncomingMessageTests):        
-        
+           
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
-
-
+   
+   
 class EnigmailPgpMimeTests(EnigmailTests):
-        
+           
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Enigmail", "PGP_MIME")
         EnigmailTests.setUpClass()
-  
-  
+     
+     
 class EnigmailPgpInlineTests(EnigmailTests):
-         
+            
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Enigmail", "PGP_Inline")
         EnigmailTests.setUpClass()
-
-
-
+   
+   
+   
 class MailvelopeTests(FormatIncomingMessageTests):        
-        
+           
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbrdead@gmail.com"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mailvelope", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
-
-
+   
+   
 class MailvelopePgpInlineTests(MailvelopeTests):
-         
+            
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Mailvelope", "PGP_Inline")
         MailvelopeTests.setUpClass()
+
+
+
+class GpgOLTests(FormatIncomingMessageTests):        
+        
+    @classmethod
+    def setUpClass(cls):
+        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "GpgOL", "correspondent_public_key.asc")
+        FormatIncomingMessageTests.setUpClass()
+
+
+class GpgOLPgpMimeTests(GpgOLTests):
+        
+    @classmethod
+    def setUpClass(cls):
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "GpgOL", "PGP_MIME")
+        GpgOLTests.setUpClass()
 
 
 
