@@ -1,0 +1,36 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id 89F4D60511
+	for <gbr@voidland.voidland.org>; Mon, 25 Jan 2016 21:41:24 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=gmRqtxkO;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 880BA20E5C
+	for <gbr@voidland.voidland.org>; Mon, 25 Jan 2016 21:41:25 +0200 (EET)
+Received: from voidland (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 35F6234E0150
+	for <gbr@voidland.voidland.org>; Mon, 25 Jan 2016 21:41:25 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453750885; bh=80jOXo97fuFtxZWSzrj5d8hCrbe941AhqjGuZ6QDLBY=;
+	h=From:To:Subject:Date:From;
+	b=gmRqtxkOlJsWpU8aj8pJ4KiSMsVjdZQ878SyjC4HhgjMQ4Xj7N4+OezrBHuoJgU/a
+	 V/GKTa1kNEFqA3BNaRcsXo0VAuZDW1ehKA9KdvHKDcDTgXpD/jIohHz8Dra0rMy5L+
+	 +KgbU/BKn0U0n1mR8MUwl7D4RkJ35dZs9169nrxw=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Mon, 25 Jan 2016 21:41:24 +0200
+Message-ID: <000001d157a8$6092a300$21b7e900$@voidland.org>
+MIME-Version: 1.0
+Content-Type: text/plain;
+	charset="koi8-r"
+Content-Transfer-Encoding: base64
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdFXqFEW0jFHlUJGR9GjaUUF8XvV2g==
+Content-Language: bg
+
+QWxhYmFsYSDhzMHCwczBDQoNCg==
+

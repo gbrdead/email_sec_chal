@@ -223,10 +223,9 @@ class PgpInlineIncomingMessage(IncomingMessage):
         msgPart.incomingMessage = self
         msgPart.msgPart = msg
         
-        plainText = msgPart.getPlainText().strip()
+        plainText = self.normalize(msg, msgPart.getPlainText())
         if self.isEncrypted(plainText):
             msgPart.encrypted = True
-            plainText = self.normalizePgpHtml(msg, plainText)
             
             decryptedResult = self.pgp.officialGpg.decrypt(plainText)
             if decryptedResult:
@@ -234,15 +233,18 @@ class PgpInlineIncomingMessage(IncomingMessage):
                     (self.emailAddress, self.id))
                 msgPart.forImpostor = False
             else:
-                decryptedResult = self.pgp.impostorGpg.decrypt(plainText)
-                if decryptedResult:
-                    logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that was decrypted by the impostor bot's key" % \
-                        (self.emailAddress, self.id))
-                    msgPart.forImpostor = True
+                if decryptedResult.signature_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
+                    msgPart.encrypted = False
                 else:
-                    logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that could not be decrypted:\n%s" % \
-                        (self.emailAddress, self.id, decryptedResult.stderr))
-                    return None
+                    decryptedResult = self.pgp.impostorGpg.decrypt(plainText)
+                    if decryptedResult:
+                        logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that was decrypted by the impostor bot's key" % \
+                            (self.emailAddress, self.id))
+                        msgPart.forImpostor = True
+                    else:
+                        logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that could not be decrypted:\n%s" % \
+                            (self.emailAddress, self.id, decryptedResult.stderr))
+                        return None
 
             msgPart.signedAndVerified = decryptedResult.valid
             msgPart.plainText = str(decryptedResult)
@@ -251,14 +253,12 @@ class PgpInlineIncomingMessage(IncomingMessage):
             msgPart.encrypted = False
             msgPart.signedAndVerified = False
         
-        plainText = msgPart.getPlainText().strip()                
+        plainText = self.normalize(msg, msgPart.getPlainText())                
         if self.isSigned(plainText):
             
             if msgPart.encrypted:
                 logging.debug("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part that has been signed and encrypted in two separate steps" % \
                     (self.emailAddress, self.id))
-            
-            plainText = self.normalizePgpHtml(msg, plainText)
             
             decryptedResult = self.pgp.officialGpg.decrypt(plainText)
             msgPart.signedAndVerified = decryptedResult.valid
@@ -276,7 +276,29 @@ class PgpInlineIncomingMessage(IncomingMessage):
         return plainText.startswith("-----BEGIN PGP MESSAGE-----")
         
     def isSigned(self, plainText):
-        return plainText.startswith("-----BEGIN PGP SIGNED MESSAGE-----")
+        return plainText.startswith("-----BEGIN PGP SIGNED MESSAGE-----") or \
+            plainText.startswith("-----BEGIN PGP MESSAGE-----")     # GpgOL pre-3.0 sends a wrong header.
+    
+    def normalize(self, msg, plainText):
+        plainText = self.normalizePgpHtml(msg, plainText)
+        
+        # GpgOL pre-3.0 sends the armored PGP message after the clear text, in the same message part.
+        # We will discard the clear text - it should be contained in the armored message as well (but signed).
+        pgpMessageBeginPos = plainText.find("-----BEGIN PGP MESSAGE-----")
+        pgpMessageEndPos = plainText.find("-----END PGP MESSAGE-----")
+        if pgpMessageBeginPos != -1 and pgpMessageEndPos != -1:
+            pgpMessageEndPos += len("-----END PGP MESSAGE-----")
+            plainText = plainText[pgpMessageBeginPos:pgpMessageEndPos]
+        else:
+            pgpMessageBeginPos = plainText.find("-----BEGIN PGP SIGNED MESSAGE-----")
+            pgpMessageEndPos = plainText.find("-----END PGP SIGNED MESSAGE-----")
+            if pgpMessageBeginPos != -1 and pgpMessageEndPos != -1:
+                pgpMessageEndPos += len("-----END PGP SIGNED MESSAGE-----")
+                plainText = plainText[pgpMessageBeginPos:pgpMessageEndPos]
+            else:
+                plainText = plainText.strip()
+            
+        return plainText
     
     stripAroundNewlinesRe = re.compile("[ \t]*\n[ \t]*", re.MULTILINE)
     def normalizePgpHtml(self, msg, plainText):
