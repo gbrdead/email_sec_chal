@@ -523,6 +523,15 @@ class GpgOLPgpMimeTests(GpgOLTests):
         GpgOLTests.setUpClass()
 
 
+class GpgOLPgpInlineTests(GpgOLTests):
+             
+    @classmethod
+    def setUpClass(cls):
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "GpgOL", "PGP_Inline")
+        GpgOLTests.setUpClass()
+
+
 
 class MiscMessageTests(IncomingMessageTests):
 
