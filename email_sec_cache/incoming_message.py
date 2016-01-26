@@ -34,7 +34,7 @@ class IncomingMessagePart:
             html = bs4.BeautifulSoup(text, "html.parser")
             for el in html.findAll(["script", "style"]):
                 el.extract()
-            self.plainText = html.get_text(separator="\n")
+            self.plainText = html.get_text(separator=" ")
         else:
             charset = self.msgPart.get_content_charset()
             if charset is None:
@@ -233,7 +233,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
                     (self.emailAddress, self.id))
                 msgPart.forImpostor = False
             else:
-                if decryptedResult.signature_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
+                if decryptedResult.key_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
                     msgPart.encrypted = False
                 else:
                     decryptedResult = self.pgp.impostorGpg.decrypt(plainText)
@@ -300,7 +300,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
             
         return plainText
     
-    stripAroundNewlinesRe = re.compile("(\s*\n\s*)+", re.MULTILINE)
+    stripAroundNewlinesRe = re.compile("[ \t]*\n[ \t]*", re.MULTILINE)
     def normalizePgpHtml(self, msg, plainText):
         if msg.get_content_maintype() == "text" and msg.get_content_subtype() == "html":
             return self.stripAroundNewlinesRe.sub("\n", plainText)

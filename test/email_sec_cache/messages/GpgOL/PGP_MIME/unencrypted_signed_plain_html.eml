@@ -1,0 +1,69 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id 6201060578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 20:50:38 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=u0Z++2ZL;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 9795520E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 20:50:39 +0200 (EET)
+Received: from SOFN33790648A (vladimir-pa.voidland.org [192.168.255.254])
+	by es.voidland.org (Postfix) with ESMTPSA id 59F1334E0150
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 20:50:39 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453834239; bh=baDhpGqD3bcN64PLPMcjExs43lGbkc/3TMKb/aEXK10=;
+	h=From:To:Subject:Date:From;
+	b=u0Z++2ZL5JoUsiGEaZOMV/nwqOzLIQlXj/dXOORVb2qSQUKYk2Qounhnl3Megu28v
+	 nMawYjlKJuoVYEvGszJABdkvRKbUqOv6AUGkBMLvSSrr5QLWFfLFEaWlHVHlXHsjRZ
+	 hSAlFWD9PStPKPRkhAFRQ6ZmohYV9zT8HiUF1p14=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 20:50:39 +0200
+MIME-Version: 1.0
+Message-ID: <000201d1586a$735a2400$5a0e6c00$@voidland.org>
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AdFYaSSQixrylz/LS3C6N+pCvGdY+g==
+Content-Type: multipart/signed;
+	protocol="application/pgp-signature";
+	micalg=pgp-sha1;
+	boundary="=-=iCNXrLCF3gVWl1=-="
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+--=-=iCNXrLCF3gVWl1=-=
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0KDQogDQoNCg==
+
+--=-=iCNXrLCF3gVWl1=-=
+Content-Transfer-Encoding: 7bit
+Content-Type: application/pgp-signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCAAGBQJWp7/+AAoJEH+wSfeQEeGpBcQP/0JRo6hjqUUcS82rAti5uoYC
+IiWrzHQOSNQ2SK4yfEcIAAtXBGWxQnUak7mVpNltxJ7Agy8XVu7+FOj+eCOC0I8I
+j9XsqiWvnlztZ+29pcFmnElkSnT1kAzK+L/a/fC1DErtkxMdJJnUZbqv39nXoVvz
+YqOCrLXq20N7MfQpo1Cv8RFhDD32z8XDvoPzlEDSJ1ArRThJX+ChTrZix82Kfbno
+Puff525RpvKj4f6ib/XiquBKUyyX7ir1TKJG5XoXNFSgVvnvUoV/MgDYLDYGyHKw
+X6Mr9Ig28jyYmQk2hDM953hX1dwrC42PuJsGejDKF10aS7IuEJOvz5EnmrN6yLin
+xsmqF7Ye6hM+OBFScUoXY3Db5F0fG5dKYLmGZWVFT8hNQcpvjzdF3nx12RcOPW90
+2Ftgxd11u8GGlcibmCiDFpWr5dfP7aWab2P9vGhixkCNRxweIMu+0T1q+r5Qaf/N
+Tso5eEh86g9KYxFl+tGta827UNtnkn3M2GmtCNFmZf7IZFCEJLqIgSslGPJy8X8w
+RF2wEcon6A8GzMdp0TzvrG2jzxR+OnXHy8MkAGp9XavIEBJn5TIJXynGZR4kHdwX
+YFZwxvod1xx/bIXusIH+j8+MdClbEUmUBIxtVB9c4+Lj77iXQqYum/MVKtTVgJR2
+e/SS1hhzbrt8lqRnGYsn
+=Bkv3
+-----END PGP SIGNATURE-----
+
+
+--=-=iCNXrLCF3gVWl1=-=--
+

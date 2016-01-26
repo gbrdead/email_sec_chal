@@ -1,0 +1,86 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id B56F460578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 20:52:25 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=lJBt4uev;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id E310E20E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 20:52:26 +0200 (EET)
+Received: from SOFN33790648A (vladimir-pa.voidland.org [192.168.255.254])
+	by es.voidland.org (Postfix) with ESMTPSA id 9E26534E0150
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 20:52:26 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453834346; bh=LVpgNqfSMbXloqYil7cHBQH02pxIsQ3ouhDnEcaa9DY=;
+	h=From:To:Subject:Date:From;
+	b=lJBt4uevTBNdOhhvZhFiaZQtgVEL2pJbI/1h0c24wMZgKdeLeMNkgQvkmMYGTKN9k
+	 9TrMdJ6Jr/5wnkUqZT5Fa/xpFB8lOVD/bHc5RuPLYc4MGU+ay154G4lxlHP3k2hJn2
+	 eZU9lShOhPMbHFMuMKyBE3F8PgPdE2vU+SW2ale0=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 20:52:26 +0200
+MIME-Version: 1.0
+Message-ID: <000601d1586a$b3477f40$19d67dc0$@voidland.org>
+X-Mailer: Microsoft Outlook 15.0
+Thread-Index: AdFYarLsIayDm6qiRV6GAjoeqo3+YQ==
+Content-Type: multipart/encrypted;
+	protocol="application/pgp-encrypted";
+	boundary="=-=H5Vdf64AOjc1Kh=-="
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+--=-=H5Vdf64AOjc1Kh=-=
+Content-Transfer-Encoding: 7bit
+Content-Type: application/pgp-encrypted
+
+Version: 1
+
+--=-=H5Vdf64AOjc1Kh=-=
+Content-Transfer-Encoding: 7bit
+Content-Type: application/octet-stream
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+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
+F+ho6I8=
+=2jsA
+-----END PGP MESSAGE-----
+
+--=-=H5Vdf64AOjc1Kh=-=--
+
