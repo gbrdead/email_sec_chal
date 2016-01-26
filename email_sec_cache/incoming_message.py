@@ -234,6 +234,8 @@ class PgpInlineIncomingMessage(IncomingMessage):
                 msgPart.forImpostor = False
             else:
                 if decryptedResult.key_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
+                    logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a message part with a wrong PGP header (\"PGP MESSAGE\" instead of \"PGP SIGNED MESSAGE\")" % \
+                            (self.emailAddress, self.id))
                     msgPart.encrypted = False
                 else:
                     decryptedResult = self.pgp.impostorGpg.decrypt(plainText)
@@ -280,28 +282,33 @@ class PgpInlineIncomingMessage(IncomingMessage):
             plainText.startswith("-----BEGIN PGP MESSAGE-----")     # GpgOL pre-3.0 sends a wrong header.
     
     def normalize(self, msg, plainText):
+        plainText = plainText.strip()
         plainText = self.normalizePgpHtml(msg, plainText)
-        
+
         # GpgOL pre-3.0 sends the armored PGP message after the clear text, in the same message part.
         # We will discard the clear text - it should be contained in the armored message as well (but signed).
+        fixed = False        
         pgpMessageBeginPos = plainText.find("-----BEGIN PGP MESSAGE-----")
         pgpMessageEndPos = plainText.find("-----END PGP MESSAGE-----")
-        if pgpMessageBeginPos != -1 and pgpMessageEndPos != -1:
+        if pgpMessageBeginPos > 0 and pgpMessageEndPos != -1:
             pgpMessageEndPos += len("-----END PGP MESSAGE-----")
             plainText = plainText[pgpMessageBeginPos:pgpMessageEndPos]
+            fixed = True
         else:
             pgpMessageBeginPos = plainText.find("-----BEGIN PGP SIGNED MESSAGE-----")
             pgpMessageEndPos = plainText.find("-----END PGP SIGNED MESSAGE-----")
-            if pgpMessageBeginPos != -1 and pgpMessageEndPos != -1:
+            if pgpMessageBeginPos > 0 and pgpMessageEndPos != -1:
                 pgpMessageEndPos += len("-----END PGP SIGNED MESSAGE-----")
                 plainText = plainText[pgpMessageBeginPos:pgpMessageEndPos]
-            else:
-                plainText = plainText.strip()
+                fixed = True
+        if fixed:
+            logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a PGP header not in the beginning of its containing message part" % \
+                (self.emailAddress, self.id))
             
         return plainText
     
     stripAroundNewlinesRe = re.compile("[ \t]*\n[ \t]*", re.MULTILINE)
     def normalizePgpHtml(self, msg, plainText):
         if msg.get_content_maintype() == "text" and msg.get_content_subtype() == "html":
-            return self.stripAroundNewlinesRe.sub("\n", plainText)
+            plainText = self.stripAroundNewlinesRe.sub("\n", plainText)
         return plainText

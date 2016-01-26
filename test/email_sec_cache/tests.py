@@ -20,7 +20,7 @@ class Tests(unittest.TestCase):
     def setUpClass(cls):
         unittest.TestCase.setUpClass()
         
-        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.INFO)
+        logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.ERROR)
         
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         configDir = os.path.join(moduleDir, "config")
