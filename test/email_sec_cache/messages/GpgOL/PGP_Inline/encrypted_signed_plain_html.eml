@@ -1,0 +1,248 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id ED0C660578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:46:08 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=E6fQ5G+v;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 43FDB20E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:46:10 +0200 (EET)
+Received: from voidland (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 2A5C734E00E7
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:46:10 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453837570; bh=oe23/21yR2wzPnZ7i/gPX3MB5Sp+X5d0mjPkPAXlqmg=;
+	h=From:To:Subject:Date:From;
+	b=E6fQ5G+vE9us6BxUYEv1ASGyYaxEq7Az9lunAlq0odRHrnRlLuJB4Dm2l4Ffy84bz
+	 Atm+VjeAHxQwgAGKIXg8OOtQoCkhR6rGBA5nXGwZceZ81IAC5k0dO2SFa9n3iRr2dQ
+	 mQIQlgQWVVe46LkNclxny8kol04At5zrejHKwtaU=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 21:46:09 +0200
+Message-ID: <000f01d15872$34b88900$9e299b00$@voidland.org>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0010_01D15882.F843CA00"
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdFYciof4h8tgJLvTAiSP+8iQnFHhQ==
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_0010_01D15882.F843CA00
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP MESSAGE----- 
+Version: GnuPG v2 
+
+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 
+=5Ult 
+-----END PGP MESSAGE----- 
+
+
+------=_NextPart_000_0010_01D15882.F843CA00
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><META =
+HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 14 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.EmailStyle18
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DBG link=3Dblue =
+vlink=3Dpurple><div class=3DWordSection1><p><span =
+style=3D'font-family:"Calibri","sans-serif"'>-----BEGIN PGP =
+MESSAGE-----</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Version: GnuPG v2</span> =
+<o:p></o:p></p><p><span =
+style=3D'font-family:"Calibri","sans-serif"'>hQIMAygP47Exo7B8ARAAo1hb9Mso=
+CR/MEuI7IxR7Bj6hcsv5bX03Q+bEkc635Xre</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>DNzSKZqearqOoBv2MLzrqlbOo3pu=
+JspjPmj3t4q3c6CLmmrTSDiIvyDbRM5KGl9Z</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>GXmtmYC46RA9ZDBFlytocbrMPuFl=
+iENThADQ34oiWXddUOPyfAld9TpvfSjDcXu9</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>yOJnx10Y3f+bizIvVHehjtB/zjvQ=
+bKepAuoC9LULmA4srGLAXID93Mx0+zLLO68f</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>8C0gHYTAvl8EQ9iotRgQZHo5WRAl=
+9G+7MTbbqQiYCykY+U+RAi9Hl1thSAH2Prid</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>y0AZd8kO3uWg0j8uVwYfrchTebze=
+VbSc1/dpiJwsAHj2pRZ1PhWHcrWVdiR/tfsy</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>pF0J3zX/ifjmP/4b8bNtrm359Net=
+n13XqqlrVz89RE6s8GCcL9o64mIItMP+Jfgw</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>siwmx6LRw6uoACfw7Q9ZF3+wM0cl=
+aD42LGmdp0SBjyKE3K7BFCm7V43grgx4MxYH</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>jVG6xO5MY8XwXsXr8UOf1dqdJ/Xj=
+fb6PoV88sr+QVkHiAYsvrjgHlyUMmZT/MXAi</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>3rhFXjGmevqzTu+R3YRixvQDyV+A=
+iknHt/nPnVJNbZS30osvQvswvXx5xTx1MBIj</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>9aGUBM1GRxdCkNg9BMJtbX8T6N6k=
+RWeispu0tb7zMliT8Y+Dm8W/ibVib8/ieYmF</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Aw4DEkUGZY+wX60QDACDjXF8f3NG=
+3+pyRyqxPpY6rzpcWxnc3WDYX+L3jZSy2fuc</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>SxUqpBjMEYTIpCkFN3S9umuCVn4M=
+l6iMpzSaKeyRwTGFJY7yo+uC323B81sigkSd</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>OJYO/WbMY39TkeCjZHCRzmEleGZk=
+qvo8ROWi7EPrCj+XfT3kIMan6wvxNEtbL1tz</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>cllYeUiEkeMk/xT3bqid76W/p7rF=
+zCLFHv0s2eHNbt0nyFOvpQj1MA8nyKO36JHo</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>l6VClrjH0t8OCJppN6Cqnwm3+TJw=
+nRmCuoMxqsRiMnKniccICMCuCS8sslUVBkBs</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>3gld1H5gsFNiyenF8cAnT7SiJwqp=
+gNH/aGrbSGt9+eEnSAQknCv6MAFUIr1h1LnC</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>rnrwWEuzPbYbZLCE/W8w5GGJfl9i=
+gmdguHxyFtoxEO8j9DyX9DCo8uoMzZpbpC7k</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>8vxF5hCn7rF6fD0rrionIeyd6isK=
+ZC5d5CsOvyXKqL5SDLZu8dxy0hw1vpeJ8dWy</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>0Xfn4K3f8SJ6taLuNCQL/13Q2PMd=
+TTQODLggrqcShEjEyvyllIGhC2roHqzbka2s</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>rzK9SPUXXNFTEBXtDvL5B8VzN/6O=
+mAUthS0HoSse8k/Vu04YSyfmCWpd3+eyNRW2</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>WedUGkgZv/TtuFbmW+1XYvMM25V8=
+Fs4TTrENzUzdBNMRMKQOvbQgR8KHwLtf0qEJ</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>S65NZZeNkO2D0IxHXlMtMye+vBMI=
+BZAz7LbLvn1K/2ZSYQ6TzU3eEAecdS4p1Ajg</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>JZZ7CrFunYWjBZ+Q8El3aatZxsUn=
+MUeMuy5pBa25NA287RTIUckNKyRcnY8p8JCd</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>GGQSbWWh0KfU26XxTkK/OFeZLKo2=
+fLHZ79SLhAgqr278qgRVaQoCEyCtE9rCBDWj</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>H3mP/8CV2XIZJga3LsjqEM+Dousg=
+yK0BhosBE8I2b9EmN1XFaov7WcILhgl4LQfH</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Wa7pVg6KssODGPT6Fd5D71rnUK/y=
+0b4OpihgVlYh796M2RtTSASv8CHCIcYvLfPp</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ANEc5z2b5u9hBP2nUn9OQNLpAZE0=
+rd9AWbqOeLdi+P/02ZZ78bUaokUd54ySv7o3</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>8/CckeC0qj6cElbRjRDcgYFz9Znj=
+AGcCR114JmAcNbDxwmbC41Bjs/yetO7MjX5S</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ZQMtKjexvGtRyHwMswBznna+rr5I=
+2HN4m1UNaQy1/DPH/kRw7E9ucO5A93vd6WIE</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>cnyOGKO2N2Q3JQK9/84/Ri/BHhZq=
+CVwnxRl9VFnqYx3fNJlSUtJJePEWg6uWr8+A</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>uU4/6KsfFcp2bxrbIJCL90tIyZTd=
+xauSb8fVPhHD6RoDHMldtcP2pqZYBaTcTy6y</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>vyZOjQmYLhC5j4FT0d5BimgGvk+k=
+ZADFqX8tbHBtf2Sa3muEMGiRNu519CbPeReH</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>haVhKzB+4RwcDCdQqDCRZClY/xgn=
+yHXOYEqexZDN/5IGkzxuZZ+KoOG2zsUsSXU+</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>8cIEtzLiN4r5fxpC/VXb9rHaDSoC=
+RPQbadMnq+CX6dDZwyWUguNrThvmSP4jpx/1</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>/B4hCSqthiFi5CKHhSgt4KQR98nX=
+gJDXVKC71x7tF4NjMWMWb//BX/p9Ur1UeBcc</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>D2y2kdaI/1q1NPjiSzjgeNAtqAnQ=
+e2fb783gsG0bzRKarecHAdizXNsg4e+7HFNH</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>4z00SH2xocfN54qz23Sa76OI1X8O=
+h5n/zxk8070gUWFKdRYqGSFVYv36AQO+jmO4</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>VHDAfkKkjhNd3X9Y4PxN2dLHTeer=
+PO9qiCGpgfDD5Njuf+y4EsyLxw1BE76eJoqb</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>nzGiFlEraecntNFUEfxeGj4t8E+R=
+S/YIyPCyqWs4bmx1NHxWgAgN4J7j/LhPIIrw</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>zWOuU8bQiKY+Yq+HDk+HM5XdfVy5=
+zRwY27dHLuP0HSinbJk92qXMx+2h7VnTJ/j7</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>vvvd5zZRNyjpRk4d1YGcxSxtopj7=
+iqUlRC8RGjCOcXZ50zTM7irWvOh0NESNCRyW</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>UA1adrZspSHmySK0NN3icceQ4haB=
+qaNC6lB3MagORIsPyqmM852pfPWh2c3JyOtU</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>5c/PufEJvy97nZGqvkVU12R9DbgL=
+fy4gUEQTXjkZb1DnsGAif1AIxqsS+TFXCUDZ</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>uYMehsCtZ7HvGEQ7I0WpzfaVsHpW=
+J7tfgimdJGFQXl0sNA=3D=3D</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>=3D5Ult</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>-----END PGP =
+MESSAGE-----</span> <o:p></o:p></p></div></body></html>
+------=_NextPart_000_0010_01D15882.F843CA00--
+

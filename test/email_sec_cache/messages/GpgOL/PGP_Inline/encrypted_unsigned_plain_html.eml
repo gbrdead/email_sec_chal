@@ -1,0 +1,202 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id 5A83160578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:45:07 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=wgkDCV0d;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id A65AF20E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:45:08 +0200 (EET)
+Received: from voidland (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 8E0AB34E0150
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:45:08 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453837508; bh=1t6IgEV0oOg4lMS7c8UoDt9wfOxqmXMM6KCeNC2yUYA=;
+	h=From:To:Subject:Date:From;
+	b=wgkDCV0dP36DlE5nxnyVDz2UC3ySN6FKnLG1DRG98ZgurRDZns1Fipol5IWavJEx7
+	 MNe2FcKojz87Dub8ot7+tGqaclPfj2wlz789tWBNMLuGkbPO7M8AcoMXbYP7893KZD
+	 1ydPvxz8WVAaCLBYIAmY/ife+r6HDCtBn1KEA0n0=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 21:45:07 +0200
+Message-ID: <000a01d15872$1002ccb0$30086610$@voidland.org>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_000B_01D15882.D38D2350"
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdFYcgPR4PpiFk5tTTWpU5gQFaAp+g==
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_000B_01D15882.D38D2350
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP MESSAGE----- 
+Version: GnuPG v2 
+
+hQIMAygP47Exo7B8AQ/9EflyogWdEPeuYPR+sMpiXKRpRTzw6HV/kNxdR5K2+2FH 
+Fhw+TOyidOD8u/X5BnVaO1NbIMIXxzFSoRizH4Ine3jLppKKHgE8KUktAK40A6Po 
+QoWQXunxmGkf0ZVb+d8iiVLLFu5/iQSQjamguKz0Y0/uvphPCznqLkb1FvE1aETY 
+ZvfRgCkDGJ4L1AsEiKekcJ9ZCh4PoX4M8d2wrLeGPAFU4raW2lo3n0GgQQoJlV/B 
+uL4+qluec5dzznZ1wXW59i0Ax8JAtOofgdUZZ3QVuWOnY64+J7il4X2naVkqs1CH 
+ytGbuXeMdQVT81jRfIs2TmoNc13IKAgy/+FCpGQ6nbYVXijPD1CQzJFCLO0CjLAI 
+ja23xuqzGyh1tqiPXFm7dfMLEJEom6T/pdTWXxkZwSqiHToWSn/WYNoGF5x0lGeo 
+GpEteUyP7BPD5WBIerBpJwhIwKzdFC9OPu3txd+2XRjA2cMsA11Qodz9ImmGcV22 
+ZZtAV7p1aWP+xEZiSzcfjWztZ3UOx3T1BuEAyMlZOMPXohkaB0EWNBJmuORdxiSs 
+zmQR5D7PrMj66pBSxUy7Fg3uVlgiQ5l8gYpeNSW8FZ5a3GVA6EEmBngHEVdbK5qU 
+u23GiXpQE27yxoYMW5TyC2KblgilmtEqnK/NckjTGyP9LKP1GioITxFuiURq6j2F 
+Aw4DEkUGZY+wX60QC/kBh/fZjpBsRlkIW4IQsv+YYm+PHER8uOBP4/tYYW5EXt9K 
+RA+yK5Twg+KH6oJ7SlCGpZwLOE31iCcshUFLt/FMjg/dNnjdJePYmtpo5ZmI+JDg 
+gCgY53+6pGKjTSW+LY0ebb3BiwKzIjIHgo57K0yxoXuJq1hLxF3tx5+NBhbNf1os 
+BnePq4+N1+IGDel+NKkawGV9kRyZwFAQ6sKKbUGOh6sovyhoLNXK46Xky7MpUJdi 
+0jiAVBkVWahf2LL3ahSM+lFVLCfhMZnAdngJUMCM8ZrLiJ2eCZWxfh+67zsI3d1R 
+zBV8BPuNR4ui4WtnO12gpIRAc6F5W2LyikYt3Uex9u3LzOqkP+Cnf2qyRlfTZQkv 
+6stVe61xi+N1OgBytfhSRmv/q8Drl8CFCbRlGUIiZyP/WaFFPVi1kp+DDuxhTtr7 
+1felEUegOmgjBdFPDI8Yl2VLa/nDy1BPTDZEnezYMxR51ZNDcQkqoPykuD4i6NOF 
+TMnfCw7DRRMZuVAQfdIL/3RgQn+MVQ8NGXL/5slVw+oidCCYDVbyrX4S0ZfSqcvn 
+1Zue6ctia90sByE28xvJM/NgC/ZafSETM1wQ3NG2UfSNQLJweW62hozmOmZmjI5O 
+FYQQNGVh5X4KqJ89S63vSBxY7EKXy//c2OrH0fZWR4dM0i0F8ZYJCJesHNUS/myO 
+Qw6l4BxIST6Fz6fth/a2uuy5rOgkW1pYfp+mXBbPVGsfDEgJFJJzunlUcfVv5b2Q 
+xEOKk3AZkzEiuVsIokK8NF1j0a+HL/2tYPhzppsqEN5M6N/5mzZBLyk6sknN49zN 
+wI7hCGyvWc6Byi1K6VG1iW+AN2A8da3OJYhx6v0ZXFcWJKpIxGZCeYFxFhIwj+2Q 
+5Ug0bheZKHD/RBBMdF2WACeooJWZ8pvUPOBfFnxFSUOes6SFxfHW9EImakFC0pWs 
+2qJJrmbss97Tg3Rhb1VMEmyFMC/21T4SlAtlUaoHIfNoMQ94RpT1+4CSK2BjjRkg 
+ccBCf6JOE1e7oeQI2LnaH9JUAdufKrMdUESLFje87500jdgBTrw0REwdzJOop9o9 
+Ewp2/EGMCZQ6Gjqi2W+hQxndP1/6zOrv99fRrf1M+BqZBmVNGu9cBvWJ1tyZXUEB 
+vtj+Q5w6 
+=XwFU 
+-----END PGP MESSAGE----- 
+
+
+------=_NextPart_000_000B_01D15882.D38D2350
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><META =
+HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 14 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.EmailStyle18
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DBG link=3Dblue =
+vlink=3Dpurple><div class=3DWordSection1><p><span =
+style=3D'font-family:"Calibri","sans-serif"'>-----BEGIN PGP =
+MESSAGE-----</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Version: GnuPG v2</span> =
+<o:p></o:p></p><p><span =
+style=3D'font-family:"Calibri","sans-serif"'>hQIMAygP47Exo7B8AQ/9EflyogWd=
+EPeuYPR+sMpiXKRpRTzw6HV/kNxdR5K2+2FH</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Fhw+TOyidOD8u/X5BnVaO1NbIMIX=
+xzFSoRizH4Ine3jLppKKHgE8KUktAK40A6Po</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>QoWQXunxmGkf0ZVb+d8iiVLLFu5/=
+iQSQjamguKz0Y0/uvphPCznqLkb1FvE1aETY</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ZvfRgCkDGJ4L1AsEiKekcJ9ZCh4P=
+oX4M8d2wrLeGPAFU4raW2lo3n0GgQQoJlV/B</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>uL4+qluec5dzznZ1wXW59i0Ax8JA=
+tOofgdUZZ3QVuWOnY64+J7il4X2naVkqs1CH</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ytGbuXeMdQVT81jRfIs2TmoNc13I=
+KAgy/+FCpGQ6nbYVXijPD1CQzJFCLO0CjLAI</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ja23xuqzGyh1tqiPXFm7dfMLEJEo=
+m6T/pdTWXxkZwSqiHToWSn/WYNoGF5x0lGeo</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>GpEteUyP7BPD5WBIerBpJwhIwKzd=
+FC9OPu3txd+2XRjA2cMsA11Qodz9ImmGcV22</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ZZtAV7p1aWP+xEZiSzcfjWztZ3UO=
+x3T1BuEAyMlZOMPXohkaB0EWNBJmuORdxiSs</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>zmQR5D7PrMj66pBSxUy7Fg3uVlgi=
+Q5l8gYpeNSW8FZ5a3GVA6EEmBngHEVdbK5qU</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>u23GiXpQE27yxoYMW5TyC2Kblgil=
+mtEqnK/NckjTGyP9LKP1GioITxFuiURq6j2F</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Aw4DEkUGZY+wX60QC/kBh/fZjpBs=
+RlkIW4IQsv+YYm+PHER8uOBP4/tYYW5EXt9K</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>RA+yK5Twg+KH6oJ7SlCGpZwLOE31=
+iCcshUFLt/FMjg/dNnjdJePYmtpo5ZmI+JDg</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>gCgY53+6pGKjTSW+LY0ebb3BiwKz=
+IjIHgo57K0yxoXuJq1hLxF3tx5+NBhbNf1os</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>BnePq4+N1+IGDel+NKkawGV9kRyZ=
+wFAQ6sKKbUGOh6sovyhoLNXK46Xky7MpUJdi</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>0jiAVBkVWahf2LL3ahSM+lFVLCfh=
+MZnAdngJUMCM8ZrLiJ2eCZWxfh+67zsI3d1R</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>zBV8BPuNR4ui4WtnO12gpIRAc6F5=
+W2LyikYt3Uex9u3LzOqkP+Cnf2qyRlfTZQkv</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>6stVe61xi+N1OgBytfhSRmv/q8Dr=
+l8CFCbRlGUIiZyP/WaFFPVi1kp+DDuxhTtr7</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>1felEUegOmgjBdFPDI8Yl2VLa/nD=
+y1BPTDZEnezYMxR51ZNDcQkqoPykuD4i6NOF</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>TMnfCw7DRRMZuVAQfdIL/3RgQn+M=
+VQ8NGXL/5slVw+oidCCYDVbyrX4S0ZfSqcvn</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>1Zue6ctia90sByE28xvJM/NgC/Za=
+fSETM1wQ3NG2UfSNQLJweW62hozmOmZmjI5O</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>FYQQNGVh5X4KqJ89S63vSBxY7EKX=
+y//c2OrH0fZWR4dM0i0F8ZYJCJesHNUS/myO</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Qw6l4BxIST6Fz6fth/a2uuy5rOgk=
+W1pYfp+mXBbPVGsfDEgJFJJzunlUcfVv5b2Q</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>xEOKk3AZkzEiuVsIokK8NF1j0a+H=
+L/2tYPhzppsqEN5M6N/5mzZBLyk6sknN49zN</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>wI7hCGyvWc6Byi1K6VG1iW+AN2A8=
+da3OJYhx6v0ZXFcWJKpIxGZCeYFxFhIwj+2Q</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>5Ug0bheZKHD/RBBMdF2WACeooJWZ=
+8pvUPOBfFnxFSUOes6SFxfHW9EImakFC0pWs</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>2qJJrmbss97Tg3Rhb1VMEmyFMC/2=
+1T4SlAtlUaoHIfNoMQ94RpT1+4CSK2BjjRkg</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ccBCf6JOE1e7oeQI2LnaH9JUAduf=
+KrMdUESLFje87500jdgBTrw0REwdzJOop9o9</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Ewp2/EGMCZQ6Gjqi2W+hQxndP1/6=
+zOrv99fRrf1M+BqZBmVNGu9cBvWJ1tyZXUEB</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>vtj+Q5w6</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>=3DXwFU</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>-----END PGP =
+MESSAGE-----</span> <o:p></o:p></p></div></body></html>
+------=_NextPart_000_000B_01D15882.D38D2350--
+

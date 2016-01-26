@@ -1,0 +1,323 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id 2741760578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 22:15:24 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=wIceBggW;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 73B5C20E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 22:15:25 +0200 (EET)
+Received: from voidland (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 641DA34E00E7
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 22:15:25 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453839325; bh=XiYWbJUAMrqRgKiE9wwinIuWNEA2Wcs8+Os8xZzpMBs=;
+	h=From:To:Subject:Date:From;
+	b=wIceBggWlXZZe42uT3sQLvol4ck8rphgOfjYS/LeXboNkc+9KmRA46kxCFCrnuglH
+	 Hnu74upwl/UqDg9heWdaUg4304GRGnFJeVWMHcDAOIqnp+RVAtzMfaLidSjeczree3
+	 6x+C7T3WRwpBDntVOIRVya/WPpBlm0tVeQimAZ3I=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 22:15:24 +0200
+Message-ID: <004a01d15876$4ae56d70$e0b04850$@voidland.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_004B_01D15887.0E70FC90"
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdFYdjss32MpG6/QT0K/kP1hBOYKhA==
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_004B_01D15887.0E70FC90
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_001_004C_01D15887.0E7123A0"
+
+
+------=_NextPart_001_004C_01D15887.0E7123A0
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP MESSAGE----- 
+Version: GnuPG v2 
+
+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 
+=5IxU 
+-----END PGP MESSAGE----- 
+
+
+------=_NextPart_001_004C_01D15887.0E7123A0
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><META =
+HTTP-EQUIV=3D"Content-Type" CONTENT=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 14 =
+(filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p
+	{mso-style-priority:99;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+span.EmailStyle18
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DBG link=3Dblue =
+vlink=3Dpurple><div class=3DWordSection1><p><span =
+style=3D'font-family:"Calibri","sans-serif"'>-----BEGIN PGP =
+MESSAGE-----</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Version: GnuPG v2</span> =
+<o:p></o:p></p><p><span =
+style=3D'font-family:"Calibri","sans-serif"'>hQIMA4UqoNnt/SigAQ/8CqZ+uuoi=
+RyEQ3NLlFYbVcBNGje9nfA/w1GpIbBpAtLiD</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>AGW0LbAkaUsC8TlehPbjOvR9ZfTe=
+U7dWLQUIWb7hm6XXHqKu46Kwc0qX8pDIntAI</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>DNCR4BckpUjHAFOGwP7tcamnm0wf=
+KT3ftoD+nxO/ferZSswcqIcYrt2xhQA5BRHj</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>hmi5ioLhHj98JLTkPw+I1kURIoi8=
+/jZSVC2dxKHx4YYpSEhGiewuimsn8G72rsRK</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>LuZAcOEBHPG2rGcwQg6k1iPQgmbd=
+dZAwdj/H/R5Bc27SIJTj4NBVlzjbXKddZGDp</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>05VHqc2hTxNq989k8Bm4Axxi7rH6=
+VyQCExczZo3DgJ/nAAOMN07lJijmhjIuRKbt</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>xuZ4+Zzrm5ai5pqizJPrENTWx5N2=
+RPLCCx0Z8tCGsqk73UxrfOPp5AU4Aazt7FXO</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>bxJbjudvi1hxACW3bdEzA8xDvLgB=
+0+hxqKZ7u4GElb9zMTbpkmU+rHWdLmqBD6hu</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>iYZ3xSeAUzw/yOBqiM2DnxwuY/sJ=
+rNG6P1pXg71XrjeibqzXF+MNR7FXCT80EaCK</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>qsg2pRBhqwoQ7ZSNKF1P654kiiEY=
+JqR5WmJ9CSXCMIhc6vT4caFHtsL6TW5ScL2Y</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>x569o22MZsqtKNplHFtvpSJqZSMz=
+Zht/ZZkV+PxEzJ2WpdGW2C59+rzEz/EdWyWF</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Aw4DEkUGZY+wX60QDACA0K47XfQ1=
+EOoDXU73oOtnblyuoKDW9p8s1h+Vn7sqXP0C</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>vgD5CnjreuQJRePSjsY1D/G6WTtv=
+IdFmQjgbIXQ7aZOV10KgyXBkjpnjvs9m+7WN</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>LY0cJRZtkxsua1Q12/YGHZ6Ipg7e=
+6xlI9NvzaDPmxcJW0uED+ByHOLiQY8IoLGpj</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>5I0CCbxmri9pxMDCcbzZxVRnQdpG=
+zx7rU5qPdl4IH5a9+HZal8qqnZuvfYEf/G9d</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>rlvUDdZz5ZfFIerNpLuHIJkTHI+4=
+RxmHjaFnhYutg1ri23Gg0IQn/Uspt4HfB7AR</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>F3oBbDGZfz0eS4rfR9fJ8aMIZwFo=
+4Ney+0Hz+Fj/VUDcwSNYrxFR5k8fsCzv5ItO</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>lt5uNnmiZvtdGvUO/kKTsUQLGdZG=
+KyKaK+ZGiyhtSxK9fjQCs/TS4mqCX64Lh1Za</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>gA6M3Hlxkp4z5HQX8FnPr/fE+6KS=
++ED8ZxizoPdqgEi6ECezdw79JC7boXWSdCr2</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>/rA7Ph+xtv7lYfHX0sEMAIPcCA3S=
+83RD9eB1PHOYG/jdN0hoL0uiPudvDFg7CE5f</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>aysCd+p5KR+wt2RqfmzGwr4ZEc7h=
+1cep6kfnEoe1yvHGvuP2DIQeNPI1LRiWN/tR</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>mYAcOuXIlNgaCrnSU5p0ODodyJsI=
+CkfgbuW+vIo/Lzrv8ASRDbkqonJxVRDmFCLE</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>yk1/wiqcWku3bNCQbTvAgHOs4ERc=
+r/z4DY7ditCGAq0yKaJAAGuLqvrLyaSvPycI</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>uS0/+5JFldtNkMCsJYbTyBRuLCUF=
+HKJ7N2Nskmqlf0s3U/xXUfVg4ULbhL7MPM8c</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>puCmlYJJWqpaTJRg88HeO0jeQxe4=
+JF1m5wAW2u8i879lTRseSOuu9lvB+ELjljna</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>877BbUhhdniauP9qVkDxZm/3QxJ8=
+kWzace1mUJr7yr3BCZ5fb04ECB90IFVYDZgc</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>/NPRJUqXr3nTHjcTF3asW82Gx9Ks=
+Z49fryymXl2IWfxlg1er+wzomb3TVtRz3MjP</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>bCO3sWcseWvL7FsitvUdudLpAaTZ=
+kmaSJIyPk03r8wd9BDBZ0TAbna/a5oMtXpHo</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>OjlacLq/Io7SX3Ltj1FuKS+kIELK=
+mlcG319wB0LYwlEyEp70GsqtilG2G2Ictrz4</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>RDPe3kTvcHMjQy5aRq6BtRK5qbgI=
+Yk8zI9MuhbO1YjnYYLyOTHPNzNWGd7apWmGa</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>HLZ9ElVfcAsYJzUfqB94Yjxd0Xs9=
+yeJtRzvk7Clet83u8iJWdHM+ptCuBzVgcaEm</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>bmhPzzqiJeGE9K4+Y6ztXY5BoNJc=
+Xz5xYwQvOOdZC1uWAXZ1DanEFGkHhMWYnhzd</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ZkcuGAhRVMmU/uwXf0v0eVqoeqMQ=
+EUDsx2XMCTHT2UOn4otlXLS5txfqxxJDSzfP</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>FB3+Uv/vxoR1yeLiovp5+YDxvyYy=
+uq75/sKzdKaLVbparv/IK9I1BxAXrhMIlNQr</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>XXm8p19zKAil/GZo8ybnFltKl11q=
+cakif9jiPNDgivYOXSCznltA62gfeJrGhH7f</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>RrwvBvR28hFwUB6A3PccmfwZN6kj=
+plBCND1ejDSZh/9qpA46fw+8ZDu/jLXE4DnM</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>yZLcEvoeqyyX+rC83VN3j9R+nq8l=
+f18hss6OlCoJnKVyGztWlc+280aW/BoLVqxm</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>wjeYFzunT68gDALFjtK3d8ULR6Eh=
+Cs5WorL/bPlN5svaDe8ehPNc6MolsNZKSRvR</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>BSnAetpGCvC+5nvpk6jBrEzGwW/t=
+3mZhuPzkojDcu3aT+moNTE2ZtzOw337r1Jie</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>op61L8UNlP82MDOvDxKLDN9wGhxK=
+SwEjoGsmtOLN/oXe9GRSRnea8UznRZ0eh/PE</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>ZhGDseLjx6ScRdCzK6J7e0ijeATU=
+O8g+Q/DAiiex2uptYDEnITztCK+6vvGVbekY</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>L+scEaE0ns00Pb+C01O1hkGliTJF=
+wu02bmwD4viKG/xx0UuF0+W8pZTnfwJNvU3t</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>Jhy3r9ooqjCWODCKhWIqkKgdKxhT=
+W6qC7/G0neJFWbNVytUuO7E5khTz4ZkXVaM5</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>tgsJZIAWbzZaLO+wjJ+exbF+C6Xj=
+UanXpYoCKKo/gz71ukBpiqnvrBdAJY8aZO0x</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>TWzAyhiMaZkQ7bTQ1GQUrT4tINYY=
+IeDbZtZ16T1P</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>=3D5IxU</span> <br><span =
+style=3D'font-family:"Calibri","sans-serif"'>-----END PGP =
+MESSAGE-----</span> <o:p></o:p></p></div></body></html>
+------=_NextPart_001_004C_01D15887.0E7123A0--
+
+------=_NextPart_000_004B_01D15887.0E70FC90
+Content-Type: text/html;
+	name="attachment.html"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="attachment.html"
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">=0A=
+<html><head>=0A=
+<meta content=3D"text/html; charset=3Dwindows-1251" =
+http-equiv=3D"content-type">=0A=
+<title>attachment</title></head><body><i>Kashkavala</i> =
+<b>=CA=E0=F8=EA=E0=E2=E0=EB=E0</b><br>=0A=
+<br>=0A=
+</body></html>
+------=_NextPart_000_004B_01D15887.0E70FC90
+Content-Type: image/jpeg;
+	name="attachment.jpg"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="attachment.jpg"
+
+/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAQCAwMDAgQDAwMEBAQEBQkGBQUFBQsICAYJDQsNDQ0L
+DAwOEBQRDg8TDwwMEhgSExUWFxcXDhEZGxkWGhQWFxb/2wBDAQQEBAUFBQoGBgoWDwwPFhYWFhYW
+FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhb/wAARCAA6ADADASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3J/GX
+hpbpmiBaOGKIgKcAhs54PORj6VxXiHxPFda5O4hkktfLJgAMahhzuQkZG7GD39K8c0XUb3UPJQsA
+ZmWMFjt3469e3J/Kpop9dttEuUvbMpa20JSN0jxgjlGHvjI56/jXNHNqlSM+RfCcMcKtbvUwPFeo
+Xn/CUSw21t9htbtvkRMMiNzn9D+ntVW0F9batI9xtcrGr2/mFShbPOR/wHH410svh3SZ/DNnfvrM
+i6zIcvaG3MscKkkAuV5B24boe1cf4gm1IXUaWcsgu7eQxxzLbkr8p58tiMORnOBnrXiPD1q01N7u
+3nrdfodEqMktiT+0QfEEr3uG3NhYkUFSvcemetdh8O7600VY5NTsIfKkO/yZ4EZdpzwMjI7HAIrl
+fES67BfWc3iC5bUZJocwzyhPOU8H59oGRyMbhnqM1n6lcanEJIuWZwNoAG7I757dO1ceLlXwuJfs
+Hquv9fjfQyrUp7NanpNjZ+H5/EsqwXF1eLFbeZFuIx8wIJJGMbTntycVleJks9L0a5Nzr8llptnb
+y3DROoZmlVflVT15YKAOlTR6Np5kDqJQQu3du6r2XjtXJ/HOwtbT4c3YtUH2iR0QbgW4Jy2M9DxX
+bgsZQ5lRow0k/wAzvVNQV7GFr3j61t7vwnqWmaWbaKLTFN5bJMgN6GcB1LDJLblPzn5skjHFe5t4
+b1tPCuo/2rd+ZbaXozXUcVjJtnjuEi8xVUEH5VPHfeOuK+JbWG5REkMbAszENjAyew9Tn0r63+FP
+ja2na+1SW41CGys9CgF1dPcxjZOdwk8wP2O37uMg/WvqcLQUJLljrf0t+Gv4DrYypV5m3bS3qXPi
+P4e1u/8AA+keNNPuv7a0O8tYJJb1Y/mtJHRSVZAThGbOCOAeOOK82inmlkubfT7Vg6KWaWVflUdM
+Dp+Rr0+JW0fwLqHh+x1Flt9UnS7h0yWRVNhDgEgopO0O53BCARnoK5LVrS/Ofs6zKwGwGLDcfjwe
+lfN53RVTFLlXu2Sdv61IlRqOzbu3v3RoXnjlLAyQwSebcYGXldWDbuhAGMemKg1bxLpuqN4f8PeI
+HhW0unbUdQuFjRmTYH2KVbKlcAEr3zzmua13VtOs7IWWkWscFtHEHKpbrnkfeZsZJz+VcV4rn1jx
+DfSXekaXe7Li3MCK0eHjBwOn+76etfRYCvhYKc6kl0SXrv8Ah+Zx4qVSTjGn6/dt+P5Fb4g+INGv
+vipqmseFdMENiwPlmYAnfgbnRQAqZAJAUAAk4qvH4Yu7/R21ifVBDucFEXGzHBG4nqeeKdo3hPxF
+beX9p0u4hjZl3yvBIAo7kgKT+ldP4f8ACGv3cjJFp85ihbMccgCrgd2GTgc55PpWdbGc0HKCtrsj
+WEWkk3d+ZX0W9v7PSw0N3M00snzSliNwUjOR3yR0Nei+DviU06rp15GtqdpPyw/K/GOefSudsPCG
+owXiyXD28SsQrf8AExTEY/3ApJOfRqsw6XBcapJYosc2xCzuWwpHqSR7nj2ry8diqka0ZRhdNJef
+Ute76mJb2F4jRtFcYmQ8BCct75GMHBrT0S18QyzIGa5Zny0myUqoGOoz3yPwr0vwPa2ot2YW0IbP
+URjNaDEi6MQP7v5vk7flXFhcC1Hm5yo04tpdTh4rDXoxGZXZ/LUhy4w2BycnHJ/Gqc2oXt2XCXCw
+tcbEaTkqAO+1Tj/Irs/Ek0vm6tF5r+WtgCE3HAO48gV5hdO8d5IqOyhZBtCnGOe1Riq1Sg705P56
+9vuNJU9dzoNI0SCXUI7G0uP7VvJk+ZZQVjgGfvcHJxXe+HvB1to9sPOVr+RVLtIwCIp/ujJ6f4Vw
+Xg+R01kujsrMoyQcE813EN1cvBHvuJW+YjlyeMV2ZfetD20nq/wsY3d7s//Z
+
+------=_NextPart_000_004B_01D15887.0E70FC90
+Content-Type: text/plain;
+	name="attachment.txt"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="attachment.txt"
+
+UG9ydG9rYWxhINCf0L7RgNGC0L7QutCw0LvQsAo=
+
+------=_NextPart_000_004B_01D15887.0E70FC90--
+

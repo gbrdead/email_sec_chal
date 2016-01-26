@@ -1,0 +1,100 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id 3B42560578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:42:43 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=Iw21Oe8M;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 6A54A20E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:42:44 +0200 (EET)
+Received: from voidland (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 2C05F34E0165
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 21:42:44 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453837364; bh=XKMskYi6ptGdVYx702tDwEkIdtnOTSNZFbrLkHPTIRY=;
+	h=From:To:Subject:Date:From;
+	b=Iw21Oe8ML+eoaLf7w0gKk49C8qoS9AogkelL65hy1H3qCCvVMVseIhW/LjOknP8co
+	 k7bBjBNlgZnW90iSW2fxqIt8GpHqiFqUBVfzHUH+3zED2Y/rQFmQAFPs6/N4DeVSEp
+	 rIxjUKjxA4HxzqHfOjahb1FeXqV9xahgYTQA9jco=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 21:42:43 +0200
+Message-ID: <000001d15871$b9f190e0$2dd4b2a0$@voidland.org>
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+	boundary="----=_NextPart_000_0001_01D15882.7D7AFD20"
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdFYcatYbAsBB8i8SqeiAr3yVLhEKA==
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_0001_01D15882.7D7AFD20
+Content-Type: text/plain;
+	charset="koi8-r"
+Content-Transfer-Encoding: base64
+
+QWxhYmFsYSDhzMHCwczBDQoNCiANCg0K
+
+------=_NextPart_000_0001_01D15882.7D7AFD20
+Content-Type: text/html;
+	charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; charset=3Dkoi8-r"><meta =
+name=3DGenerator content=3D"Microsoft Word 14 (filtered =
+medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri","sans-serif";
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:70.85pt 70.85pt 70.85pt 70.85pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DBG link=3Dblue =
+vlink=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal><b><span =
+lang=3DEN-US>Alabala</span></b><span lang=3DEN-US> =
+</span><i>=E1=CC=C1=C2=C1=CC=C1</i><o:p></o:p></p><p =
+class=3DMsoNormal><span =
+lang=3DEN-US><o:p>&nbsp;</o:p></span></p></div></body></html>
+------=_NextPart_000_0001_01D15882.7D7AFD20--
+

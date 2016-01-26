@@ -1,0 +1,133 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by fmi.voidland.org (Postfix) with ESMTP id DDDEC60578
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 22:09:17 +0200 (EET)
+Authentication-Results: fmi.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=CZi6W3QL;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 3624F20E5C
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 22:09:19 +0200 (EET)
+Received: from voidland (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 26A8234E00E7
+	for <gbr@voidland.voidland.org>; Tue, 26 Jan 2016 22:09:19 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453838959; bh=uwtu26TcuAYWy7+WBDO9Qk9A8qZlgl9O6FUziVUEsgw=;
+	h=From:To:Subject:Date:From;
+	b=CZi6W3QLH4TH0krslQBbAmpzc9gjAHF3JTCNoS8rilIcqA7r5DxqDacuAvbWiA+UB
+	 HVT2Fu8Nh7SPDq1rmLsWJ4OJUN7rhHIzqF0Um2l6S1Qp21JThxNWc3Nnx3Ogv4GZnd
+	 UXA8bAJYDpJNPf10iwbJxqTXFVwa8Sg3alb8znzs=
+From: "Vladimir Panov" <gbr@voidland.org>
+To: <gbr@voidland.voidland.org>
+Subject: Opa
+Date: Tue, 26 Jan 2016 22:09:18 +0200
+Message-ID: <003001d15875$70995550$51cbfff0$@voidland.org>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_0031_01D15886.34235DD0"
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AdFYdWbml8tOJUsaTf2r9NOdHe8n+A==
+Content-Language: bg
+
+This is a multipart message in MIME format.
+
+------=_NextPart_000_0031_01D15886.34235DD0
+Content-Type: text/plain;
+	charset="koi8-r"
+Content-Transfer-Encoding: quoted-printable
+
+Alabala =E1=CC=C1=C2=C1=CC=C1
+
+
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+owEBUAKv/ZANAwAIAX+wSfeQEeGpAcsgYgBWp9JtQWxhYmFsYSDQkNC70LDQsdCw
+0LvQsA0KDQqJAhwEAAEIAAYFAlan0m0ACgkQf7BJ95AR4anXzA/6Al1uhhKhVA0u
+f9SqHjqPVAR9WORgas1eBGSLG0VRXrhrjUaE6orp4y7SROCBZj9pL0FyUsrrYTjL
+bbE9ZBKNeNaScJlQ1gWU8n+Ed+/FQySarcKrBITcy9Cq7G6LSZfqWjDir28NOIWc
+nt8LTQWW9ZKPKO7R27bsAQ1NSXuJgR/FJDKYpC2+aeL6p5q018tKkNKoxeZX7F7n
+2vNna1HXLoeAfpI1Z3nPaR6CQxODzBeGmb9aY3JPyfYT0KFXYE4Tlcg3j+HJNOUR
+eD/xc4jzNO+DbKODltGpy5xURGZWhQ726fasJmYj7xkVK6IUY5oIV8mgPvK1jnlM
+sVvBbDXgaE9mJBKqCmIuyjUZRVZaKxEXahRlB5T12Qq/SlyacSSB9hsCLUJ+z9gI
+3GUUsaNVyyKYdtAyRWh9lt/57s6NAzIAeLdseks9yj5rIXgy8lThhokHXBf/qnzi
+OtrOD5KtNKfqtyYfdibkMzZEaYzOorzdCmVxflvd0LZvpnVNXnyewaon+D3ylLdh
+vavt1MI6MY8KTEKTSzzDXdX3jGojd9q8+0YW+SHG5zB5tj6l2z8PgZ6aPuTmgD2i
+CFn6FOp/HS0cCAxxXsja0t8iiAPRgItyd3y+96fPJS4tddIqGN6WLJrd8b9FaABk
+jJsJMlhHF3D2h36VlGxwUrGUWiEpDW8=3D
+=3Dj1AA
+-----END PGP MESSAGE-----
+
+------=_NextPart_000_0031_01D15886.34235DD0
+Content-Type: text/html;
+	name="attachment.html"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="attachment.html"
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">=0A=
+<html><head>=0A=
+<meta content=3D"text/html; charset=3Dwindows-1251" =
+http-equiv=3D"content-type">=0A=
+<title>attachment</title></head><body><i>Kashkavala</i> =
+<b>=CA=E0=F8=EA=E0=E2=E0=EB=E0</b><br>=0A=
+<br>=0A=
+</body></html>
+------=_NextPart_000_0031_01D15886.34235DD0
+Content-Type: image/jpeg;
+	name="attachment.jpg"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="attachment.jpg"
+
+/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAQCAwMDAgQDAwMEBAQEBQkGBQUFBQsICAYJDQsNDQ0L
+DAwOEBQRDg8TDwwMEhgSExUWFxcXDhEZGxkWGhQWFxb/2wBDAQQEBAUFBQoGBgoWDwwPFhYWFhYW
+FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhb/wAARCAA6ADADASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3J/GX
+hpbpmiBaOGKIgKcAhs54PORj6VxXiHxPFda5O4hkktfLJgAMahhzuQkZG7GD39K8c0XUb3UPJQsA
+ZmWMFjt3469e3J/Kpop9dttEuUvbMpa20JSN0jxgjlGHvjI56/jXNHNqlSM+RfCcMcKtbvUwPFeo
+Xn/CUSw21t9htbtvkRMMiNzn9D+ntVW0F9batI9xtcrGr2/mFShbPOR/wHH410svh3SZ/DNnfvrM
+i6zIcvaG3MscKkkAuV5B24boe1cf4gm1IXUaWcsgu7eQxxzLbkr8p58tiMORnOBnrXiPD1q01N7u
+3nrdfodEqMktiT+0QfEEr3uG3NhYkUFSvcemetdh8O7600VY5NTsIfKkO/yZ4EZdpzwMjI7HAIrl
+fES67BfWc3iC5bUZJocwzyhPOU8H59oGRyMbhnqM1n6lcanEJIuWZwNoAG7I757dO1ceLlXwuJfs
+Hquv9fjfQyrUp7NanpNjZ+H5/EsqwXF1eLFbeZFuIx8wIJJGMbTntycVleJks9L0a5Nzr8llptnb
+y3DROoZmlVflVT15YKAOlTR6Np5kDqJQQu3du6r2XjtXJ/HOwtbT4c3YtUH2iR0QbgW4Jy2M9DxX
+bgsZQ5lRow0k/wAzvVNQV7GFr3j61t7vwnqWmaWbaKLTFN5bJMgN6GcB1LDJLblPzn5skjHFe5t4
+b1tPCuo/2rd+ZbaXozXUcVjJtnjuEi8xVUEH5VPHfeOuK+JbWG5REkMbAszENjAyew9Tn0r63+FP
+ja2na+1SW41CGys9CgF1dPcxjZOdwk8wP2O37uMg/WvqcLQUJLljrf0t+Gv4DrYypV5m3bS3qXPi
+P4e1u/8AA+keNNPuv7a0O8tYJJb1Y/mtJHRSVZAThGbOCOAeOOK82inmlkubfT7Vg6KWaWVflUdM
+Dp+Rr0+JW0fwLqHh+x1Flt9UnS7h0yWRVNhDgEgopO0O53BCARnoK5LVrS/Ofs6zKwGwGLDcfjwe
+lfN53RVTFLlXu2Sdv61IlRqOzbu3v3RoXnjlLAyQwSebcYGXldWDbuhAGMemKg1bxLpuqN4f8PeI
+HhW0unbUdQuFjRmTYH2KVbKlcAEr3zzmua13VtOs7IWWkWscFtHEHKpbrnkfeZsZJz+VcV4rn1jx
+DfSXekaXe7Li3MCK0eHjBwOn+76etfRYCvhYKc6kl0SXrv8Ah+Zx4qVSTjGn6/dt+P5Fb4g+INGv
+vipqmseFdMENiwPlmYAnfgbnRQAqZAJAUAAk4qvH4Yu7/R21ifVBDucFEXGzHBG4nqeeKdo3hPxF
+beX9p0u4hjZl3yvBIAo7kgKT+ldP4f8ACGv3cjJFp85ihbMccgCrgd2GTgc55PpWdbGc0HKCtrsj
+WEWkk3d+ZX0W9v7PSw0N3M00snzSliNwUjOR3yR0Nei+DviU06rp15GtqdpPyw/K/GOefSudsPCG
+owXiyXD28SsQrf8AExTEY/3ApJOfRqsw6XBcapJYosc2xCzuWwpHqSR7nj2ry8diqka0ZRhdNJef
+Ute76mJb2F4jRtFcYmQ8BCct75GMHBrT0S18QyzIGa5Zny0myUqoGOoz3yPwr0vwPa2ot2YW0IbP
+URjNaDEi6MQP7v5vk7flXFhcC1Hm5yo04tpdTh4rDXoxGZXZ/LUhy4w2BycnHJ/Gqc2oXt2XCXCw
+tcbEaTkqAO+1Tj/Irs/Ek0vm6tF5r+WtgCE3HAO48gV5hdO8d5IqOyhZBtCnGOe1Riq1Sg705P56
+9vuNJU9dzoNI0SCXUI7G0uP7VvJk+ZZQVjgGfvcHJxXe+HvB1to9sPOVr+RVLtIwCIp/ujJ6f4Vw
+Xg+R01kujsrMoyQcE813EN1cvBHvuJW+YjlyeMV2ZfetD20nq/wsY3d7s//Z
+
+------=_NextPart_000_0031_01D15886.34235DD0
+Content-Type: text/plain;
+	name="attachment.txt"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+	filename="attachment.txt"
+
+UG9ydG9rYWxhINCf0L7RgNGC0L7QutCw0LvQsAo=
+
+------=_NextPart_000_0031_01D15886.34235DD0--
+
