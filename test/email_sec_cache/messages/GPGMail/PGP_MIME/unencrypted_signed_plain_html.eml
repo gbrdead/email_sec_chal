@@ -1,0 +1,84 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 8A29C14201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:06:50 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=BZRT5VvF;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 69E7320EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:06:50 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 2DBF834E014C
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:06:50 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453903610; bh=539O0roJEoAGSM0EnHZb6d6uI7MLCCFoCymK3mDnIBI=;
+	h=From:Subject:Date:To:From;
+	b=BZRT5VvFRQ/JdGRlRPf/ngaqVTPts+F9YeK8iHinhjhr3yaAwKKxdREjqcyw6ydAJ
+	 Y4PvBd1R5Ch4zjtywZ0whmkLhelQ2l6VegbE+R82UK6eFSBlFzZ0419hjTsp04SIbV
+	 LLnvnhDixWFgCtsrAZ1wQ7YXkHwkb2st/NaxPr54=
+From: Vladimir Panov <gbr@voidland.org>
+X-Pgp-Agent: GPGMail 2.6b2
+Content-Type: multipart/signed; boundary="Apple-Mail=_FB4F43E5-7D74-4BE1-A40C-FF1F920428F9"; protocol="application/pgp-signature"; micalg=pgp-sha512
+Subject: Opa
+Date: Wed, 27 Jan 2016 16:06:47 +0200
+Message-Id: <1D51470C-4B0C-469B-9F81-36001BC49D1F@voidland.org>
+To: gbr@voidland.voidland.org
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Mailer: Apple Mail (2.3096.5)
+
+
+--Apple-Mail=_FB4F43E5-7D74-4BE1-A40C-FF1F920428F9
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_9F02A0F6-2229-4BD9-949C-1FBFCC1E04EB"
+
+
+--Apple-Mail=_9F02A0F6-2229-4BD9-949C-1FBFCC1E04EB
+Content-Transfer-Encoding: base64
+Content-Type: text/plain;
+	charset=utf-8
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0KDQo=
+--Apple-Mail=_9F02A0F6-2229-4BD9-949C-1FBFCC1E04EB
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><b class=3D"">Alabala</b> <i class=3D"">=D0=90=D0=BB=D0=B0=D0=B1=
+=D0=B0=D0=BB=D0=B0</i><div class=3D""><br class=3D""></div></body></html>=
+
+--Apple-Mail=_9F02A0F6-2229-4BD9-949C-1FBFCC1E04EB--
+
+--Apple-Mail=_FB4F43E5-7D74-4BE1-A40C-FF1F920428F9
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQIcBAEBCgAGBQJWqM73AAoJEH+wSfeQEeGpTncQAKi/QahTvibim+3pbnyBryLo
+GdlGKcAiIfgtqIXuVOO4K+vp0/3Urnb2VPae1+3TW9dt8BOH9qda/W6WahT4KiUf
+Zuc9l04hC4boIyIWyER/s2j1/46319pyLGZuy39UzKCn0SKB5C8jQmcfesrw4hd4
+ho/pYcJ2raDeIwptap5gJ2acuJfXcATYGbs3WyZ1MKIkPKuRZFLrUQfpHSuumDQq
+B3zDsc/Ag9D0Pv0aN+GWyR9+Rj+ao5OmBsNppCil5CX6jlfLSFSIlBR9pxz5Y6f9
+pOSDGNZYXI4JjrARwFuGm6SYYxyCBStyYwwUilcG+S7Vy3qxGIOzATr55ya3mMS5
+roZc013rc5qABwVwoVNvwhTK9n8w8EeUseC6q+0JddGU00fAnAM8nK1QBValEFrA
+t+hleZGt+KbFx8L9GWKeXDalkdOeciHicuOpxJd+DrETp/Bv0/S1vCpEBP9yMGXz
+S1mv2tUQNb1JTt/olzl+0btG73dD22y0dfG6KWi9yTuMo/Hl/Q0kf0ysU5pT3CQC
+Xayr5PDS76kfSTUoSmQOFEoaedcrqZSsHUl45wlYYs7NMfxBsMzxwoOFcPFz/jnf
+3DdU7abaJzEIFJ1Whv2t46DyaYAmzqNW9fA00RJ3QwATFeTX1DbkAiU0ogGqGB/C
+VcSv4FnQ8MMfUm5EJ4rB
+=oLfu
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_FB4F43E5-7D74-4BE1-A40C-FF1F920428F9--

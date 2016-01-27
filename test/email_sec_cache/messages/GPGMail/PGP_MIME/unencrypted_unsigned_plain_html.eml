@@ -1,0 +1,49 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 28A6714201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:04:20 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=QyWbNZwq;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id AE98120EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:04:20 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 6EB4F34E014C
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:04:20 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453903460; bh=H/BWtQNfyXqYet3Ol2gBKHQu37WPckNAQva5vH7ekjY=;
+	h=From:Subject:Date:To:From;
+	b=QyWbNZwqlnp03Bz1qg6eDdkPCDImBcY5MmaQj38NRnirRQ1TR2tAQTjzPkz5uzwA9
+	 egC5r1iFfcBS1KeyhphCHJeXBFuHyD/lYWO5dr/sJOYeyS/NGoaVI/hLIyIh10u5Df
+	 ahbHcpGwZKjeDVVspQWkBbQBIi1Q1KPfV6WVLfcQ=
+From: Vladimir Panov <gbr@voidland.org>
+Content-Type: multipart/alternative; boundary="Apple-Mail=_54F1EC29-7F6A-4C4E-B0BA-ABF8B7E10737"
+Subject: Opa
+Message-Id: <377DAC65-0A80-450C-AA63-3C31C3CFA8C7@voidland.org>
+Date: Wed, 27 Jan 2016 16:04:18 +0200
+To: gbr@voidland.voidland.org
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Mailer: Apple Mail (2.3096.5)
+
+
+--Apple-Mail=_54F1EC29-7F6A-4C4E-B0BA-ABF8B7E10737
+Content-Transfer-Encoding: base64
+Content-Type: text/plain;
+	charset=utf-8
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0KDQo=
+--Apple-Mail=_54F1EC29-7F6A-4C4E-B0BA-ABF8B7E10737
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><b class=3D"">Alabala</b> <i class=3D"">=D0=90=D0=BB=D0=B0=D0=B1=
+=D0=B0=D0=BB=D0=B0</i><div class=3D""><br class=3D""></div></body></html>=
+
+--Apple-Mail=_54F1EC29-7F6A-4C4E-B0BA-ABF8B7E10737--

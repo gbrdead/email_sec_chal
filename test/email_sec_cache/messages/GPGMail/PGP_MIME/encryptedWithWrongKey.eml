@@ -1,0 +1,82 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 9B71914201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:26:32 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=AQdLrFic;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 84E3120EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:26:32 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 6A2E434E014C
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:26:32 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453904792; bh=h8BqDst0PL6K6RrfBCYXki5bpYPlGKhr9bgI4KsPtN4=;
+	h=Subject:From:Date:To:From;
+	b=AQdLrFic0lLixZsUFzddrjTqMUVivxNl3O8WzU+AnS2rA8WwRa3uQ7ZFM9Kn6V7lk
+	 RaUh5cGioqzthA7H6LDtE5v5eOFcR5VAEgUlzT0Zx/TxYMDozbVHFzLJe57MU9oWVI
+	 hDFWfGJv7EbgY0N6gIoqI28AEYCC4dLIrHIuSOK0=
+Content-Type: multipart/encrypted; boundary="Apple-Mail=_47A0A7A5-0DDA-4760-AE76-E75B0DE95F96"; protocol="application/pgp-encrypted";
+Subject: Opa
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Pgp-Agent: GPGMail 2.6b2
+From: Vladimir Panov <gbr@voidland.org>
+Date: Wed, 27 Jan 2016 16:26:29 +0200
+Content-Transfer-Encoding: 7bit
+Message-Id: <CC815CEE-4D7D-42FB-95A0-597EE9DF803F@voidland.org>
+Content-Description: OpenPGP encrypted message
+To: gbr@voidland.voidland.org
+X-Mailer: Apple Mail (2.3096.5)
+
+This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)
+--Apple-Mail=_47A0A7A5-0DDA-4760-AE76-E75B0DE95F96
+Content-Transfer-Encoding: 7bit
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME Versions Identification
+
+Version: 1
+
+--Apple-Mail=_47A0A7A5-0DDA-4760-AE76-E75B0DE95F96
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+	filename=encrypted.asc
+Content-Type: application/octet-stream;
+	name=encrypted.asc
+Content-Description: OpenPGP encrypted message
+
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+hQIMAygP47Exo7B8AQ//QfxfAaIIPvtLMuGYGYvegnKfXc2p5w9MXVMoeKEq/Xaz
+mddZ3iK0IkPV4hCjjGzcuKLeVuT71mqZYNw0Dv3v+w5mYwhJyUfcploF9qggIDEz
+AQed2cEIKZqT3f3CNVZqtY/0Bodjd19zGFSH/k9BnIojBbJHPVv38+AFzwytjyqa
+2TwVAoCQEpfVUY0iSogiRx0sjlSJxeDSG3skxYF59MgTZxOreYJxj+4oxl6J11dL
+Es75nIGCJ0cs3+yGRizWpFBqTC6J6Z8LQ8KAR/Vo6OYCxZ0Orh4zWcHxYjbe1plm
+y6IB3iPTBaLkn5fN5vwI35jwiOCsA9quoN36NKgu++/XCkElBx4/OgudJ8pf3PcL
+uEfGBWXFfmVU4OMmMcTtUNWYmtZR5gOm//TSw0ZjRZpImlxjYgRV/eud8QTfIYB0
+bvor47f7B/AuczzoXNYk+t6ZyZlSkmC8KwbtXpBOiVUA+9FosKaIuGmeeP1ie3bO
+8yEyPB3QdVMjCirMoa84JYIjBfimwXXhEdvZmbL2nQo5b+ZXAE9FB6ie4Jv4tvDq
+YlAgBlP3zdBiGmQX++zbJffH9Aq9as+lmzf5Apy9/I8AmnsM9Gy3uSV7VJibKM7C
+lz2Uwv2nqx6pS2srqO80q/VOHnbQ4sak7cC+OLX9Y0HNT54ecrCScPFgZDyc8ESF
+AgwDxN2KIMHtFogBD/9pyX/nvWMw5vSfO9GBUEE0TQ3rDayt10xAEBbUbK0HA43j
+uGdgNHVwdzgM6OGIRxFsVWySuM51Kfb9N6WY2KpCsTvr4S0YL33LtoLBew5e+Nfg
+IK9+8E7JYXxfCMOymnitWqHHlHquFcKmNS0C40QALsqkMAPT36k5sAWk0sHz8LJ9
+TX4w6pE2+fftlQp1WK47qupyloEEJCd0D+e2k0Xfs4r+Qugo9qsLXf/bNWPW4Ltn
+nnMvsKNtIZYik9mpZXyL9u+nkqjJe9wtutGj8ZwxCOWVURL5YZ6W+Wi0FAdZ1N7O
+PHHAOQB0eZ2XExMv8wv/iYR8qb86ZxYb/WAa9wSV3ajzyD+vHI1iTmI+J8MZutH7
+8WryqvK6o48+IWQUgJy+klxeiMjG+ZmtvhDgfxtRPKvMPOyZA/qejDn/6zg+VGiA
+dJ28dOjbEs6hGc4M6fo1ONd9ru1gET3BDX47EofP+vUXjumlCjUdWmjK5TESAbYA
+13Q00ySpQeFyKJdiusuaxenE8FfCooV8zhJ4vgIYCU0G7LqLmlE3erL6AJqM4rBd
+0QFZQGZzlWSdSmOV+aAYEH9a8sO9w1307ZH+lDHoePcIEVFibDfSYW8GPJlZlnkp
+ugw1OaTLDQevZhxUOF2CTKRc6spWVrWZDTi9c4X5Vb+MJplJkJwF7iT9WN1EntKo
+AePg35QEFdVxjzSNuI6M1X58eXIqIseTxcVS09m1ilkkm8usG/kh3ww7mZcUpzT+
+Sole2KGev9RsyujdFqedhkb1R16XY1mwbjkgFAR0Qt/zt5e8W3fNMvNfQYalMkpM
+LoyEoDpXykoX0i5nPFbbvFTt3MiTQx3T35aKk3Ir3vq58I69L/pGOuHBmezNKGxx
+o7kuziNmjInGbEH4jK4vgckhc0SBVxFR
+=KBVr
+-----END PGP MESSAGE-----
+
+--Apple-Mail=_47A0A7A5-0DDA-4760-AE76-E75B0DE95F96--

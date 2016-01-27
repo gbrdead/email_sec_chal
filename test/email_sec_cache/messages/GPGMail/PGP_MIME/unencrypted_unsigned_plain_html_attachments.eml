@@ -1,0 +1,145 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 9251A14201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:10:21 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=lLZHsms+;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 7D07420EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:10:21 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 7292334E00E2
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:10:21 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453903821; bh=JCcWnEVwt4famTwJv8owIhCYfDnXq5faA5q1f9Mo79Y=;
+	h=From:Subject:Date:To:From;
+	b=lLZHsms+e+C0k6sfnDJjfWlcjBKN4+qSgTVpixOjxwvE42ejHF3R4syPjiXlcNnie
+	 sHb0bVh/9OLyT5h13nyeYdY4g62C0HldqIXh5w9LVwWv6d43A0rRaWvJUVSEXkzeRC
+	 OAtzws+qV2B/HMVCqTTk7orWbDH06xgAGYPgj0ZI=
+From: Vladimir Panov <gbr@voidland.org>
+Content-Type: multipart/alternative; boundary="Apple-Mail=_8B8D152C-7020-4DB2-9597-4C0A100E6435"
+Subject: Opa
+Message-Id: <8A28F444-4DB6-4C57-8A2B-CB05A8D931E0@voidland.org>
+Date: Wed, 27 Jan 2016 16:10:19 +0200
+To: gbr@voidland.voidland.org
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Mailer: Apple Mail (2.3096.5)
+
+
+--Apple-Mail=_8B8D152C-7020-4DB2-9597-4C0A100E6435
+Content-Transfer-Encoding: base64
+Content-Type: text/plain;
+	charset=utf-8
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0KDQo=
+--Apple-Mail=_8B8D152C-7020-4DB2-9597-4C0A100E6435
+Content-Type: multipart/mixed;
+	boundary="Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3"
+
+
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"><meta http-equiv=3D"Content-Type" content=3D"text/html =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" =
+class=3D""><b class=3D"">Alabala</b> <i class=3D"">=D0=90=D0=BB=D0=B0=D0=B1=
+=D0=B0=D0=BB=D0=B0</i><div class=3D""></div></body></html>=
+
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Disposition: attachment;
+	filename=attachment.html
+Content-Type: text/html;
+	name="attachment.html"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta content=3D"text/html; charset=3Dwindows-1251" =
+http-equiv=3D"content-type">
+<title>attachment</title></head><body><i>Kashkavala</i> =
+<b>=CA=E0=F8=EA=E0=E2=E0=EB=E0</b><br>
+<br>
+</body></html>=
+
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" class=""><head><meta http-equiv="Content-Type" content="text/html charset=us-ascii"><meta http-equiv="Content-Type" content="text/html charset=utf-8"><meta http-equiv="Content-Type" content="text/html charset=utf-8"><meta http-equiv="Content-Type" content="text/html charset=utf-8"></head><meta http-equiv="Content-Type" content="text/html charset=us-ascii" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""></body></html>
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Disposition: inline;
+	filename=attachment.jpg
+Content-Type: image/jpeg;
+	x-unix-mode=0777;
+	name="attachment.jpg"
+Content-Transfer-Encoding: base64
+
+/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAQCAwMDAgQDAwMEBAQEBQkGBQUFBQsICAYJDQsNDQ0L
+DAwOEBQRDg8TDwwMEhgSExUWFxcXDhEZGxkWGhQWFxb/2wBDAQQEBAUFBQoGBgoWDwwPFhYWFhYW
+FhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhb/wAARCAA6ADADASIA
+AhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQA
+AAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3
+ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWm
+p6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEA
+AwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSEx
+BhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElK
+U1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3
+uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3J/GX
+hpbpmiBaOGKIgKcAhs54PORj6VxXiHxPFda5O4hkktfLJgAMahhzuQkZG7GD39K8c0XUb3UPJQsA
+ZmWMFjt3469e3J/Kpop9dttEuUvbMpa20JSN0jxgjlGHvjI56/jXNHNqlSM+RfCcMcKtbvUwPFeo
+Xn/CUSw21t9htbtvkRMMiNzn9D+ntVW0F9batI9xtcrGr2/mFShbPOR/wHH410svh3SZ/DNnfvrM
+i6zIcvaG3MscKkkAuV5B24boe1cf4gm1IXUaWcsgu7eQxxzLbkr8p58tiMORnOBnrXiPD1q01N7u
+3nrdfodEqMktiT+0QfEEr3uG3NhYkUFSvcemetdh8O7600VY5NTsIfKkO/yZ4EZdpzwMjI7HAIrl
+fES67BfWc3iC5bUZJocwzyhPOU8H59oGRyMbhnqM1n6lcanEJIuWZwNoAG7I757dO1ceLlXwuJfs
+Hquv9fjfQyrUp7NanpNjZ+H5/EsqwXF1eLFbeZFuIx8wIJJGMbTntycVleJks9L0a5Nzr8llptnb
+y3DROoZmlVflVT15YKAOlTR6Np5kDqJQQu3du6r2XjtXJ/HOwtbT4c3YtUH2iR0QbgW4Jy2M9DxX
+bgsZQ5lRow0k/wAzvVNQV7GFr3j61t7vwnqWmaWbaKLTFN5bJMgN6GcB1LDJLblPzn5skjHFe5t4
+b1tPCuo/2rd+ZbaXozXUcVjJtnjuEi8xVUEH5VPHfeOuK+JbWG5REkMbAszENjAyew9Tn0r63+FP
+ja2na+1SW41CGys9CgF1dPcxjZOdwk8wP2O37uMg/WvqcLQUJLljrf0t+Gv4DrYypV5m3bS3qXPi
+P4e1u/8AA+keNNPuv7a0O8tYJJb1Y/mtJHRSVZAThGbOCOAeOOK82inmlkubfT7Vg6KWaWVflUdM
+Dp+Rr0+JW0fwLqHh+x1Flt9UnS7h0yWRVNhDgEgopO0O53BCARnoK5LVrS/Ofs6zKwGwGLDcfjwe
+lfN53RVTFLlXu2Sdv61IlRqOzbu3v3RoXnjlLAyQwSebcYGXldWDbuhAGMemKg1bxLpuqN4f8PeI
+HhW0unbUdQuFjRmTYH2KVbKlcAEr3zzmua13VtOs7IWWkWscFtHEHKpbrnkfeZsZJz+VcV4rn1jx
+DfSXekaXe7Li3MCK0eHjBwOn+76etfRYCvhYKc6kl0SXrv8Ah+Zx4qVSTjGn6/dt+P5Fb4g+INGv
+vipqmseFdMENiwPlmYAnfgbnRQAqZAJAUAAk4qvH4Yu7/R21ifVBDucFEXGzHBG4nqeeKdo3hPxF
+beX9p0u4hjZl3yvBIAo7kgKT+ldP4f8ACGv3cjJFp85ihbMccgCrgd2GTgc55PpWdbGc0HKCtrsj
+WEWkk3d+ZX0W9v7PSw0N3M00snzSliNwUjOR3yR0Nei+DviU06rp15GtqdpPyw/K/GOefSudsPCG
+owXiyXD28SsQrf8AExTEY/3ApJOfRqsw6XBcapJYosc2xCzuWwpHqSR7nj2ry8diqka0ZRhdNJef
+Ute76mJb2F4jRtFcYmQ8BCct75GMHBrT0S18QyzIGa5Zny0myUqoGOoz3yPwr0vwPa2ot2YW0IbP
+URjNaDEi6MQP7v5vk7flXFhcC1Hm5yo04tpdTh4rDXoxGZXZ/LUhy4w2BycnHJ/Gqc2oXt2XCXCw
+tcbEaTkqAO+1Tj/Irs/Ek0vm6tF5r+WtgCE3HAO48gV5hdO8d5IqOyhZBtCnGOe1Riq1Sg705P56
+9vuNJU9dzoNI0SCXUI7G0uP7VvJk+ZZQVjgGfvcHJxXe+HvB1to9sPOVr+RVLtIwCIp/ujJ6f4Vw
+Xg+R01kujsrMoyQcE813EN1cvBHvuJW+YjlyeMV2ZfetD20nq/wsY3d7s//Z
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" class=""><head><meta http-equiv="Content-Type" content="text/html charset=us-ascii"><meta http-equiv="Content-Type" content="text/html charset=utf-8"><meta http-equiv="Content-Type" content="text/html charset=utf-8"><meta http-equiv="Content-Type" content="text/html charset=utf-8"></head><meta http-equiv="Content-Type" content="text/html charset=us-ascii" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""></body></html>
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Disposition: attachment;
+	filename=attachment.txt
+Content-Type: text/plain;
+	name="attachment.txt"
+Content-Transfer-Encoding: base64
+
+UG9ydG9rYWxhINCf0L7RgNGC0L7QutCw0LvQsAo=
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3
+Content-Transfer-Encoding: 7bit
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv="Content-Type" content="text/html charset=us-ascii"><meta http-equiv="Content-Type" content="text/html charset=utf-8"><meta http-equiv="Content-Type" content="text/html charset=utf-8"><meta http-equiv="Content-Type" content="text/html charset=utf-8"></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;" class=""><meta http-equiv="Content-Type" content="text/html charset=us-ascii" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""><meta http-equiv="Content-Type" content="text/html charset=us-ascii" class=""><meta http-equiv="Content-Type" content="text/html charset=utf-8" class=""><div class=""></div></body></html>
+--Apple-Mail=_E89A3931-8BD1-43CE-858E-B1085A7BC6D3--
+
+--Apple-Mail=_8B8D152C-7020-4DB2-9597-4C0A100E6435--

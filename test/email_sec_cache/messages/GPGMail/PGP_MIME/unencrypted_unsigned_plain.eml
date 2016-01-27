@@ -1,0 +1,32 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 883D614201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:25:46 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=bhU4v3HU;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 6AE6C20EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:25:46 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 04BDF34E00E2
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:25:46 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453901146; bh=8ioLHCl8zdIPjBoQRluhrjk3eTyuZnBTOtA6zSUY1vU=;
+	h=From:Subject:Date:To:From;
+	b=bhU4v3HUR+pb22q4xFkq53Shjz1J//Cnopftlmv2Gn89Pv5V/nlyKlRhcM2bpQEGq
+	 RVPM4ig0onFYXdk09F+1nyDIOC9DEbZP2XAO1eUCCEMBjE/PegNdNqYBPDgAl9oe5j
+	 2pvKQpnez/TfUrKCkFjAiKaHT743WTO41d46IA8A=
+From: Vladimir Panov <gbr@voidland.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: base64
+Subject: Opa
+Message-Id: <7D6F38E6-72BF-427B-9E33-059F830A1E39@voidland.org>
+Date: Wed, 27 Jan 2016 15:25:43 +0200
+To: gbr@voidland.voidland.org
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Mailer: Apple Mail (2.3096.5)
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0KDQo=

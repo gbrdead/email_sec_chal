@@ -1,0 +1,94 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 992AB14201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:07:08 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=aqsf+8Cb;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 7D1E720EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:07:08 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 6E5BC34E014C
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 16:07:08 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453903628; bh=RFqjr1VcxxcZg7TMewnAiCtIxB/HCQMZWQrcR4A6V64=;
+	h=Subject:From:Date:To:From;
+	b=aqsf+8CbVOgv8m3yi0wmEmCTMSK92O7xwc7/QYMKi79v+OKDFXwY9PeT6/h4HAtvV
+	 7uBvRB9iBgsLH3Y/cVBsziPafr2HcIO7tD5DPs4tYZ7FHxLFMKo/pCx2z8IoMOSddI
+	 tSWJuH98sSc/YugIcesgayJbo0GKEzdRuwB3Gkuo=
+Content-Type: multipart/encrypted; boundary="Apple-Mail=_4FD471AA-7A28-4A07-B254-AA640814D0C9"; protocol="application/pgp-encrypted";
+Subject: Opa
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Pgp-Agent: GPGMail 2.6b2
+From: Vladimir Panov <gbr@voidland.org>
+Date: Wed, 27 Jan 2016 16:07:06 +0200
+Content-Transfer-Encoding: 7bit
+Message-Id: <E8B88C21-C146-429C-ABCE-E85D53C2AE36@voidland.org>
+Content-Description: OpenPGP encrypted message
+To: gbr@voidland.voidland.org
+X-Mailer: Apple Mail (2.3096.5)
+
+This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)
+--Apple-Mail=_4FD471AA-7A28-4A07-B254-AA640814D0C9
+Content-Transfer-Encoding: 7bit
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME Versions Identification
+
+Version: 1
+
+--Apple-Mail=_4FD471AA-7A28-4A07-B254-AA640814D0C9
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+	filename=encrypted.asc
+Content-Type: application/octet-stream;
+	name=encrypted.asc
+Content-Description: OpenPGP encrypted message
+
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+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
+wWGpdEH0yL45
+=Piko
+-----END PGP MESSAGE-----
+
+--Apple-Mail=_4FD471AA-7A28-4A07-B254-AA640814D0C9--

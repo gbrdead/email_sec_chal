@@ -1,0 +1,65 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id E1A8C14201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:32:30 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=masA+59x;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id BE38320EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:32:30 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 774CD34E014C
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:32:30 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453901550; bh=6Wh0h3Dryo/u5QUgDKzlN5lIBR8M0tax7OCK8aCcscY=;
+	h=From:Subject:Date:To:From;
+	b=masA+59xfYHn9sJ3IHsBsKbYGcxX9SiFWchLOa9llU95iE9iT8I9h8Kw+uOARMh96
+	 CIGglS/aLWKB/KwOUdHKrVVpr50VCKUgFEj1gEZVjODd8fADq2mLXa9F0W2blYuHl7
+	 T/SsbHg3/FDQ5ncCU9a/HXQBl5a5iAELgboGgEn4=
+From: Vladimir Panov <gbr@voidland.org>
+X-Pgp-Agent: GPGMail 2.6b2
+Content-Type: multipart/signed; boundary="Apple-Mail=_7488A027-98F7-44DA-9F43-126FECD181CC"; protocol="application/pgp-signature"; micalg=pgp-sha512
+Subject: Opa
+Date: Wed, 27 Jan 2016 15:32:27 +0200
+Message-Id: <B8630812-3526-4873-ADBE-E9081DE0C251@voidland.org>
+To: gbr@voidland.voidland.org
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Mailer: Apple Mail (2.3096.5)
+
+
+--Apple-Mail=_7488A027-98F7-44DA-9F43-126FECD181CC
+Content-Transfer-Encoding: base64
+Content-Type: text/plain;
+	charset=utf-8
+
+QWxhYmFsYSDQkNC70LDQsdCw0LvQsA0KDQo=
+--Apple-Mail=_7488A027-98F7-44DA-9F43-126FECD181CC
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename=signature.asc
+Content-Type: application/pgp-signature;
+	name=signature.asc
+Content-Description: Message signed with OpenPGP using GPGMail
+
+-----BEGIN PGP SIGNATURE-----
+Comment: GPGTools - https://gpgtools.org
+
+iQIcBAEBCgAGBQJWqMbsAAoJEH+wSfeQEeGpm1YP/3tE1YmHhjWemngtmCAmGRgy
+PI/A8f9rzEmCkymYkTpj5iq1YRqOvxNxCtZJQTi/blwwvPBVA+UJe0yM8tqZxdeF
+3R/5sVinp8S8pYwfDppJHGaRQeU9UdRjqZxnBs7OnJXQb98dbdxwtXEQjCp/ISa7
+NTSai9d2zfBzt1vIxoO4aTpxWg2RyKWe0PYyl9q/xH2Y0bz9zMl9PwieFg0THIp4
+rkmg1YaWF8KFUBhRc3sjsgI1odh7vwVQ+30AqUk3TL66yulNGv2bq3co/R3+fTA7
+xfEIarJlaIsFbHe7k6jhGSnKiXFEoREmz5IhhFhMCcRk1e+UPvnPmTK7tYuD7M03
+t2XJSBbfLG3q8BwBt4Qm9KyibBne9iNRkWaPZ4klfQIfpTdaGdLsv3AuTNAG3lle
+53zGkK700NeJ+A49I1gVxbWikiC3eYxcKQFSJem525r0QsvS3AGyKEnTBHJPd78a
+vgjKWLvmqqQ8MYd4CVe4A5ZJD0OpqH16N6xZYvYsGpRjSlVeWSVZx310Jja7GS9Z
+uU/7K35pYgKzZP7hYXpx+nmCJMj4qezEr56cFwcHjhAq/Wzr4wc1sdrTgf1c1Lh6
+141UlBBmn+AGqzAoymZBJbxn2+loyf5JX6hqT+aOv82T8xg78yttKsZv56J316gC
+VKt0Jb65LYX/R5qrqcWN
+=wozK
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_7488A027-98F7-44DA-9F43-126FECD181CC--

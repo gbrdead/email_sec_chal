@@ -1,0 +1,156 @@
+Return-Path: <gbr@voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 38F1A14201CC
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:38:47 +0200 (EET)
+Authentication-Results: voidland.voidland.org;
+	dkim=pass (1024-bit key; unprotected) header.d=voidland.org header.i=@voidland.org header.b=cTVKKf7T;
+	dkim-atps=neutral
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id 24DF920EC6
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:38:47 +0200 (EET)
+Received: from [10.0.2.15] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id 0ECCA34E014C
+	for <gbr@voidland.voidland.org>; Wed, 27 Jan 2016 15:38:47 +0200 (EET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=voidland.org; s=mail;
+	t=1453901927; bh=PnMEkx+NPL6kXIZ//3jXEutWoRWQ06crghT9uJxwk18=;
+	h=Subject:From:Date:To:From;
+	b=cTVKKf7TskfDsa6xEIvchO3f1EIQqIDozB1BivA6FzYl+jFSh2+e52eMdrpm5zfEC
+	 bUmHVOUhXL1yfair2qhHqOr4SH+S9sa1Hv7mR+EWOtZSpLQCEr944sKlv4osiRmU7F
+	 D2R0yH2w9AkNmtrCfM75lh4tYUshN7F5MxJbCihY=
+Content-Type: multipart/encrypted; boundary="Apple-Mail=_D9954AFB-7E9A-483D-B926-B29A7112F0F7"; protocol="application/pgp-encrypted";
+Subject: Opa
+Mime-Version: 1.0 (Mac OS X Mail 9.1 \(3096.5\))
+X-Pgp-Agent: GPGMail 2.6b2
+From: Vladimir Panov <gbr@voidland.org>
+Date: Wed, 27 Jan 2016 15:38:44 +0200
+Content-Transfer-Encoding: 7bit
+Message-Id: <D0DB5116-F473-4909-A767-7D3FFBB85A2D@voidland.org>
+Content-Description: OpenPGP encrypted message
+To: gbr@voidland.voidland.org
+X-Mailer: Apple Mail (2.3096.5)
+
+This is an OpenPGP/MIME encrypted message (RFC 2440 and 3156)
+--Apple-Mail=_D9954AFB-7E9A-483D-B926-B29A7112F0F7
+Content-Transfer-Encoding: 7bit
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME Versions Identification
+
+Version: 1
+
+--Apple-Mail=_D9954AFB-7E9A-483D-B926-B29A7112F0F7
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline;
+	filename=encrypted.asc
+Content-Type: application/octet-stream;
+	name=encrypted.asc
+Content-Description: OpenPGP encrypted message
+
+-----BEGIN PGP MESSAGE-----
+Comment: GPGTools - https://gpgtools.org
+
+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
+=2vu8
+-----END PGP MESSAGE-----
+
+--Apple-Mail=_D9954AFB-7E9A-483D-B926-B29A7112F0F7--
