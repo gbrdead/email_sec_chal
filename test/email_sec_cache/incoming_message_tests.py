@@ -456,100 +456,129 @@ class FormatIncomingMessageTests(IncomingMessageTests):
 
 
 class EnigmailTests(FormatIncomingMessageTests):        
-            
+             
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
-    
-    
+     
+     
 class EnigmailPgpMimeTests(EnigmailTests):
-            
+             
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Enigmail", "PGP_MIME")
         EnigmailTests.setUpClass()
-      
-      
+       
+       
 class EnigmailPgpInlineTests(EnigmailTests):
-             
+              
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Enigmail", "PGP_Inline")
         EnigmailTests.setUpClass()
-    
-    
-    
+     
+     
+     
 class MailvelopeTests(FormatIncomingMessageTests):        
-            
+             
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbrdead@gmail.com"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mailvelope", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
-    
-    
+     
+     
 class MailvelopePgpInlineTests(MailvelopeTests):
-             
+              
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Mailvelope", "PGP_Inline")
         MailvelopeTests.setUpClass()
- 
- 
- 
+  
+  
+  
 class GpgOLTests(FormatIncomingMessageTests):        
-         
+          
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "GpgOL", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
- 
- 
+  
+  
 class GpgOLPgpMimeTests(GpgOLTests):
-         
+          
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "GpgOL", "PGP_MIME")
         GpgOLTests.setUpClass()
- 
- 
+  
+  
 class GpgOLPgpInlineTests(GpgOLTests):
-              
+               
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "GpgOL", "PGP_Inline")
         GpgOLTests.setUpClass()
-
-
-
+ 
+ 
+ 
 class GPGMailTests(FormatIncomingMessageTests):        
-           
+            
     @classmethod
     def setUpClass(cls):
         IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "GPGMail", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
-   
-   
+    
+    
 class GPGMailPgpMimeTests(GPGMailTests):
-           
+            
     @classmethod
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "GPGMail", "PGP_MIME")
         GPGMailTests.setUpClass()
+
+
+
+class MuttTests(FormatIncomingMessageTests):        
+            
+    @classmethod
+    def setUpClass(cls):
+        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mutt", "correspondent_public_key.asc")
+        FormatIncomingMessageTests.setUpClass()
+    
+    
+class MuttPgpMimeTests(MuttTests):
+            
+    @classmethod
+    def setUpClass(cls):
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Mutt", "PGP_MIME")
+        MuttTests.setUpClass()
+      
+      
+class MuttPgpInlineTests(MuttTests):
+             
+    @classmethod
+    def setUpClass(cls):
+        moduleDir = os.path.dirname(os.path.abspath(__file__))
+        IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages", "Mutt", "PGP_Inline")
+        MuttTests.setUpClass()
 
 
 

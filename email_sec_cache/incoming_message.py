@@ -29,9 +29,9 @@ class IncomingMessagePart:
             self.plainText = ""
             return
         
-        text = self.msgPart.get_payload(decode=True)
+        self.plainText = self.msgPart.get_payload(decode=True)
         if self.msgPart.get_content_subtype() == "html":
-            html = bs4.BeautifulSoup(text, "html.parser")
+            html = bs4.BeautifulSoup(self.plainText, "html.parser")
             for el in html.findAll(["script", "style"]):
                 el.extract()
             self.plainText = html.get_text(separator=" ")
@@ -40,7 +40,7 @@ class IncomingMessagePart:
             if charset is None:
                 logging.warning("EmailSecCache: No charset specified for a part in incoming message from %s (%s); assuming UTF-8" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
                 charset = "utf-8"
-            self.plainText = text.decode(charset, "ignore")
+            self.plainText = self.plainText.decode(charset, "ignore")
     
     def getPlainText(self):
         self.extractPlainText()
@@ -168,7 +168,7 @@ class PgpMimeIncomingMessage(IncomingMessage):
                     return
                 
             self.signedAndVerified = decryptedResult.valid
-            self.plainMessage = email.message_from_string(str(decryptedResult))
+            self.plainMessage = email.message_from_bytes(decryptedResult.data)
             
         else:
             self.encrypted = False
@@ -296,13 +296,13 @@ class PgpInlineIncomingMessage(IncomingMessage):
             fixed = True
         else:
             pgpMessageBeginPos = plainText.find("-----BEGIN PGP SIGNED MESSAGE-----")
-            pgpMessageEndPos = plainText.find("-----END PGP SIGNED MESSAGE-----")
+            pgpMessageEndPos = plainText.find("-----END PGP SIGNATURE-----")    # This is not a typo. A PGP signed message ends with the signature, there is no "END PGP SIGNED MESSAGE". 
             if pgpMessageBeginPos > 0 and pgpMessageEndPos != -1:
-                pgpMessageEndPos += len("-----END PGP SIGNED MESSAGE-----")
+                pgpMessageEndPos += len("-----END PGP SIGNATURE-----")
                 plainText = plainText[pgpMessageBeginPos:pgpMessageEndPos]
                 fixed = True
         if fixed:
-            logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a PGP header not in the beginning of its containing message part" % \
+            logging.warning("EmailSecCache: Inline PGP incoming message from %s (%s) has a PGP armored message not in the beginning of its containing message part" % \
                 (self.emailAddress, self.id))
             
         return plainText
