@@ -21,3 +21,10 @@ def removeFile(fileName):
         os.remove(fileName)
     except:
         logging.warning("EmailSecCache: Cannot remove file %s" % fileName, exc_info=True)
+
+def removeMimeVersion(msgPart):
+    del msgPart["MIME-Version"]
+
+def setMimeAttachmentFileName(mimeMsgPart, fileName):
+    mimeMsgPart.set_param("name", fileName)
+    mimeMsgPart.add_header("Content-Disposition", "attachment", filename=fileName)

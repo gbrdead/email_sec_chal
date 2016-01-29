@@ -144,6 +144,13 @@ class Pgp:
             self.correspondentFingerprints = importResult.fingerprints
             self.impostorGpg.import_keys(self.correspondentKey)
             
+    def getImpostorPublicKey(self):
+        for impostorFingerprint in self.impostorFingerprints:
+            impostorPublicKey = self.impostorGpg.export_keys(impostorFingerprint)
+            if impostorPublicKey:
+                return impostorPublicKey
+        raise email_sec_cache.PgpException("The public key of the impostor bot could not be exported.")
+            
 
     def verifyMessageWithDetachedSignature(self, msg, signature):
         binaryData = self.convertToBinary(msg)
@@ -169,11 +176,12 @@ class Pgp:
         encryptedMsg = email.mime.multipart.MIMEMultipart("encrypted", protocol="application/pgp-encrypted")
         
         pgpIdentification = email.mime.application.MIMEApplication("Version: 1\n", "pgp-encrypted", email.encoders.encode_7or8bit)
-        del pgpIdentification["MIME-Version"]
+        email_sec_cache.removeMimeVersion(pgpIdentification)
         encryptedMsg.attach(pgpIdentification)
         
         encryptedAsc = email.mime.application.MIMEApplication(str(encryptedData), "octet-stream", email.encoders.encode_7or8bit)
-        del encryptedAsc["MIME-Version"]
+        email_sec_cache.removeMimeVersion(encryptedAsc)
+        email_sec_cache.setMimeAttachmentFileName(encryptedAsc, "encrypted.asc")
         encryptedMsg.attach(encryptedAsc)
         
         return encryptedMsg
