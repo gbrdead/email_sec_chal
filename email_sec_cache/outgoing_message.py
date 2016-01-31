@@ -9,6 +9,7 @@ import email.mime.image
 import html2text
 import email.mime.application
 import email.encoders
+import email.utils
 
 
 
@@ -42,14 +43,18 @@ class OutgoingMessage:
         
     def close(self):
         self.pgp.close()
-        logging.debug("EmailSecCache: Closed outgoing message to %s" % self.incomingMsg.emailAddress )
+        logging.debug("EmailSecCache: Closed outgoing message to %s" % self.incomingMsg.emailAddress)
         
     def send(self, asImpostor):
         msg = self.construct(asImpostor)
         
-        smtpConn = smtplib.SMTP('localhost')
-        smtpConn.sendmail(email_sec_cache.Pgp.botFrom, self.incomingMsg.emailAddress, msg.as_string())
-        smtpConn.quit()
+        smtpClient = self.createSmtpClient()
+        _, from_ = email.utils.parseaddr(email_sec_cache.Pgp.botFrom)
+        smtpClient.sendmail(from_, self.incomingMsg.emailAddress, msg.as_string())
+        smtpClient.quit()
+        
+    def createSmtpClient(self):
+        return smtplib.SMTP('localhost')
         
     def construct(self, asImpostor):
         msg = self.constructUnencrypted(asImpostor)

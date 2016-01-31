@@ -7,9 +7,6 @@ import email.utils
 
 
 configDir = "/data/email_sec_cache"
-officialBotKeysFileName = "officialBot.asc"
-impostorBotKeysFileName = "impostorBot.asc"
-
 dataDir = "/data/email_sec_cache"
 tempDir = "/tmp/email_sec_cache"
 

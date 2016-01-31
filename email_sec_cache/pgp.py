@@ -40,11 +40,11 @@ class Pgp:
         if not os.access(email_sec_cache.tempDir, os.F_OK):
             os.makedirs(email_sec_cache.tempDir)
 
-        officialBotKeysFilePath = os.path.join(email_sec_cache.configDir, email_sec_cache.officialBotKeysFileName)
+        officialBotKeysFilePath = os.path.join(email_sec_cache.configDir, "officialBot.asc")
         with open(officialBotKeysFilePath, "r") as officialBotKeysFile:
             Pgp.officialBotKeys = officialBotKeysFile.read()
             
-        impostorBotKeysFilePath = os.path.join(email_sec_cache.configDir, email_sec_cache.impostorBotKeysFileName)
+        impostorBotKeysFilePath = os.path.join(email_sec_cache.configDir, "impostorBot.asc")
         with open(impostorBotKeysFilePath, "r") as impostorBotKeysFile:
             Pgp.impostorBotKeys = impostorBotKeysFile.read()
             

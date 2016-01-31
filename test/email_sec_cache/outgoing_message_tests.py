@@ -6,6 +6,8 @@ import tempfile
 import shutil
 import email
 import cgi
+import unittest.mock
+import smtplib
 
 
 
@@ -85,8 +87,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
 
 
     def testAsImpostorBot(self):
-        with email_sec_cache.OutgoingMessage(OutgoingMessageTests.incomingMsg) as outgoingMsg:
-            encryptedMsg = outgoingMsg.construct(True)
+        encryptedMsg = self.obtainTestMessage(True)
         encrypted = self.assertEncryptedMessageAndGetPayload(encryptedMsg)
         
         self.assertFalse(OutgoingMessageTests.officialBotGpg.decrypt(encrypted))
@@ -129,8 +130,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         self.assertEqual(OutgoingMessageTests.impostorPublicKey, impostorPublicKey)
     
     def testAsOfficialBot(self):
-        with email_sec_cache.OutgoingMessage(OutgoingMessageTests.incomingMsg) as outgoingMsg:
-            encryptedMsg = outgoingMsg.construct(False)
+        encryptedMsg = self.obtainTestMessage(False)
         encrypted = self.assertEncryptedMessageAndGetPayload(encryptedMsg)
         
         self.assertFalse(OutgoingMessageTests.impostorBotGpg.decrypt(encrypted))
@@ -144,7 +144,25 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         text = textMsgPart.get_payload(decode=True).decode(textMsgPart.get_content_charset())
         self.assertIn("Alabala", text)
         self.assertIn("Алабала", text)
+        
 
+    def obtainTestMessage(self, asImpostor):
+        with email_sec_cache.OutgoingMessage(OutgoingMessageTests.incomingMsg) as outgoingMsg:
+            smtpClient = smtplib.SMTP()
+            smtpClient.sendmail = unittest.mock.MagicMock()
+            smtpClient.quit = unittest.mock.MagicMock()
+            outgoingMsg.createSmtpClient = unittest.mock.MagicMock(return_value=smtpClient)
+            
+            outgoingMsg.send(asImpostor)
+            
+            self.assertEquals(1, smtpClient.sendmail.call_count)
+            self.assertEquals(1, smtpClient.quit.call_count)
+            
+            (from_addr, to_addrs, msg), _ = smtpClient.sendmail.call_args
+            self.assertEqual("gbr@voidland.voidland.org", from_addr)
+            self.assertTrue(["gbr@voidland.org"] == to_addrs or "gbr@voidland.org" == to_addrs)
+            
+            return email.message_from_string(msg) 
 
     def assertEncryptedMessageAndGetPayload(self, encryptedMsg):
         self.assertEqual(OutgoingMessageTests.incomingMsg.originalMessage["From"], encryptedMsg["To"])
