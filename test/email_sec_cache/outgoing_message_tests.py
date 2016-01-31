@@ -5,6 +5,7 @@ import email_sec_cache
 import tempfile
 import shutil
 import email
+import cgi
 
 
 
@@ -177,7 +178,10 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         spoilerPictureAttachment = decryptedMsg.get_payload(1)
         self.assertEqual("image/jpeg", spoilerPictureAttachment.get_content_type())
         self.assertEqual("spoiler.jpg", spoilerPictureAttachment.get_filename())
-        self.assertEqual("attachment", spoilerPictureAttachment.get_content_disposition())
+        contentDisposition = spoilerPictureAttachment["Content-Disposition"]
+        contentDispositionValue, _ = cgi.parse_header(contentDisposition)
+        self.assertEqual("attachment", contentDispositionValue)
+        
         spoilerFilePath = os.path.join(email_sec_cache.configDir, spoilerPictureFileName)
         with open(spoilerFilePath, "rb") as spoilerFile:
             expectedSpoilerPictureData = spoilerFile.read()    
