@@ -118,7 +118,11 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         impostorPublicKeyAttachment = decryptedMsg.get_payload(2)
         self.assertEqual("application/pgp-keys", impostorPublicKeyAttachment.get_content_type())
         self.assertEqual("public_key.asc", impostorPublicKeyAttachment.get_filename())
-        self.assertEqual("attachment", impostorPublicKeyAttachment.get_content_disposition())
+        
+        contentDisposition = impostorPublicKeyAttachment["Content-Disposition"]
+        contentDispositionValue, _ = cgi.parse_header(contentDisposition)
+        self.assertEqual("attachment", contentDispositionValue)
+        
         impostorPublicKeyAttachmentCharset = impostorPublicKeyAttachment.get_content_charset() or "ascii"
         impostorPublicKey = impostorPublicKeyAttachment.get_payload(decode=True).decode(impostorPublicKeyAttachmentCharset)
         impostorPublicKey = impostorPublicKey.replace("\r\n", "\n")
@@ -178,6 +182,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         spoilerPictureAttachment = decryptedMsg.get_payload(1)
         self.assertEqual("image/jpeg", spoilerPictureAttachment.get_content_type())
         self.assertEqual("spoiler.jpg", spoilerPictureAttachment.get_filename())
+        
         contentDisposition = spoilerPictureAttachment["Content-Disposition"]
         contentDispositionValue, _ = cgi.parse_header(contentDisposition)
         self.assertEqual("attachment", contentDispositionValue)
