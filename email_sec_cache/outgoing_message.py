@@ -32,7 +32,7 @@ class OutgoingMessage:
     
     def __init__(self, incomingMsg_):
         self.incomingMsg = incomingMsg_
-        self.pgp = email_sec_cache.Pgp(self.incomingMsg.emailAddress )
+        self.pgp = email_sec_cache.Pgp(self.incomingMsg.emailAddress)
         
     def __enter__(self):
         return self
@@ -46,17 +46,22 @@ class OutgoingMessage:
         
     def send(self, asImpostor):
         msg = self.construct(asImpostor)
-        msg = self.pgp.signAndEncrypt(msg, asImpostor)
-        
-        msg["To"] = self.incomingMsg.originalMessage["From"]
-        msg["From"] = email_sec_cache.Pgp.botFrom
-        msg["Subject"] = getReSubject(self.incomingMsg.originalMessage)
         
         smtpConn = smtplib.SMTP('localhost')
         smtpConn.sendmail(email_sec_cache.Pgp.botFrom, self.incomingMsg.emailAddress, msg.as_string())
         smtpConn.quit()
         
     def construct(self, asImpostor):
+        msg = self.constructUnencrypted(asImpostor)
+        msg = self.pgp.signAndEncrypt(msg, asImpostor)
+        
+        msg["To"] = self.incomingMsg.originalMessage["From"]
+        msg["From"] = email_sec_cache.Pgp.botFrom
+        msg["Subject"] = getReSubject(self.incomingMsg.originalMessage)
+        
+        return msg
+        
+    def constructUnencrypted(self, asImpostor):
         if asImpostor:
             filePrefix = "impostor"
         else:

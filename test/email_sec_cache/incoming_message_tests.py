@@ -10,24 +10,24 @@ import test.email_sec_cache
 class IncomingMessageTests(test.email_sec_cache.Tests):
     
     messagesDir = None
-    senderEmailAddress = None
-    correspondentPublicKeyFileName = None
+    correspondentEmailAddress = None
+    correspondentPublicKeyFilePath = None
     
     
     @classmethod
     def setUpClass(cls):
         test.email_sec_cache.Tests.setUpClass()
         
-        with open(IncomingMessageTests.correspondentPublicKeyFileName, "r") as correspondentPublicKeyFile:
-            correspondentKey = correspondentPublicKeyFile.read()
-            with email_sec_cache.Pgp(IncomingMessageTests.senderEmailAddress) as pgp:
-                pgp.loadCorrespondentKey(correspondentKey)
+        with open(IncomingMessageTests.correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:
+            correspondentPublicKey = correspondentPublicKeyFile.read()
+        with email_sec_cache.Pgp(IncomingMessageTests.correspondentEmailAddress) as pgp:
+            pgp.loadCorrespondentKey(correspondentPublicKey)
         
     @classmethod
     def tearDownClass(cls):
         IncomingMessageTests.messagesDir = None
-        IncomingMessageTests.senderEmailAddress = None
-        IncomingMessageTests.correspondentPublicKeyFileName = None
+        IncomingMessageTests.correspondentEmailAddress = None
+        IncomingMessageTests.correspondentPublicKeyFilePath = None
         
         test.email_sec_cache.Tests.tearDownClass()
     
@@ -44,8 +44,8 @@ class FormatIncomingMessageTests(IncomingMessageTests):
     @classmethod
     def setUpClass(cls):
         if IncomingMessageTests.messagesDir is None or \
-            IncomingMessageTests.senderEmailAddress is None or \
-            IncomingMessageTests.correspondentPublicKeyFileName is None:
+            IncomingMessageTests.correspondentEmailAddress is None or \
+            IncomingMessageTests.correspondentPublicKeyFilePath is None:
             raise unittest.SkipTest("Abstract test class skipped")
         
         IncomingMessageTests.setUpClass()
@@ -459,9 +459,9 @@ class EnigmailTests(FormatIncomingMessageTests):
              
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        IncomingMessageTests.correspondentEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFilePath = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
      
      
@@ -488,9 +488,9 @@ class MailvelopeTests(FormatIncomingMessageTests):
              
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = "gbrdead@gmail.com"
+        IncomingMessageTests.correspondentEmailAddress = "gbrdead@gmail.com"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mailvelope", "correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFilePath = os.path.join(moduleDir, "messages", "Mailvelope", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
      
      
@@ -508,9 +508,9 @@ class GpgOLTests(FormatIncomingMessageTests):
           
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        IncomingMessageTests.correspondentEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "GpgOL", "correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFilePath = os.path.join(moduleDir, "messages", "GpgOL", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
   
   
@@ -537,9 +537,9 @@ class GPGMailTests(FormatIncomingMessageTests):
             
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        IncomingMessageTests.correspondentEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "GPGMail", "correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFilePath = os.path.join(moduleDir, "messages", "GPGMail", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
     
     
@@ -557,9 +557,9 @@ class MuttTests(FormatIncomingMessageTests):
             
     @classmethod
     def setUpClass(cls):
-        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
+        IncomingMessageTests.correspondentEmailAddress = "gbr@voidland.org"
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Mutt", "correspondent_public_key.asc")
+        IncomingMessageTests.correspondentPublicKeyFilePath = os.path.join(moduleDir, "messages", "Mutt", "correspondent_public_key.asc")
         FormatIncomingMessageTests.setUpClass()
     
     
@@ -588,8 +588,8 @@ class MiscMessageTests(IncomingMessageTests):
     def setUpClass(cls):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         IncomingMessageTests.messagesDir = os.path.join(moduleDir, "messages")
-        IncomingMessageTests.senderEmailAddress = "gbr@voidland.org"
-        IncomingMessageTests.correspondentPublicKeyFileName = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
+        IncomingMessageTests.correspondentEmailAddress = "gbr@voidland.org"
+        IncomingMessageTests.correspondentPublicKeyFilePath = os.path.join(moduleDir, "messages", "Enigmail", "correspondent_public_key.asc")
         IncomingMessageTests.setUpClass()
 
 
