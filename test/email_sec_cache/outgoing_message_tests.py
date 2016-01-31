@@ -142,9 +142,9 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
 
 
     def assertEncryptedMessageAndGetPayload(self, encryptedMsg):
-        self.assertEquals(OutgoingMessageTests.incomingMsg.originalMessage["From"], encryptedMsg["To"])
-        self.assertEquals(OutgoingMessageTests.officialBotGpg.list_keys()[0]["uids"][0], encryptedMsg["From"])
-        self.assertEquals("Re: " + OutgoingMessageTests.incomingMsg.originalMessage["Subject"], encryptedMsg["Subject"])
+        self.assertEqual(OutgoingMessageTests.incomingMsg.originalMessage["From"], encryptedMsg["To"])
+        self.assertEqual(OutgoingMessageTests.officialBotGpg.list_keys()[0]["uids"][0], encryptedMsg["From"])
+        self.assertEqual("Re: " + OutgoingMessageTests.incomingMsg.originalMessage["Subject"], encryptedMsg["Subject"])
         
         self.assertEqual("multipart/encrypted", encryptedMsg.get_content_type())
         self.assertEqual("application/pgp-encrypted", encryptedMsg.get_param("protocol"))

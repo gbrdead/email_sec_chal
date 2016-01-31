@@ -96,13 +96,13 @@ class OutgoingMessage:
         if not os.access(htmlResponsePath, os.F_OK):
             
             plainTextResponsePath = os.path.join(email_sec_cache.configDir, filePrefix + ".txt")
-            with open(plainTextResponsePath, "r") as plainTextResponseFile:
+            with open(plainTextResponsePath, "r", encoding="utf-8") as plainTextResponseFile:
                 plainTextResponse = plainTextResponseFile.read()
             plainText = email.mime.text.MIMEText(plainTextResponse, "plain")
             email_sec_cache.removeMimeVersion(plainText)
             return plainText
             
-        with open(htmlResponsePath, "r") as htmlResponseFile:
+        with open(htmlResponsePath, "r", encoding="utf-8") as htmlResponseFile:
             htmlResponse = htmlResponseFile.read()
             
         h = html2text.HTML2Text()
