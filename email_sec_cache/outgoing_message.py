@@ -47,11 +47,10 @@ class OutgoingMessage:
         
     def send(self, asImpostor):
         msg = self.construct(asImpostor)
-        
-        smtpClient = self.createSmtpClient()
         _, from_ = email.utils.parseaddr(email_sec_cache.Pgp.botFrom)
-        smtpClient.sendmail(from_, self.incomingMsg.emailAddress, msg.as_string())
-        smtpClient.quit()
+        
+        with self.createSmtpClient() as smtpClient:
+            smtpClient.sendmail(from_, self.incomingMsg.emailAddress, msg.as_string())
         
     def createSmtpClient(self):
         return smtplib.SMTP('localhost')

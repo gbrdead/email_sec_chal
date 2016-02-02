@@ -3,7 +3,7 @@ import setuptools
 setuptools.setup(
     name = "email-sec-cache",
     description = "Email Security Cache",
-    version = "0.1.0",
+    version = "0.9.0",
     license="GPLv3+",
     
     author = "Vladimir Panov",

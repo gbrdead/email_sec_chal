@@ -7,7 +7,20 @@ import shutil
 import email
 import cgi
 import unittest.mock
-import smtplib
+
+
+
+class MockSMTP:
+    
+    def __init__(self):
+        self.sendmail = unittest.mock.MagicMock()
+        self.quit = unittest.mock.MagicMock()
+        
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        self.quit()
 
 
 
@@ -148,9 +161,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
 
     def obtainTestMessage(self, asImpostor):
         with email_sec_cache.OutgoingMessage(OutgoingMessageTests.incomingMsg) as outgoingMsg:
-            smtpClient = smtplib.SMTP()
-            smtpClient.sendmail = unittest.mock.MagicMock()
-            smtpClient.quit = unittest.mock.MagicMock()
+            smtpClient = MockSMTP()
             outgoingMsg.createSmtpClient = unittest.mock.MagicMock(return_value=smtpClient)
             
             outgoingMsg.send(asImpostor)
