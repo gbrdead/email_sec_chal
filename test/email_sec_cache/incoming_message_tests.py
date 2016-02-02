@@ -32,7 +32,7 @@ class IncomingMessageTests(test.email_sec_cache.Tests):
         test.email_sec_cache.Tests.tearDownClass()
     
     def readMessage(self, msgFileName):
-        msgFilePath = os.path.join(self.messagesDir, msgFileName + ".eml")
+        msgFilePath = os.path.join(IncomingMessageTests.messagesDir, msgFileName + ".eml")
         with open(msgFilePath, "rb") as f:
             emailMsg = email.message_from_binary_file(f)
             return email_sec_cache.IncomingMessage.create(emailMsg)

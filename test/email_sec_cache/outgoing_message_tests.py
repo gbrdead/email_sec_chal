@@ -155,8 +155,8 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
             
             outgoingMsg.send(asImpostor)
             
-            self.assertEquals(1, smtpClient.sendmail.call_count)
-            self.assertEquals(1, smtpClient.quit.call_count)
+            self.assertEqual(1, smtpClient.sendmail.call_count)
+            self.assertEqual(1, smtpClient.quit.call_count)
             
             (from_addr, to_addrs, msg), _ = smtpClient.sendmail.call_args
             self.assertEqual("gbr@voidland.voidland.org", from_addr)

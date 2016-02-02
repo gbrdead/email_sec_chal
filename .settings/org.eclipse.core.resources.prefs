@@ -8,5 +8,6 @@ encoding//email_sec_cache/outgoing_message.py=utf-8
 encoding//email_sec_cache/pgp.py=utf-8
 encoding//email_sec_cache/util.py=utf-8
 encoding//test/email_sec_cache/incoming_message_tests.py=utf-8
+encoding//test/email_sec_cache/mail_bot_tests.py=utf-8
 encoding//test/email_sec_cache/outgoing_message_tests.py=utf-8
 encoding//test/email_sec_cache/tests.py=utf-8

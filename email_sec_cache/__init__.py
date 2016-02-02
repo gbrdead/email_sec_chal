@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from email_sec_cache.mail_bot import configDir, dataDir, tempDir, geocacheName
+from .mail_bot import configDir, dataDir, tempDir, geocacheName, MailBot
 from .pgp import Pgp
 from .incoming_message import IncomingMessage
 from .outgoing_message import OutgoingMessage
