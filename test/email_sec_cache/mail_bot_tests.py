@@ -9,6 +9,11 @@ import collections
 
 
 
+def getOnlyElement(collection):
+    return next(iter(collection))
+
+
+
 class MockMailboxException(Exception):
     pass
 
@@ -19,13 +24,14 @@ class MockMailbox(mailbox.Mailbox):
     testMessages = None
     
     locked = False
-    lockedOnce = False
     lockingCorrect = True
+    runs = 0
     
 
-    def __init__(self, testMessagesAsList):
+    def __init__(self, testMessagesAsList, runs = 1):
         mailbox.Mailbox.__init__(self, email_sec_cache.tempDir)
         self.initTestMessages(testMessagesAsList)
+        self.runs = runs
         
     def initTestMessages(self, testMessagesAsList):
         self.testMessages = collections.OrderedDict()
@@ -48,16 +54,16 @@ class MockMailbox(mailbox.Mailbox):
 
     
     def lock(self):
-        if self.lockedOnce:
+        if self.runs == 0:
             raise MockMailboxException
         self.locked = True
-        self.lockedOnce = True
 
     def unlock(self):
         if not self.locked:
             self.lockingCorrect = False
             raise MockMailboxException
         self.locked = False
+        self.runs -= 1
 
 
 
@@ -87,11 +93,12 @@ class MockOutgoingMessage:
 
 class MailBotForTesting(email_sec_cache.MailBot):
     
-    mockReplies = []
+    mockReplies = None
     mockMbox = None
     
-    def __init__(self, incomingMessages):
-        self.mockMbox = MockMailbox(incomingMessages)
+    def __init__(self, incomingMessages, runs = 1):
+        self.mockReplies = []
+        self.mockMbox = MockMailbox(incomingMessages, runs)
         self.getMailbox = unittest.mock.MagicMock(return_value=self.mockMbox)
     
     def createReplyMessage(self, incomingMsg):
@@ -116,11 +123,7 @@ class MailBotTests(test.email_sec_cache.Tests):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         MailBotTests.messagesDir = os.path.join(moduleDir, "messages")
         
-        correspondentKeyFileNamePrefix = MailBotTests.correspondentEmailAddress + " (0x" + MailBotTests.correspondentKeyId + ")"
-        correspondentPublicKeyFileName = correspondentKeyFileNamePrefix + " pub.asc"
-        correspondentPublicKeyFilePath = os.path.join(email_sec_cache.configDir, correspondentPublicKeyFileName)
-        with open(correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:    
-            correspondentPublicKey = correspondentPublicKeyFile.read() 
+        correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)
         with email_sec_cache.Pgp(MailBotTests.correspondentEmailAddress) as pgp:
             pgp.loadCorrespondentKey(correspondentPublicKey)
         
@@ -142,6 +145,15 @@ class MailBotTests(test.email_sec_cache.Tests):
         with open(msgFilePath, "rb") as f:
             return email.message_from_binary_file(f)
         
+    def runMailBot(self, mailBot):
+        try:
+            mailBot.run()
+            self.fail("MailBot exited unexpectedly")
+        except MockMailboxException:
+            pass
+         
+        self.assertTrue(mailBot.mockMbox.lockingCorrect)
+        
     def assertOutgoingMessage(self, mockOutgoingMsg, incomingMsgId, asImpostor):
         self.assertTrue(mockOutgoingMsg.enteredOK)
         self.assertTrue(mockOutgoingMsg.exitedOK)
@@ -153,14 +165,72 @@ class MailBotTests(test.email_sec_cache.Tests):
     def testHappyPath(self):
         validRequestMsg = self.readMessage("validRequestForOfficialBot")
         validRequestMsgId = validRequestMsg["Message-ID"]
-        
+         
         mailBot = MailBotForTesting([validRequestMsg, validRequestMsg, validRequestMsg])
-        try:
-            mailBot.run()
-            self.fail("MailBot exited unexpectedly")
-        except MockMailboxException:
-            self.assertTrue(mailBot.mockMbox.lockingCorrect)
-            self.assertEqual(3, len(mailBot.mockReplies))
-            self.assertOutgoingMessage(mailBot.mockReplies[0], validRequestMsgId, True)
-            self.assertOutgoingMessage(mailBot.mockReplies[1], validRequestMsgId, False)
-            self.assertOutgoingMessage(mailBot.mockReplies[2], validRequestMsgId, False)
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(3, len(mailBot.mockReplies))
+        self.assertOutgoingMessage(mailBot.mockReplies[0], validRequestMsgId, True)
+        self.assertOutgoingMessage(mailBot.mockReplies[1], validRequestMsgId, False)
+        self.assertOutgoingMessage(mailBot.mockReplies[2], validRequestMsgId, False)
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))
+ 
+    def testMessageCausingException(self):
+        validRequestMsg = self.readMessage("validRequestForOfficialBot")
+        validRequestMsgId = validRequestMsg["Message-ID"]
+         
+        mailBot = MailBotForTesting([validRequestMsg], 2)
+        mailBot.createReplyMessage = unittest.mock.MagicMock(side_effect=Exception())
+        self.runMailBot(mailBot)
+         
+        msgInMockMbox = getOnlyElement(mailBot.mockMbox.testMessages.values())
+        msgInMockMboxId = msgInMockMbox["Message-ID"]
+        failedMsg = mailBot.mockMbox.testMessages[getOnlyElement(mailBot.failedMessagesKeys)]
+        failedMsgId = failedMsg["Message-ID"]
+ 
+        self.assertEqual(1, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(validRequestMsgId, msgInMockMboxId)
+        self.assertEqual(0, len(mailBot.mockReplies))
+        self.assertEqual(1, len(mailBot.failedMessagesKeys))
+        self.assertEqual(validRequestMsgId, failedMsgId)
+        self.assertEqual(1, mailBot.createReplyMessage.call_count)
+
+    def testEncryptedForImpostor(self):
+        validRequestForOfficialBotMsg = self.readMessage("validRequestForOfficialBot")
+        validRequestForOfficialBotMsgId = validRequestForOfficialBotMsg["Message-ID"]
+        validRequestForImpostorBotMsg = self.readMessage("validRequestForImpostorBot")
+        validRequestForImpostorBotMsgId = validRequestForImpostorBotMsg["Message-ID"]
+        
+        mailBot = MailBotForTesting([validRequestForOfficialBotMsg, validRequestForOfficialBotMsg, validRequestForImpostorBotMsg])
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(3, len(mailBot.mockReplies))
+        self.assertOutgoingMessage(mailBot.mockReplies[0], validRequestForOfficialBotMsgId, True)
+        self.assertOutgoingMessage(mailBot.mockReplies[1], validRequestForOfficialBotMsgId, False)
+        self.assertOutgoingMessage(mailBot.mockReplies[2], validRequestForImpostorBotMsgId, True)
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))
+
+    def testInvalidRequests(self):
+        messages = []
+        
+        invalidRequestsDir = os.path.join(MailBotTests.messagesDir, "Enigmail")
+        for root, _, files in os.walk(invalidRequestsDir):
+            for fileName in files:
+                fileExt = fileName[-len(".eml"):]
+                if fileExt.lower() != ".eml":
+                    continue
+                msgFilePath = os.path.join(root, fileName)
+                
+                with open(msgFilePath, "rb") as f:
+                    msg = email.message_from_binary_file(f)
+                    messages.append(msg)
+        self.assertLess(0, len(messages))
+        
+        mailBot = MailBotForTesting(messages)
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(0, len(mailBot.mockReplies))
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))

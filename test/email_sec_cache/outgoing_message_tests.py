@@ -47,21 +47,13 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         
         officialBotKeyFilePath = os.path.join(email_sec_cache.configDir, "officialBot.asc")
         impostorBotKeyFilePath = os.path.join(email_sec_cache.configDir, "impostorBot.asc")
-
-        correspondentKeyFileNamePrefix = OutgoingMessageTests.correspondentEmailAddress + " (0x" + OutgoingMessageTests.correspondentKeyId + ")"
-        correspondentPublicKeyFileName = correspondentKeyFileNamePrefix + " pub.asc"
-        correspondentPrivateKeyFileName = correspondentKeyFileNamePrefix + " sec.asc" 
-        correspondentPublicKeyFilePath = os.path.join(email_sec_cache.configDir, correspondentPublicKeyFileName)
-        correspondentPrivateKeyFilePath = os.path.join(email_sec_cache.configDir, correspondentPrivateKeyFileName)
-
         with open(officialBotKeyFilePath, "r") as officialBotKeyFile:
             officialBotKey = officialBotKeyFile.read() 
         with open(impostorBotKeyFilePath, "r") as impostorBotKeyFile:
             impostorBotKey = impostorBotKeyFile.read() 
-        with open(correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:    
-            correspondentPublicKey = correspondentPublicKeyFile.read() 
-        with open(correspondentPrivateKeyFilePath, "r") as correspondentPrivateKeyFile:    
-            correspondentPrivateKey = correspondentPrivateKeyFile.read()
+            
+        correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
+        correspondentPrivateKey = test.email_sec_cache.Tests.readPrivateKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
             
         with email_sec_cache.Pgp(OutgoingMessageTests.correspondentEmailAddress) as pgp:
             pgp.loadCorrespondentKey(correspondentPublicKey)

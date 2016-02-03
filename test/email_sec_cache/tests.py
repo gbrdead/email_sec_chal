@@ -50,18 +50,36 @@ class Tests(unittest.TestCase):
         shutil.rmtree(Tests.tempDir, ignore_errors=True)
         
         unittest.TestCase.tearDownClass()
+        
+    @staticmethod
+    def readKey(correspondentEmailAddress, correspondentKeyId, private):
+        correspondentKeyFileNamePrefix = correspondentEmailAddress + " (0x" + correspondentKeyId + ")"
+        correspondentPublicKeyFileName = correspondentKeyFileNamePrefix + " " + ("sec" if private else "pub") + ".asc"
+        correspondentPublicKeyFilePath = os.path.join(email_sec_cache.configDir, correspondentPublicKeyFileName)
+        with open(correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:    
+            return correspondentPublicKeyFile.read() 
+    
+    @staticmethod    
+    def readPublicKey(correspondentEmailAddress, correspondentKeyId):
+        return Tests.readKey(correspondentEmailAddress, correspondentKeyId, private=False)
+
+    @staticmethod
+    def readPrivateKey(correspondentEmailAddress, correspondentKeyId):
+        return Tests.readKey(correspondentEmailAddress, correspondentKeyId, private=True)
 
 
 
 class PgpTests(Tests):
+    
+    correspondentEmailAddress = "gbr@voidland.org" 
+    correspondentKeyId = "9011E1A9"
+    correspondentKeyAltId = "345933AF"
+    
         
     def testWrongKeyForEmailAddress(self):
-        moduleDir = os.path.dirname(os.path.abspath(__file__))
-        keysDir = os.path.join(moduleDir, "messages", "Enigmail")
-        with open(os.path.join(keysDir, "correspondent_public_key.asc"), "r") as correspondentKeyFile:
-            correspondentKey = correspondentKeyFile.read()
+        correspondentKey = Tests.readPublicKey(PgpTests.correspondentEmailAddress, PgpTests.correspondentKeyId)
             
-        emailAddress = "gbr_@voidland.org"
+        emailAddress = "a" + PgpTests.correspondentEmailAddress
         try:
             with email_sec_cache.Pgp(emailAddress) as pgp:
                 pgp.loadCorrespondentKey(correspondentKey)
@@ -70,19 +88,20 @@ class PgpTests(Tests):
             self.assertIn(("No correspondent key for email address %s found." % emailAddress), str(e))
              
     def testLoadNewCorrespondentKey(self):
-        moduleDir = os.path.dirname(os.path.abspath(__file__))
-        keysDir = os.path.join(moduleDir, "messages", "Enigmail")
-        with open(os.path.join(keysDir, "correspondent_public_key.asc"), "r") as correspondentKeyFile:
-            correspondentKey = correspondentKeyFile.read()
-        with open(os.path.join(keysDir, "correspondent_alt_public_key.asc"), "r") as correspondentKeyFile:
-            correspondentKeyAlt = correspondentKeyFile.read()
+        correspondentKey = Tests.readPublicKey(PgpTests.correspondentEmailAddress, PgpTests.correspondentKeyId)
+        correspondentKeyAlt = Tests.readPublicKey(PgpTests.correspondentEmailAddress, PgpTests.correspondentKeyAltId)
             
-        with email_sec_cache.Pgp("gbr@voidland.org") as pgp:
+        with email_sec_cache.Pgp(PgpTests.correspondentEmailAddress) as pgp:
             pgp.loadCorrespondentKey(correspondentKey)
             self.assertEqual(["44EDCA862A2D87BDB1D9C36B7FB049F79011E1A9"], pgp.correspondentFingerprints)
             pgp.loadCorrespondentKey(correspondentKeyAlt)
             self.assertEqual(["8D73455FF0373B363B719A35C97A6EF5345933AF"], pgp.correspondentFingerprints)
-
-
-if __name__ == "__main__":
-    unittest.main()
+            
+    def testLoadInvalidCorrespondentKey(self):
+        for garbageKey in ["", "garbage"]:
+            try:
+                with email_sec_cache.Pgp(PgpTests.correspondentEmailAddress) as pgp:
+                    pgp.loadCorrespondentKey(garbageKey)
+                self.fail()
+            except email_sec_cache.PgpException as e:
+                self.assertIn(("No correspondent key for email address %s found." % PgpTests.correspondentEmailAddress), str(e))
