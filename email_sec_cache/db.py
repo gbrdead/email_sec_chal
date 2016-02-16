@@ -12,6 +12,10 @@ class Db:
     
     
     @staticmethod
+    def createDbConnection():
+        return sqlite3.connect(os.path.join(email_sec_cache.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
+        
+    @staticmethod
     def staticInit():
         if Db.initialized:
             return
@@ -19,8 +23,8 @@ class Db:
         if not os.access(email_sec_cache.dataDir, os.F_OK):
             os.makedirs(email_sec_cache.dataDir)
 
-        Db.conn = sqlite3.connect(os.path.join(email_sec_cache.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
-        cursor = Db.conn.cursor()
+        conn = Db.createDbConnection()
+        cursor = conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS correspondents (
                 email_address TEXT PRIMARY KEY,
@@ -32,15 +36,23 @@ class Db:
 
     def __init__(self):
         Db.staticInit()
+        self.conn = Db.createDbConnection()
+        
+    def getCorrespondentsCount(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM correspondents")
+        return cursor.fetchone()[0]
         
     def correspondentExists(self, emailAddress):
-        cursor = Db.conn.cursor()
+        emailAddress = emailAddress.lower()
+        cursor = self.conn.cursor()
         cursor.execute("SELECT COUNT(*) FROM correspondents WHERE email_address = ?", (emailAddress, ))
         count = cursor.fetchone()[0]
         return count > 0
             
     def getCorrespondentKey(self, emailAddress):
-        cursor = Db.conn.cursor()
+        emailAddress = emailAddress.lower()
+        cursor = self.conn.cursor()
         cursor.execute("SELECT key FROM correspondents WHERE email_address = ?", (emailAddress, ))
         row = cursor.fetchone()
         if row is not None:
@@ -48,7 +60,8 @@ class Db:
         return None
     
     def setCorrespondentKey(self, emailAddress, key):
-        cursor = Db.conn.cursor()
+        emailAddress = emailAddress.lower()
+        cursor = self.conn.cursor()
         if not self.correspondentExists(emailAddress):
             if key is not None:
                 cursor.execute("INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (emailAddress, key))
@@ -58,7 +71,8 @@ class Db:
             logging.debug("EmailSecCache: Updated the correspondent key in the DB for %s" % emailAddress)
 
     def isRedHerringSent(self, emailAddress):
-        cursor = Db.conn.cursor()
+        emailAddress = emailAddress.lower()
+        cursor = self.conn.cursor()
         cursor.execute("SELECT red_herring_sent FROM correspondents WHERE email_address = ?", (emailAddress, ))
         row = cursor.fetchone()
         if row is not None:
@@ -66,7 +80,8 @@ class Db:
         return False
     
     def redHerringSent(self, emailAddress):
-        cursor = Db.conn.cursor()
+        emailAddress = emailAddress.lower()
+        cursor = self.conn.cursor()
         if not self.correspondentExists(emailAddress):
             cursor.execute("INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, 1))
         else:

@@ -6,14 +6,6 @@ import logging
 import email.utils
 
 
-configDir = "/data/email_sec_cache"
-dataDir = "/data/email_sec_cache"
-tempDir = "/tmp/email_sec_cache"
-
-geocacheName = "GC65Z29"
-logLevel = logging.INFO
-
-
 
 class MailBot:
     
@@ -92,11 +84,3 @@ class MailBot:
         return None
 
 
-if __name__ == "__main__":
-    logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logLevel)
-
-    try:
-        mailBot = MailBot()
-        mailBot.run()
-    except:
-        logging.exception("Mailbot stopped with an exception")

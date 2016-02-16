@@ -20,8 +20,7 @@ class IncomingMessageTests(test.email_sec_cache.Tests):
         
         with open(IncomingMessageTests.correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:
             correspondentPublicKey = correspondentPublicKeyFile.read()
-        with email_sec_cache.Pgp(IncomingMessageTests.correspondentEmailAddress) as pgp:
-            pgp.loadCorrespondentKey(correspondentPublicKey)
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
         
     @classmethod
     def tearDownClass(cls):
@@ -625,6 +624,13 @@ class MiscMessageTests(IncomingMessageTests):
         self.assertIn("Алабала", words)
         
         return words
+
+
+    def testNonLowercaseSenderAddress(self):
+        incomingMsg = self.readMessage("non_lowercase_sender_address")
+        msgParts = incomingMsg.getMessageParts()
+        for msgPart in msgParts:
+            self.assertTrue(msgPart.signedAndVerified)
         
 
 

@@ -45,8 +45,8 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
     def setUpClass(cls):
         test.email_sec_cache.Tests.setUpClass()
         
-        officialBotKeyFilePath = os.path.join(email_sec_cache.configDir, "officialBot.asc")
-        impostorBotKeyFilePath = os.path.join(email_sec_cache.configDir, "impostorBot.asc")
+        officialBotKeyFilePath = os.path.join(email_sec_cache.resourceDir, "officialBot.asc")
+        impostorBotKeyFilePath = os.path.join(email_sec_cache.resourceDir, "impostorBot.asc")
         with open(officialBotKeyFilePath, "r") as officialBotKeyFile:
             officialBotKey = officialBotKeyFile.read() 
         with open(impostorBotKeyFilePath, "r") as impostorBotKeyFile:
@@ -55,8 +55,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
         correspondentPrivateKey = test.email_sec_cache.Tests.readPrivateKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
             
-        with email_sec_cache.Pgp(OutgoingMessageTests.correspondentEmailAddress) as pgp:
-            pgp.loadCorrespondentKey(correspondentPublicKey)
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
             
         OutgoingMessageTests.officialBotGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
         OutgoingMessageTests.impostorBotGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
@@ -208,7 +207,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         contentDispositionValue, _ = cgi.parse_header(contentDisposition)
         self.assertEqual("attachment", contentDispositionValue)
         
-        spoilerFilePath = os.path.join(email_sec_cache.configDir, spoilerPictureFileName)
+        spoilerFilePath = os.path.join(email_sec_cache.resourceDir, spoilerPictureFileName)
         with open(spoilerFilePath, "rb") as spoilerFile:
             expectedSpoilerPictureData = spoilerFile.read()    
         self.assertEqual(expectedSpoilerPictureData, spoilerPictureAttachment.get_payload(decode=True))

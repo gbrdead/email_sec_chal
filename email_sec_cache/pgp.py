@@ -10,6 +10,7 @@ import gnupg
 import email.mime.multipart
 import email.mime.application
 import email.encoders
+import email.utils
 
 
 
@@ -19,6 +20,8 @@ class Pgp:
     officialBotKeys = None
     impostorBotKeys = None
     botFrom = None
+    botEmailAddress = None
+    officialBotKeysFilePath = None
 
     db = None
     emailAddress = None
@@ -40,15 +43,16 @@ class Pgp:
         if not os.access(email_sec_cache.tempDir, os.F_OK):
             os.makedirs(email_sec_cache.tempDir)
 
-        officialBotKeysFilePath = os.path.join(email_sec_cache.configDir, "officialBot.asc")
-        with open(officialBotKeysFilePath, "r") as officialBotKeysFile:
+        Pgp.officialBotKeysFilePath = os.path.join(email_sec_cache.resourceDir, "officialBot.asc")
+        with open(Pgp.officialBotKeysFilePath, "r") as officialBotKeysFile:
             Pgp.officialBotKeys = officialBotKeysFile.read()
             
-        impostorBotKeysFilePath = os.path.join(email_sec_cache.configDir, "impostorBot.asc")
+        impostorBotKeysFilePath = os.path.join(email_sec_cache.resourceDir, "impostorBot.asc")
         with open(impostorBotKeysFilePath, "r") as impostorBotKeysFile:
             Pgp.impostorBotKeys = impostorBotKeysFile.read()
             
-        Pgp.botFrom = Pgp.getBotFromHeaderValue(Pgp.officialBotKeys)
+        Pgp.botFrom = Pgp.getBotFromHeaderValue()
+        _, Pgp.botEmailAddress = email.utils.parseaddr(Pgp.botFrom)
 
         logging.debug("EmailSecCache: Pgp static initialization successful")
         Pgp.initialized = True
@@ -57,27 +61,59 @@ class Pgp:
     def createGpg(gnupgHomeDir):
         return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
     
-    @staticmethod    
-    def getBotFromHeaderValue(botKeys):
+    @staticmethod
+    def createTempGpg():
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
         gpg = Pgp.createGpg(gnupgHomeDir)
-        gpg.import_keys(botKeys)
-        botFrom = gpg.list_keys(secret = True)[0]["uids"][0] 
-        shutil.rmtree(gnupgHomeDir, ignore_errors=True)
+        return gpg, gnupgHomeDir
+    
+    @staticmethod    
+    def getBotFromHeaderValue():
+        gpg, gnupgHomeDir = Pgp.createTempGpg()
+        try:
+            gpg.import_keys(Pgp.officialBotKeys)
+            botFrom = gpg.list_keys(secret = True)[0]["uids"][0]
+        finally:
+            shutil.rmtree(gnupgHomeDir, ignore_errors=True)
+        
         logging.info("EmailSecCache: The value for the bot From header is: " + botFrom)
         return botFrom
+
+    @staticmethod    
+    def storeCorrespondentKey(correspondentKey):
+        gpg, gnupgHomeDir = Pgp.createTempGpg()
+        try:
+            tmpFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
+            try:
+                tmpFile.write(correspondentKey)
+                tmpFile.close()
+                keys = gpg.scan_keys(tmpFile.name)
+            finally:
+                email_sec_cache.removeFile(tmpFile.name)
+        finally:
+            shutil.rmtree(gnupgHomeDir, ignore_errors=True)
+            
+        emailAddresses = []
+        db = email_sec_cache.Db()
+        for key in keys:
+            for uid in key["uids"]:
+                _, emailAddress = email.utils.parseaddr(uid)
+                emailAddresses.append(emailAddress)
+                db.setCorrespondentKey(emailAddress, correspondentKey)
+                
+        return emailAddresses
     
-    
-    def __init__(self, emailAddress):
+    def __init__(self, emailAddress_=""):
         Pgp.staticInit()
         
         self.db = email_sec_cache.Db()
-        self.emailAddress = emailAddress
+        self.emailAddress = emailAddress_
         logging.debug("EmailSecCache: Creating a Pgp instance for %s" % self.emailAddress)
         
         self.officialGnupgHomeDir, self.officialGpg, self.officialFingerprints = self.initBotGpg("official", Pgp.officialBotKeys)
         self.impostorGnupgHomeDir, self.impostorGpg, self.impostorFingerprints = self.initBotGpg("impostor", Pgp.impostorBotKeys)
-        self.loadCorrespondentKeyFromDb()
+        if self.emailAddress:
+            self.loadCorrespondentKeyFromDb()
     
     def initBotGpg(self, botName, botKeys):
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir, prefix = self.emailAddress + "_" + botName + "_")
@@ -111,29 +147,6 @@ class Pgp:
             logging.warning("EmailSecCache: No correspondent key in DB for %s" % self.emailAddress)
         self.importPublicKey()
         
-    def loadCorrespondentKey(self, correspondentKey_):
-        tmpFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
-        tmpFile.write(correspondentKey_)
-        tmpFile.close()
-        keys = self.officialGpg.scan_keys(tmpFile.name)
-        email_sec_cache.removeFile(tmpFile.name)
-        
-        expectedUid = ("<" + self.emailAddress + ">").lower()
-        suitable = False
-        for key in keys:
-            for uid in key["uids"]:
-                if uid.lower().endswith(expectedUid):
-                    suitable = True
-                    break
-            if suitable:
-                break
-        if not suitable:
-            raise email_sec_cache.PgpException("No correspondent key for email address %s found." % self.emailAddress)
-        
-        self.correspondentKey = correspondentKey_
-        self.db.setCorrespondentKey(self.emailAddress, self.correspondentKey)
-        self.importPublicKey()
-        
     def importPublicKey(self):
         if self.correspondentFingerprints is not None:
             self.officialGpg.delete_keys(self.correspondentFingerprints)
@@ -144,12 +157,18 @@ class Pgp:
             self.correspondentFingerprints = importResult.fingerprints
             self.impostorGpg.import_keys(self.correspondentKey)
             
+    def getBotPublicKey(self, fingerprints, gpg, botName):
+        for fingerprint in fingerprints:
+            publicKey = gpg.export_keys(fingerprint)
+            if publicKey:
+                return publicKey
+        raise email_sec_cache.PgpException("The public key of the %s bot could not be exported." % botName)
+    
+    def getOfficialPublicKey(self):
+        return self.getBotPublicKey(self.officialFingerprints, self.officialGpg, "official")
+
     def getImpostorPublicKey(self):
-        for impostorFingerprint in self.impostorFingerprints:
-            impostorPublicKey = self.impostorGpg.export_keys(impostorFingerprint)
-            if impostorPublicKey:
-                return impostorPublicKey
-        raise email_sec_cache.PgpException("The public key of the impostor bot could not be exported.")
+        return self.getBotPublicKey(self.impostorFingerprints, self.impostorGpg, "impostor")
             
 
     def verifyMessageWithDetachedSignature(self, msg, signature):

@@ -124,8 +124,9 @@ class MailBotTests(test.email_sec_cache.Tests):
         MailBotTests.messagesDir = os.path.join(moduleDir, "messages")
         
         correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)
-        with email_sec_cache.Pgp(MailBotTests.correspondentEmailAddress) as pgp:
-            pgp.loadCorrespondentKey(correspondentPublicKey)
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
+        
+        email_sec_cache.geocacheName = "GC65Z29"
         
     @classmethod
     def tearDownClass(cls):
@@ -133,8 +134,8 @@ class MailBotTests(test.email_sec_cache.Tests):
         
     def setUp(self):
         test.email_sec_cache.Tests.setUp(self)
-        
-        cursor = email_sec_cache.Db.conn.cursor()
+        db = email_sec_cache.Db()
+        cursor = db.conn.cursor()
         cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (0, MailBotTests.correspondentEmailAddress))
 
     def tearDown(self):

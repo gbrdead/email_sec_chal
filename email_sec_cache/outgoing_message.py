@@ -96,10 +96,10 @@ class OutgoingMessage:
         return msg
 
     def constructTextMessagePart(self, filePrefix):
-        htmlResponsePath = os.path.join(email_sec_cache.configDir, filePrefix + ".html")
+        htmlResponsePath = os.path.join(email_sec_cache.resourceDir, filePrefix + ".html")
         if not os.access(htmlResponsePath, os.F_OK):
             
-            plainTextResponsePath = os.path.join(email_sec_cache.configDir, filePrefix + ".txt")
+            plainTextResponsePath = os.path.join(email_sec_cache.resourceDir, filePrefix + ".txt")
             with open(plainTextResponsePath, "r", encoding="utf-8") as plainTextResponseFile:
                 plainTextResponse = plainTextResponseFile.read()
             plainText = email.mime.text.MIMEText(plainTextResponse, "plain")
@@ -125,7 +125,7 @@ class OutgoingMessage:
         return multipartAlt
     
     def constructSpoilerMessagePart(self, filePrefix):
-        spoilerPicturePath = os.path.join(email_sec_cache.configDir, filePrefix + "Spoiler.jpg")
+        spoilerPicturePath = os.path.join(email_sec_cache.resourceDir, filePrefix + "Spoiler.jpg")
         with open(spoilerPicturePath, "rb") as spoilerPictureFile:
             spoilerPicture = spoilerPictureFile.read()
         spoilerPictureAttachment = email.mime.image.MIMEImage(spoilerPicture)

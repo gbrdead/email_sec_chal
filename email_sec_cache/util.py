@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
-import os
 import logging
+import os.path
 
 
 wordRe = re.compile("\w+")
@@ -28,3 +28,14 @@ def removeMimeVersion(msgPart):
 def setMimeAttachmentFileName(mimeMsgPart, fileName):
     mimeMsgPart.set_param("name", fileName)
     mimeMsgPart.add_header("Content-Disposition", "attachment", filename=fileName)
+
+
+def isPathPrefix(path, prefixPath):
+    prefixPath = os.path.abspath(prefixPath)
+    prefixPath = os.path.normcase(prefixPath)
+    prefixPath = os.path.join(prefixPath, "") # Ensures that the path ends with a slash.
+    
+    path = os.path.abspath(path)
+    path = os.path.normcase(path)
+    
+    return path.startswith(prefixPath)

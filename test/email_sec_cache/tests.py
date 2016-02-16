@@ -23,17 +23,18 @@ class Tests(unittest.TestCase):
         logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=logging.ERROR)
         
         moduleDir = os.path.dirname(os.path.abspath(__file__))
-        configDir = os.path.join(moduleDir, "config")
+        resourceDir = os.path.join(moduleDir, "config")
         
-        if not os.access(email_sec_cache.tempDir, os.F_OK):
-            os.makedirs(email_sec_cache.tempDir)
-        Tests.tempDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
+        tempDir = "/tmp/email_sec_cache" 
+        if not os.access(tempDir, os.F_OK):
+            os.makedirs(tempDir)
+        Tests.tempDir = tempfile.mkdtemp(dir = tempDir)
         
-        Tests.saveConfigDir = email_sec_cache.configDir
+        Tests.saveConfigDir = email_sec_cache.resourceDir
         Tests.saveDataDir = email_sec_cache.dataDir
         Tests.saveTempDir = email_sec_cache.tempDir 
         
-        email_sec_cache.configDir = configDir 
+        email_sec_cache.resourceDir = resourceDir 
         email_sec_cache.dataDir = Tests.tempDir
         email_sec_cache.tempDir = Tests.tempDir
         email_sec_cache.Db.initialized = False
@@ -41,7 +42,7 @@ class Tests(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        email_sec_cache.configDir = Tests.saveConfigDir 
+        email_sec_cache.resourceDir = Tests.saveConfigDir 
         email_sec_cache.dataDir = Tests.saveDataDir
         email_sec_cache.tempDir = Tests.saveTempDir  
         email_sec_cache.Db.initialized = False
@@ -55,7 +56,7 @@ class Tests(unittest.TestCase):
     def readKey(correspondentEmailAddress, correspondentKeyId, private):
         correspondentKeyFileNamePrefix = correspondentEmailAddress + " (0x" + correspondentKeyId + ")"
         correspondentPublicKeyFileName = correspondentKeyFileNamePrefix + " " + ("sec" if private else "pub") + ".asc"
-        correspondentPublicKeyFilePath = os.path.join(email_sec_cache.configDir, correspondentPublicKeyFileName)
+        correspondentPublicKeyFilePath = os.path.join(email_sec_cache.resourceDir, correspondentPublicKeyFileName)
         with open(correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:    
             return correspondentPublicKeyFile.read() 
     
@@ -76,32 +77,22 @@ class PgpTests(Tests):
     correspondentKeyAltId = "345933AF"
     
         
-    def testWrongKeyForEmailAddress(self):
-        correspondentKey = Tests.readPublicKey(PgpTests.correspondentEmailAddress, PgpTests.correspondentKeyId)
-            
-        emailAddress = "a" + PgpTests.correspondentEmailAddress
-        try:
-            with email_sec_cache.Pgp(emailAddress) as pgp:
-                pgp.loadCorrespondentKey(correspondentKey)
-            self.fail()
-        except email_sec_cache.PgpException as e:
-            self.assertIn(("No correspondent key for email address %s found." % emailAddress), str(e))
-             
-    def testLoadNewCorrespondentKey(self):
+    def testStoreNewCorrespondentKey(self):
         correspondentKey = Tests.readPublicKey(PgpTests.correspondentEmailAddress, PgpTests.correspondentKeyId)
         correspondentKeyAlt = Tests.readPublicKey(PgpTests.correspondentEmailAddress, PgpTests.correspondentKeyAltId)
-            
+        
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
         with email_sec_cache.Pgp(PgpTests.correspondentEmailAddress) as pgp:
-            pgp.loadCorrespondentKey(correspondentKey)
             self.assertEqual(["44EDCA862A2D87BDB1D9C36B7FB049F79011E1A9"], pgp.correspondentFingerprints)
-            pgp.loadCorrespondentKey(correspondentKeyAlt)
+
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentKeyAlt)
+        with email_sec_cache.Pgp(PgpTests.correspondentEmailAddress) as pgp:
             self.assertEqual(["8D73455FF0373B363B719A35C97A6EF5345933AF"], pgp.correspondentFingerprints)
             
-    def testLoadInvalidCorrespondentKey(self):
+    def testLoadInvalidCorrespondentKeys(self):
+        db = email_sec_cache.Db()
+        initialCorrespondentsCount = db.getCorrespondentsCount()
         for garbageKey in ["", "garbage"]:
-            try:
-                with email_sec_cache.Pgp(PgpTests.correspondentEmailAddress) as pgp:
-                    pgp.loadCorrespondentKey(garbageKey)
-                self.fail()
-            except email_sec_cache.PgpException as e:
-                self.assertIn(("No correspondent key for email address %s found." % PgpTests.correspondentEmailAddress), str(e))
+            emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(garbageKey)
+            self.assertListEqual([], emailAddresses)
+            self.assertEqual(initialCorrespondentsCount, db.getCorrespondentsCount())
