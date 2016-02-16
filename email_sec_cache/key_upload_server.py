@@ -13,19 +13,30 @@ import urllib.parse
 
 
 
-class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
+class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     
+    rootFSPath = None
+    officialBotPublicKeyVirtualFilePath = None
+
     officialBotPublicKey = None
-    officialBotPublicKeyFileName = None
     officialBotPublicKeyFileTime = None
     
     
     @staticmethod
     def staticInit():
+        rootFSPath = os.path.join(email_sec_cache.resourceDir, "html")
+        rootFSPath = os.path.normpath(rootFSPath)
+        KeyUploadRequestHandler.rootFSPath = os.path.normcase(rootFSPath)
+        logging.debug("EmailSecCache: key_upload_server: The root file system path is: %s" % KeyUploadRequestHandler.rootFSPath)
+        
         pgp = email_sec_cache.Pgp()
-        HTTPRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
-        HTTPRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_cache.Pgp.officialBotKeysFilePath).st_mtime
-        HTTPRequestHandler.officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc"
+        KeyUploadRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
+        KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_cache.Pgp.officialBotKeysFilePath).st_mtime
+        officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc"
+        logging.debug("EmailSecCache: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
+        KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath = os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName)
+        
+        logging.debug("EmailSecCache: key_upload_server: Static initialization successful")
     
     def do_HEAD(self):
         f = self.sendHead()
@@ -64,15 +75,16 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         return io.BytesIO(contentAsBytes)
     
     def getGetResponse(self):
-        if self.getPathComponents() == [HTTPRequestHandler.officialBotPublicKeyFileName]:
-            return \
-                HTTPRequestHandler.officialBotPublicKey, \
-                HTTPRequestHandler.officialBotPublicKeyFileName, \
-                HTTPRequestHandler.officialBotPublicKeyFileTime
-
         fsPath = self.getFSPath()
         if fsPath is None:
             return None, None, None
+        
+        if fsPath == KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath:
+            return \
+                KeyUploadRequestHandler.officialBotPublicKey, \
+                KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath, \
+                KeyUploadRequestHandler.officialBotPublicKeyFileTime
+        
         try:
             with open(fsPath, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -80,24 +92,28 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
                 modTime = statInfo.st_mtime
             return content, fsPath, modTime
         except OSError:
+            logging.debug("EmailSecCache: key_upload_server: Cannot read file: %s" % fsPath, exc_info=True)
             return None, None, None
-    
-    def getRootFSPath(self):
-        return os.path.join(email_sec_cache.resourceDir, "html")
     
     def getPathComponents(self):
         path = self.path
+        logging.debug("EmailSecCache: key_upload_server: Request path: %s" % path)
         path = path.split('?',1)[0]
         path = path.split('#',1)[0]
+        logging.debug("EmailSecCache: key_upload_server: Request path after the removal of query parameters and anchors: %s" % path)
         try:
             path = urllib.parse.unquote(path, errors="surrogatepass")
         except UnicodeDecodeError:
             path = urllib.parse.unquote(path)
+        logging.debug("EmailSecCache: key_upload_server: Request path after unquoting: %s" % path)
         
         pathComponents = path.split("/")
-        if ".." in pathComponents:
-            return None
+        logging.debug("EmailSecCache: key_upload_server: Request path components: %s" % pathComponents)
         pathComponents = list(filter(None, pathComponents))
+        logging.debug("EmailSecCache: key_upload_server: Request path components after the removal of emtpy ones: %s" % pathComponents)
+        if ".." in pathComponents:
+            logging.warning("EmailSecCache: key_upload_server: Request path traversal attempt")
+            return None
         return pathComponents
     
     def getFSPath(self):
@@ -105,9 +121,12 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         if pathComponents is None:
             return None
         
-        rootFSPath = self.getRootFSPath()
-        fsPath = os.path.join(rootFSPath, *pathComponents)
-        if not email_sec_cache.isPathPrefix(fsPath, rootFSPath):
+        fsPath = os.path.join(KeyUploadRequestHandler.rootFSPath, *pathComponents)
+        fsPath = os.path.normpath(fsPath)
+        fsPath = os.path.normcase(fsPath)
+        logging.debug("EmailSecCache: key_upload_server: Normalized file system path: %s" % fsPath)
+        if not email_sec_cache.isPathPrefix(fsPath, KeyUploadRequestHandler.rootFSPath):
+            logging.warning("EmailSecCache: key_upload_server: Attempt to access a file outside the root dir")
             return None
         return fsPath
     
@@ -123,6 +142,8 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
             contentType, contentEncoding = mimetypes.guess_type(fsPath)
             if contentType is None:
                 contentType = "application/octet-stream"
+                
+        logging.debug("EmailSecCache: key_upload_server: Path: %s; Content-Type: %s, Content-Encoding: %s" % (fsPath, contentType, contentEncoding))
         return contentType, contentEncoding
         
         
@@ -130,6 +151,7 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         contentType = self.headers["Content-Type"]
         contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
         if contentTypeValue != "multipart/form-data" or "boundary" not in contentTypeParameters:
+            logging.warning("EmailSecCache: key_upload_server: Invalid POST Content-Type: %s" % contentType)
             self.send_error(http.HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
         contentTypeParameters["boundary"] = bytes(contentTypeParameters["boundary"], "ascii")
         uploaded = cgi.parse_multipart(self.rfile, contentTypeParameters)
@@ -148,10 +170,10 @@ class HTTPRequestHandler(http.server.BaseHTTPRequestHandler):
         
 
 def startKeyUploadServer():
-    HTTPRequestHandler.staticInit()
-    httpd = socketserver.TCPServer(("", email_sec_cache.keyUploadServerPort), HTTPRequestHandler, bind_and_activate=False)
+    KeyUploadRequestHandler.staticInit()
+    httpd = socketserver.TCPServer(("", email_sec_cache.keyUploadServerPort), KeyUploadRequestHandler, bind_and_activate=False)
     httpd.allow_reuse_address = True
     httpd.server_bind()
     httpd.server_activate()
-    logging.info("EmailSecCache: Key upload server started")
+    logging.info("EmailSecCache: key_upload_server: Successfully started")
     threading.Thread(target = httpd.serve_forever).start()

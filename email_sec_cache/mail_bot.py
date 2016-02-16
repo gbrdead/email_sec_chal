@@ -22,7 +22,7 @@ class MailBot:
         self.db = email_sec_cache.Db()
         self.failedMessagesKeys = set()
 
-        logging.info("EmailSecCache: Mailbot started")
+        logging.info("EmailSecCache: mail_bot: Successfully started")
         
         while True:
             time.sleep(1)
@@ -31,7 +31,7 @@ class MailBot:
             try:
                 for msgKey in self.mbox.iterkeys():
                     if msgKey in self.failedMessagesKeys:
-                        logging.debug("EmailSecCache: Skipping previously failed message with key %s" % msgKey)
+                        logging.debug("EmailSecCache: mail_bot: Skipping previously failed message with key %s" % msgKey)
                         continue
                     
                     try:
@@ -43,14 +43,14 @@ class MailBot:
                         with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
                             msgPart = self.findValidMessagePart(incomingMsg, emailAddress, msgId)
                             if msgPart is not None:
-                                logging.info("EmailSecCache: Received a valid request from %s (%s)" % (emailAddress, msgId))
+                                logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (emailAddress, msgId))
                                 impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(emailAddress)
                                 self.reply(impostorShouldReply, incomingMsg, emailAddress, msgId)
                                     
                         self.mbox.discard(msgKey)
                         
                     except Exception:
-                        logging.exception("Failed processing message %s" % msgKey)
+                        logging.exception("EmailSecCache: mail_bot: Failed processing message %s" % msgKey)
                         self.failedMessagesKeys.add(msgKey)
                         
             finally:            
@@ -60,10 +60,10 @@ class MailBot:
         with self.createReplyMessage(incomingMsg) as replyMsg:
             replyMsg.send(asImpostor)
             if asImpostor:
-                logging.info("EmailSecCache: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
+                logging.info("EmailSecCache: mail_bot: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
                 self.db.redHerringSent(emailAddress)
             else:
-                logging.info("EmailSecCache: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
+                logging.info("EmailSecCache: mail_bot: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
                 
     def createReplyMessage(self, incomingMsg):
         return email_sec_cache.OutgoingMessage(incomingMsg)
@@ -71,14 +71,14 @@ class MailBot:
     def findValidMessagePart(self, incomingMsg, emailAddress, msgId):
         for msgPart in incomingMsg.getMessageParts():
             if not msgPart.encrypted:
-                logging.warning("EmailSecCache: Ignoring unencrypted message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                logging.warning("EmailSecCache: mail_bot: Ignoring unencrypted message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             if not msgPart.signedAndVerified:
-                logging.warning("EmailSecCache: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                logging.warning("EmailSecCache: mail_bot: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             words = email_sec_cache.extractWords(msgPart.getPlainText())
             if not str.upper(email_sec_cache.geocacheName) in list(map(str.upper, words)):
-                logging.warning("EmailSecCache: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                logging.warning("EmailSecCache: mail_bot: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             return msgPart
         return None

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .mail_bot import MailBot
-from .main import resourceDir, dataDir, tempDir, geocacheName, keyUploadServerPort, logLevel
+from .main import resourceDir, dataDir, tempDir, geocacheName, keyUploadServerPort, logLevel, smtpServerHost
 from .pgp import Pgp
 from .incoming_message import IncomingMessage
 from .outgoing_message import OutgoingMessage

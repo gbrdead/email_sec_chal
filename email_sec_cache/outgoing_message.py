@@ -43,7 +43,7 @@ class OutgoingMessage:
         
     def close(self):
         self.pgp.close()
-        logging.debug("EmailSecCache: Closed outgoing message to %s" % self.incomingMsg.emailAddress)
+        logging.debug("EmailSecCache: outgoing_message: Closed message to %s" % self.incomingMsg.emailAddress)
         
     def send(self, asImpostor):
         msg = self.construct(asImpostor)
@@ -51,13 +51,18 @@ class OutgoingMessage:
         
         with self.createSmtpClient() as smtpClient:
             smtpClient.sendmail(from_, self.incomingMsg.emailAddress, msg.as_string())
+            logging.debug("EmailSecCache: outgoing_message: Successfully sent message to %s" % self.incomingMsg.emailAddress)
         
     def createSmtpClient(self):
-        return smtplib.SMTP('localhost')
+        smtpClient = smtplib.SMTP(email_sec_cache.smtpServerHost)
+        logging.debug("EmailSecCache: outgoing_message: Successfully connected to SMTP server at %s" % email_sec_cache.smtpServerHost)
+        return smtpClient
         
     def construct(self, asImpostor):
         msg = self.constructUnencrypted(asImpostor)
+        logging.debug("EmailSecCache: outgoing_message: Unencrypted message to % successfully created" % self.incomingMsg.emailAddress)
         msg = self.pgp.signAndEncrypt(msg, asImpostor)
+        logging.debug("EmailSecCache: outgoing_message: Message to % successfully signed and encrypted" % self.incomingMsg.emailAddress)
         
         msg["To"] = self.incomingMsg.originalMessage["From"]
         msg["From"] = email_sec_cache.Pgp.botFrom
@@ -76,9 +81,11 @@ class OutgoingMessage:
         
         text = self.constructTextMessagePart(filePrefix)
         msg.attach(text)
+        logging.debug("EmailSecCache: outgoing_message: Text attached")
         
         spoilerPictureAttachment = self.constructSpoilerMessagePart(filePrefix)
         msg.attach(spoilerPictureAttachment)
+        logging.debug("EmailSecCache: outgoing_message: Spoiler picture attached")
         
         if asImpostor:
             impostorPublicKey = self.pgp.getImpostorPublicKey()
@@ -87,11 +94,13 @@ class OutgoingMessage:
             email_sec_cache.setMimeAttachmentFileName(impostorPublicKeyAttachment, "public_key.asc")
             msg.attach(impostorPublicKeyAttachment)
 
-            # A workaround for a bug in Enigmail 1.8.2 (fixed in 1.9):
+            logging.debug("EmailSecCache: outgoing_message: Applying Enigmail pre-1.9 workaround")
             msg.as_string()
             boundary = msg.get_boundary()
             boundary = "--" + boundary[2:]
             msg.set_boundary(boundary)
+            
+            logging.debug("EmailSecCache: outgoing_message: Impostor public key attached")
             
         return msg
 
@@ -99,6 +108,7 @@ class OutgoingMessage:
         htmlResponsePath = os.path.join(email_sec_cache.resourceDir, filePrefix + ".html")
         if not os.access(htmlResponsePath, os.F_OK):
             
+            logging.debug("EmailSecCache: outgoing_message: %s not available, will use plain text" % htmlResponsePath)
             plainTextResponsePath = os.path.join(email_sec_cache.resourceDir, filePrefix + ".txt")
             with open(plainTextResponsePath, "r", encoding="utf-8") as plainTextResponseFile:
                 plainTextResponse = plainTextResponseFile.read()
