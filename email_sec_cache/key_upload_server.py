@@ -176,4 +176,4 @@ def startKeyUploadServer():
     httpd.server_bind()
     httpd.server_activate()
     logging.info("EmailSecCache: key_upload_server: Successfully started")
-    threading.Thread(target = httpd.serve_forever).start()
+    threading.Thread(target = httpd.serve_forever, daemon=True).start()
