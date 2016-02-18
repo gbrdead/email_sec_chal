@@ -3,6 +3,7 @@ import email_sec_cache
 import os
 import sqlite3
 import logging
+import time
 
 
 class Db:
@@ -76,14 +77,17 @@ class Db:
         cursor.execute("SELECT red_herring_sent FROM correspondents WHERE email_address = ?", (emailAddress, ))
         row = cursor.fetchone()
         if row is not None:
-            return row[0] != 0
+            return (row[0] + 24*60*60) > self.getCurrentTimestamp()
         return False
     
     def redHerringSent(self, emailAddress):
         emailAddress = emailAddress.lower()
         cursor = self.conn.cursor()
         if not self.correspondentExists(emailAddress):
-            cursor.execute("INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, 1))
+            cursor.execute("INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, self.getCurrentTimestamp()))
         else:
-            cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (1, emailAddress))
+            cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (self.getCurrentTimestamp(), emailAddress))
         logging.debug("EmailSecCache: db: Set red herring as sent in DB for %s" % emailAddress)
+        
+    def getCurrentTimestamp(self):
+        return int(time.time())

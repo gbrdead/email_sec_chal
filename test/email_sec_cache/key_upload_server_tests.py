@@ -17,7 +17,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
     keyUploadServer = None
     keyUploadUrlPrefix = None
 
-    correspondentEmailAddress = "gbr@voidland.org" 
+    correspondentEmailAddress = "gbr@voidland.org"
     correspondentKeyId = "9011E1A9"
     correspondentKey = None
     
