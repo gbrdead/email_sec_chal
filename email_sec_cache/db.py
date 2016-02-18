@@ -32,6 +32,7 @@ class Db:
                 red_herring_sent INTEGER DEFAULT 0)""")
         logging.debug("EmailSecCache: db: Created the correspondents DB table")
         
+        logging.debug("EmailSecCache: db: Static initialization successful")
         Db.initialized = True
 
     def __init__(self):
@@ -63,9 +64,8 @@ class Db:
         emailAddress = emailAddress.lower()
         cursor = self.conn.cursor()
         if not self.correspondentExists(emailAddress):
-            if key is not None:
-                cursor.execute("INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (emailAddress, key))
-                logging.debug("EmailSecCache: db: Added a new correspondent key in the DB for %s" % emailAddress)
+            cursor.execute("INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (emailAddress, key))
+            logging.debug("EmailSecCache: db: Added a new correspondent key in the DB for %s" % emailAddress)
         else:
             cursor.execute("UPDATE correspondents SET key = ? WHERE email_address = ?", (key, emailAddress))
             logging.debug("EmailSecCache: db: Updated the correspondent key in the DB for %s" % emailAddress)

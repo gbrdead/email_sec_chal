@@ -18,26 +18,12 @@ smtpServerHost = None
 
 def loadConfiguration():
     config = configparser.ConfigParser()
-    config.read(configFile)
+    config.read(email_sec_cache.configFile)
     
     email_sec_cache.geocacheName = config["misc"]["geocache_name"]
-    
-    logLevelAsString = config["misc"]["log_level"].upper()
-    if logLevelAsString == "DEBUG":
-        email_sec_cache.logLevel = logging.DEBUG
-    elif logLevelAsString == "INFO":
-        email_sec_cache.logLevel = logging.INFO
-    elif logLevelAsString == "WARN" or logLevelAsString == "WARNING":
-        email_sec_cache.logLevel = logging.WARN
-    elif logLevelAsString == "ERROR":
-        email_sec_cache.logLevel = logging.ERROR
-    elif logLevelAsString == "CRITICAL":
-        email_sec_cache.logLevel = logging.CRITICAL
-
+    email_sec_cache.logLevel = logging._nameToLevel[config["misc"]["log_level"].upper()]
     email_sec_cache.keyUploadServerPort = int(config["misc"]["key_upload_server_port"])
-    
     email_sec_cache.smtpServerHost = config["misc"]["smtp_server_host"]
-    
     email_sec_cache.resourceDir = config["dirs"]["resource_dir"]
     email_sec_cache.dataDir = config["dirs"]["data_dir"]
     email_sec_cache.tempDir = config["dirs"]["temp_dir"]

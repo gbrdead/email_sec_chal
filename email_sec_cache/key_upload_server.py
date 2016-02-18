@@ -15,6 +15,8 @@ import urllib.parse
 
 class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     
+    initialized = False
+    
     rootFSPath = None
     officialBotPublicKeyVirtualFilePath = None
 
@@ -24,6 +26,9 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     
     @staticmethod
     def staticInit():
+        if KeyUploadRequestHandler.initialized:
+            return
+        
         rootFSPath = os.path.join(email_sec_cache.resourceDir, "html")
         rootFSPath = os.path.normpath(rootFSPath)
         KeyUploadRequestHandler.rootFSPath = os.path.normcase(rootFSPath)
@@ -37,6 +42,8 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath = os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName)
         
         logging.debug("EmailSecCache: key_upload_server: Static initialization successful")
+        KeyUploadRequestHandler.initialized = True
+        
     
     def do_HEAD(self):
         f = self.sendHead()
@@ -65,14 +72,15 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         if contentEncoding is not None:
             self.send_header("Content-Encoding", contentEncoding)
             
-        content = self.applyParameters(content)
-            
-        contentAsBytes = bytes(content, "utf-8")
-        self.send_header("Content-Length", len(contentAsBytes))
+        if isinstance(content, str):
+            content = self.applyParameters(content)
+            content = bytes(content, "utf-8")
+        
+        self.send_header("Content-Length", len(content))
         self.send_header("Last-Modified", self.date_time_string(modTime))
         self.end_headers()
         
-        return io.BytesIO(contentAsBytes)
+        return io.BytesIO(content)
     
     def getGetResponse(self):
         fsPath = self.getFSPath()
@@ -87,10 +95,14 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         
         try:
             with open(fsPath, "r", encoding="utf-8") as f:
-                content = f.read()
-                statInfo = os.stat(f.fileno())
-                modTime = statInfo.st_mtime
-            return content, fsPath, modTime
+                try:
+                    content = f.read()
+                    statInfo = os.stat(f.fileno())
+                except UnicodeDecodeError:
+                    with open(fsPath, "rb") as fb:
+                        content = fb.read()
+                        statInfo = os.stat(fb.fileno())
+            return content, fsPath, statInfo.st_mtime
         except OSError:
             logging.debug("EmailSecCache: key_upload_server: Cannot read file: %s" % fsPath, exc_info=True)
             return None, None, None
@@ -110,7 +122,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         pathComponents = path.split("/")
         logging.debug("EmailSecCache: key_upload_server: Request path components: %s" % pathComponents)
         pathComponents = list(filter(None, pathComponents))
-        logging.debug("EmailSecCache: key_upload_server: Request path components after the removal of emtpy ones: %s" % pathComponents)
+        logging.debug("EmailSecCache: key_upload_server: Request path components after the removal of empty ones: %s" % pathComponents)
         if ".." in pathComponents:
             logging.warning("EmailSecCache: key_upload_server: Request path traversal attempt")
             return None
@@ -118,7 +130,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     
     def getFSPath(self):
         pathComponents = self.getPathComponents()
-        if pathComponents is None:
+        if not pathComponents:
             return None
         
         fsPath = os.path.join(KeyUploadRequestHandler.rootFSPath, *pathComponents)
@@ -153,11 +165,13 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         if contentTypeValue != "multipart/form-data" or "boundary" not in contentTypeParameters:
             logging.warning("EmailSecCache: key_upload_server: Invalid POST Content-Type: %s" % contentType)
             self.send_error(http.HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+            return
         contentTypeParameters["boundary"] = bytes(contentTypeParameters["boundary"], "ascii")
         uploaded = cgi.parse_multipart(self.rfile, contentTypeParameters)
         
         if not ("key" in uploaded and len(uploaded["key"]) > 0):
             self.send_error(http.HTTPStatus.BAD_REQUEST)
+            return
         correspondentKey = str(uploaded["key"][0], "ascii")
         emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
         
@@ -167,6 +181,10 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         else:
             self.send_header("Location", "key_upload_error.html")
         self.end_headers()
+
+
+    def log_message(self, format_, *args):
+        logging.info("EmailSecCache: key_upload_server: %s - - %s" % (self.address_string(), (format_ % args)))
         
 
 def startKeyUploadServer():
@@ -177,3 +195,4 @@ def startKeyUploadServer():
     httpd.server_activate()
     logging.info("EmailSecCache: key_upload_server: Successfully started")
     threading.Thread(target = httpd.serve_forever, daemon=True).start()
+    return httpd

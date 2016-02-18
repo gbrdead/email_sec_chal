@@ -146,14 +146,7 @@ class Pgp:
         self.correspondentKey = self.db.getCorrespondentKey(self.emailAddress)
         if self.correspondentKey is None:
             logging.warning("EmailSecCache: pgp: No correspondent key in DB for %s" % self.emailAddress)
-        self.importPublicKey()
-        
-    def importPublicKey(self):
-        if self.correspondentFingerprints is not None:
-            self.officialGpg.delete_keys(self.correspondentFingerprints)
-            self.impostorGpg.delete_keys(self.correspondentFingerprints)
-            self.correspondentFingerprints = None
-        if self.correspondentKey is not None:
+        else:
             importResult = self.officialGpg.import_keys(self.correspondentKey)
             self.correspondentFingerprints = importResult.fingerprints
             self.impostorGpg.import_keys(self.correspondentKey)
