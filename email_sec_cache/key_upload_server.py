@@ -184,7 +184,10 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
 
 
     def log_message(self, format_, *args):
-        logging.info("EmailSecCache: key_upload_server: %s - - %s" % (self.address_string(), (format_ % args)))
+        realClientAddress = self.headers.get("X-Forwarded-For")
+        if realClientAddress is None:
+            realClientAddress = self.address_string()
+        logging.info("EmailSecCache: key_upload_server: %s - - %s" % (realClientAddress, (format_ % args)))
         
 
 def startKeyUploadServer():
