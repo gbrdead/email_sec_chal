@@ -37,7 +37,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         pgp = email_sec_cache.Pgp()
         KeyUploadRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
         KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_cache.Pgp.officialBotKeysFilePath).st_mtime
-        officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc"
+        officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc.txt"
         logging.debug("EmailSecCache: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
         KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath = os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName)
         
