@@ -3,7 +3,6 @@ import email.utils
 import email_sec_cache
 import bs4
 import logging
-import cgi
 import re
 import email.mime.multipart
 
@@ -95,20 +94,14 @@ class IncomingMessage:
     
     @staticmethod
     def isPgpMimeEncrypted(message):
-        contentType = message["Content-Type"]
-        if contentType is None:
-            return False
-        contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
+        contentTypeValue, contentTypeParameters = email_sec_cache.util.getHeaderValue(message, "Content-Type")
         return \
             contentTypeValue == "multipart/encrypted" and \
             contentTypeParameters["protocol"] == "application/pgp-encrypted"
         
     @staticmethod
     def isPgpMimeSigned(message):
-        contentType = message["Content-Type"]
-        if contentType is None:
-            return False
-        contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
+        contentTypeValue, contentTypeParameters = email_sec_cache.util.getHeaderValue(message, "Content-Type")
         return \
             contentTypeValue == "multipart/signed" and \
             contentTypeParameters["protocol"] == "application/pgp-signature"
@@ -121,9 +114,8 @@ class IncomingMessage:
                 msgParts += self.extractMessagePartsRecursive(payload)
             return msgParts
         
-        contentDisposition = message["Content-Disposition"]
-        if contentDisposition is not None:
-            contentDispositionValue, _ = cgi.parse_header(contentDisposition)
+        contentDispositionValue, _ = email_sec_cache.util.getHeaderValue(message, "Content-Disposition")
+        if contentDispositionValue is not None:
             if contentDispositionValue == "attachment":
                 logging.debug("EmailSecCache: incoming_message: Ignoring attachment in message from %s (%s)" % (self.emailAddress, self.id))
                 return []

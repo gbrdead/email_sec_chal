@@ -2,6 +2,7 @@
 import re
 import logging
 import os.path
+import cgi
 
 
 wordRe = re.compile("\w+")
@@ -39,3 +40,10 @@ def isPathPrefix(path, prefixPath):
     path = os.path.normcase(path)
     
     return path.startswith(prefixPath)
+
+
+def getHeaderValue(message, headerName):
+    header = message[headerName]
+    if isinstance(header, str):
+        return cgi.parse_header(header)
+    return None, None
