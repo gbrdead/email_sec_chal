@@ -256,3 +256,13 @@ class MailBotTests(test.email_sec_cache.Tests):
  
     def testHappyPathFromImpostorBot(self):
         self.assertHappyPathFromMyself("validRequestFromImpostorBot")
+
+    def testMessageWithMissingContentType(self):
+        validRequestMsg = self.readMessage("missing_content_type")
+         
+        mailBot = MailBotForTesting([validRequestMsg])
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(0, len(mailBot.mockReplies))
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))

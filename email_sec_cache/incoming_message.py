@@ -96,6 +96,8 @@ class IncomingMessage:
     @staticmethod
     def isPgpMimeEncrypted(message):
         contentType = message["Content-Type"]
+        if contentType is None:
+            return False
         contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
         return \
             contentTypeValue == "multipart/encrypted" and \
@@ -104,27 +106,29 @@ class IncomingMessage:
     @staticmethod
     def isPgpMimeSigned(message):
         contentType = message["Content-Type"]
+        if contentType is None:
+            return False
         contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
         return \
             contentTypeValue == "multipart/signed" and \
             contentTypeParameters["protocol"] == "application/pgp-signature"
 
     
-    def extractMessagePartsRecursive(self, msg):
-        if msg.is_multipart():
+    def extractMessagePartsRecursive(self, message):
+        if message.is_multipart():
             msgParts = []
-            for payload in msg.get_payload():
+            for payload in message.get_payload():
                 msgParts += self.extractMessagePartsRecursive(payload)
             return msgParts
         
-        contentDisposition = msg["Content-Disposition"]
+        contentDisposition = message["Content-Disposition"]
         if contentDisposition is not None:
             contentDispositionValue, _ = cgi.parse_header(contentDisposition)
             if contentDispositionValue == "attachment":
                 logging.debug("EmailSecCache: incoming_message: Ignoring attachment in message from %s (%s)" % (self.emailAddress, self.id))
                 return []
             
-        incomingMsgPart = self.processSinglePartMessage(msg)
+        incomingMsgPart = self.processSinglePartMessage(message)
         if incomingMsgPart is not None:
             return [incomingMsgPart]
         return []
