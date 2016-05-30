@@ -162,9 +162,8 @@ class MailBotTests(test.email_sec_cache.Tests):
         self.assertEqual(incomingMsgId, mockOutgoingMsg.incomingMsgId)
         self.assertEqual(asImpostor, mockOutgoingMsg.asImpostor)
 
-
-    def testHappyPath(self):
-        validRequestMsg = self.readMessage("validRequestForOfficialBot")
+    def assertHappyPath(self, msgFileName):
+        validRequestMsg = self.readMessage(msgFileName)
         validRequestMsgId = validRequestMsg["Message-ID"]
          
         mailBot = MailBotForTesting([validRequestMsg, validRequestMsg, validRequestMsg])
@@ -176,7 +175,13 @@ class MailBotTests(test.email_sec_cache.Tests):
         self.assertOutgoingMessage(mailBot.mockReplies[1], validRequestMsgId, False)
         self.assertOutgoingMessage(mailBot.mockReplies[2], validRequestMsgId, False)
         self.assertEqual(0, len(mailBot.failedMessagesKeys))
+        
+    def testHappyPath(self):
+        self.assertHappyPath("validRequestForOfficialBot")
  
+    def testHappyPathNonLowercaseSenderAddress(self):
+        self.assertHappyPath("validRequestForOfficialBot_non_lowercase_sender_address")
+
     def testMessageCausingException(self):
         validRequestMsg = self.readMessage("validRequestForOfficialBot")
         validRequestMsgId = validRequestMsg["Message-ID"]
@@ -235,3 +240,19 @@ class MailBotTests(test.email_sec_cache.Tests):
         self.assertEqual(0, len(mailBot.mockMbox.testMessages))
         self.assertEqual(0, len(mailBot.mockReplies))
         self.assertEqual(0, len(mailBot.failedMessagesKeys))
+
+    def assertHappyPathFromMyself(self, msgFileName):
+        validRequestMsg = self.readMessage(msgFileName)
+         
+        mailBot = MailBotForTesting([validRequestMsg, validRequestMsg])
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(0, len(mailBot.mockReplies))
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))
+        
+    def testHappyPathFromOfficialBot(self):
+        self.assertHappyPathFromMyself("validRequestFromOfficialBot")
+ 
+    def testHappyPathFromImpostorBot(self):
+        self.assertHappyPathFromMyself("validRequestFromImpostorBot")

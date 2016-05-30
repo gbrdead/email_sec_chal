@@ -9,7 +9,6 @@ import email.mime.image
 import html2text
 import email.mime.application
 import email.encoders
-import email.utils
 
 
 
@@ -47,10 +46,9 @@ class OutgoingMessage:
         
     def send(self, asImpostor):
         msg = self.construct(asImpostor)
-        _, from_ = email.utils.parseaddr(email_sec_cache.Pgp.botFrom)
         
         with self.createSmtpClient() as smtpClient:
-            smtpClient.sendmail(from_, self.incomingMsg.emailAddress, msg.as_string())
+            smtpClient.sendmail(email_sec_cache.Pgp.botEmailAddress, self.incomingMsg.emailAddress, msg.as_string())
             logging.debug("EmailSecCache: outgoing_message: Successfully sent message to %s" % self.incomingMsg.emailAddress)
         
     def createSmtpClient(self):

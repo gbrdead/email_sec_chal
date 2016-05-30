@@ -1,0 +1,81 @@
+Return-Path: <gbr@voidland.voidland.org>
+X-Original-To: gbr@voidland.voidland.org
+Delivered-To: gbr@voidland.voidland.org
+Received: from mail.voidland.org (router.voidland.org [192.168.255.16])
+	by voidland.voidland.org (Postfix) with ESMTP id 04FC514208F6
+	for <gbr@voidland.voidland.org>; Mon, 30 May 2016 21:28:27 +0300 (EEST)
+Received: from es.voidland.org (es.voidland.org [192.168.255.1])
+	by mail.voidland.org (Postfix) with ESMTP id DE8C1205BC
+	for <gbr@voidland.voidland.org>; Mon, 30 May 2016 21:28:27 +0300 (EEST)
+Received: from [192.168.255.2] (router.voidland.org [192.168.255.16])
+	by es.voidland.org (Postfix) with ESMTPSA id A4937CBA063D
+	for <gbr@voidland.voidland.org>; Mon, 30 May 2016 21:28:27 +0300 (EEST)
+To: gbr@voidland.voidland.org
+From: Vladimir Panov <gbr@voidland.voidland.org>
+Subject: Opa
+Message-ID: <574C864B.2000009@voidland.voidland.org>
+Date: Mon, 30 May 2016 21:28:27 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:43.0) Gecko/20100101
+ Firefox/43.0 SeaMonkey/2.40
+MIME-Version: 1.0
+Content-Type: multipart/encrypted;
+ protocol="application/pgp-encrypted";
+ boundary="9cTwVJGFaNd2VNd4h684O1vT5k41Fruvi"
+
+This is an OpenPGP/MIME encrypted message (RFC 4880 and 3156)
+--9cTwVJGFaNd2VNd4h684O1vT5k41Fruvi
+Content-Type: application/pgp-encrypted
+Content-Description: PGP/MIME version identification
+
+Version: 1
+
+--9cTwVJGFaNd2VNd4h684O1vT5k41Fruvi
+Content-Type: application/octet-stream; name="encrypted.asc"
+Content-Description: OpenPGP encrypted message
+Content-Disposition: inline; filename="encrypted.asc"
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+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
+hvIg7wsc3lUNIe6p270=
+=JTCq
+-----END PGP MESSAGE-----
+
+--9cTwVJGFaNd2VNd4h684O1vT5k41Fruvi--

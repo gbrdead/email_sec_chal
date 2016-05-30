@@ -3,7 +3,6 @@ import mailbox
 import time
 import email_sec_cache
 import logging
-import email.utils
 
 
 
@@ -36,16 +35,17 @@ class MailBot:
                     
                     try:
                         origMsg = self.mbox[msgKey]
-                        from_ = origMsg["From"]
-                        _, emailAddress = email.utils.parseaddr(from_)
-                        msgId = origMsg["Message-ID"]
-                        
                         with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
-                            msgPart = self.findValidMessagePart(incomingMsg, emailAddress, msgId)
-                            if msgPart is not None:
-                                logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (emailAddress, msgId))
-                                impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(emailAddress)
-                                self.reply(impostorShouldReply, incomingMsg, emailAddress, msgId)
+                            
+                            if incomingMsg.emailAddress == email_sec_cache.Pgp.botEmailAddress:
+                                logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
+                            else:
+                                
+                                msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
+                                if msgPart is not None:
+                                    logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
+                                    impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
+                                    self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
                                     
                         self.mbox.discard(msgKey)
                         

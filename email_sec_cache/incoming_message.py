@@ -65,6 +65,7 @@ class IncomingMessage:
         _, self.emailAddress = email.utils.parseaddr(from_)
         if not self.emailAddress:
             raise email_sec_cache.MsgException("Missing From header in incoming message (%s)" % self.id)
+        self.emailAddress = self.emailAddress.lower()
         
         self.pgp = email_sec_cache.Pgp(self.emailAddress)
         

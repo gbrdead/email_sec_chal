@@ -29,10 +29,10 @@ class Pgp:
     impostorGnupgHomeDir = None
     officialGpg = None
     impostorGpg = None
-    officialFingerprints = None
-    impostorFingerprints = None
+    officialFingerprints = []
+    impostorFingerprints = []
     correspondentKey = None
-    correspondentFingerprints = None
+    correspondentFingerprints = []
         
     
     @staticmethod
@@ -53,6 +53,7 @@ class Pgp:
             
         Pgp.botFrom = Pgp.getBotFromHeaderValue()
         _, Pgp.botEmailAddress = email.utils.parseaddr(Pgp.botFrom)
+        Pgp.botEmailAddress = Pgp.botEmailAddress.lower()
 
         logging.debug("EmailSecCache: pgp: Static initialization successful")
         Pgp.initialized = True
@@ -98,8 +99,10 @@ class Pgp:
         for key in keys:
             for uid in key["uids"]:
                 _, emailAddress = email.utils.parseaddr(uid)
-                emailAddresses.append(emailAddress)
-                db.setCorrespondentKey(emailAddress, correspondentKey)
+                if emailAddress is not None:
+                    emailAddress = emailAddress.lower()
+                    emailAddresses.append(emailAddress)
+                    db.setCorrespondentKey(emailAddress, correspondentKey)
                 
         logging.info("EmailSecCache: pgp: Imported keys for the following addresses: %s" % ("', ".join(emailAddresses)))
         return emailAddresses
@@ -110,6 +113,8 @@ class Pgp:
         self.db = email_sec_cache.Db()
         self.emailAddress = emailAddress_
         logging.debug("EmailSecCache: pgp: Creating an instance for %s" % (self.emailAddress if self.emailAddress is not None else "nobody"))
+        if self.emailAddress is not None:
+            self.emailAddress = self.emailAddress.lower()
         
         self.officialGnupgHomeDir, self.officialGpg, self.officialFingerprints = self.initBotGpg("official", Pgp.officialBotKeys)
         self.impostorGnupgHomeDir, self.impostorGpg, self.impostorFingerprints = self.initBotGpg("impostor", Pgp.impostorBotKeys)
