@@ -3,6 +3,7 @@ import re
 import logging
 import os.path
 import cgi
+import email.utils
 
 
 wordRe = re.compile("\w+")
@@ -22,6 +23,7 @@ def removeFile(fileName):
         os.remove(fileName)
     except:
         logging.warning("EmailSecCache: util: Cannot remove file %s" % fileName, exc_info=True)
+
 
 def removeMimeVersion(msgPart):
     del msgPart["MIME-Version"]
@@ -47,3 +49,23 @@ def getHeaderValue(message, headerName):
     if isinstance(header, str):
         return cgi.parse_header(header)
     return None, None
+
+def getMessageRecipientsEmailAddresses(message):
+    to = message.get_all("To", [])
+    cc = message.get_all("CC", [])
+    bcc = message.get_all("BCC", [])
+    parsedRecipientAddresses = email.utils.getaddresses(to + cc + bcc)
+    
+    recipientEmailAddresses = set()
+    for _, emailAddress in parsedRecipientAddresses:
+        recipientEmailAddresses.add(emailAddress.lower())
+    return recipientEmailAddresses
+
+def getMessageSenderEmailAddress(message):
+    from_ = message.get("From")
+    if from_ is None:
+        return None
+    _, emailAddress = email.utils.parseaddr(from_)
+    if emailAddress is None:
+        return None
+    return emailAddress.lower()

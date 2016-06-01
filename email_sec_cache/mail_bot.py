@@ -32,30 +32,38 @@ class MailBot:
                     if msgKey in self.failedMessagesKeys:
                         logging.debug("EmailSecCache: mail_bot: Skipping previously failed message with key %s" % msgKey)
                         continue
+                    origMsg = self.mbox[msgKey]
                     
-                    try:
-                        origMsg = self.mbox[msgKey]
-                        with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
-                            
-                            if incomingMsg.emailAddress == email_sec_cache.Pgp.botEmailAddress:
-                                logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
-                            else:
-                                
-                                msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
-                                if msgPart is not None:
-                                    logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
-                                    impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
-                                    self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
-                                    
-                        self.mbox.discard(msgKey)
+                    self.processKeyUploadMessage(origMsg, msgKey)
+                    
+                    msgRecipientsEmailAddresses = email_sec_cache.util.getMessageRecipientsEmailAddresses(origMsg)
+                    if email_sec_cache.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
+                        self.processRequestMessage(origMsg, msgKey)
                         
-                    except Exception:
-                        logging.exception("EmailSecCache: mail_bot: Failed processing message %s" % msgKey)
-                        self.failedMessagesKeys.add(msgKey)
+                    if msgKey not in self.failedMessagesKeys:    
+                        self.mbox.discard(msgKey)
                         
             finally:            
                 self.mbox.unlock()
                 
+    def processRequestMessage(self, origMsg, msgKey):
+        try:
+            with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
+                
+                if incomingMsg.emailAddress == email_sec_cache.Pgp.botEmailAddress:
+                    logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
+                else:
+                    
+                    msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
+                    if msgPart is not None:
+                        logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
+                        impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
+                        self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
+            
+        except Exception:
+            logging.exception("EmailSecCache: mail_bot: Failed processing request message %s" % msgKey)
+            self.failedMessagesKeys.add(msgKey)
+        
     def reply(self, asImpostor, incomingMsg, emailAddress, msgId):
         with self.createReplyMessage(incomingMsg) as replyMsg:
             replyMsg.send(asImpostor)
@@ -83,4 +91,10 @@ class MailBot:
             return msgPart
         return None
 
-
+    def processKeyUploadMessage(self, origMsg, msgKey):
+        try:
+            pass    # TODO
+            
+        except Exception:
+            logging.exception("EmailSecCache: mail_bot: Failed processing potential key upload message %s" % msgKey)
+            self.failedMessagesKeys.add(msgKey)
