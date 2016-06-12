@@ -102,6 +102,8 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         self.assertEqual(404, response.status_code)
  
     def testBotPublicKeyInSubdir(self):
+        response = self.getGetResponse("/subdir/gbr@voidland.voidland.org%20pub.asc", raiseExceptionOnError=False)
+        self.assertEqual(404, response.status_code)
         response = self.getGetResponse("/subdir/gbr@voidland.voidland.org%20pub.asc.txt", raiseExceptionOnError=False)
         self.assertEqual(404, response.status_code)
  
@@ -115,9 +117,15 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
  
  
     def testBotPublicKey(self):
+        self.assertBotPublicKey("gbr@voidland.voidland.org%20pub.asc", "application/pgp-keys")
+        
+    def testBotPublicKeyTxt(self):
+        self.assertBotPublicKey("gbr@voidland.voidland.org%20pub.asc.txt", "text/plain")
+ 
+    def assertBotPublicKey(self, officialBotPublicKeyVirtualFilePath, contentType):
         gpg, gnupgHomeDir = email_sec_cache.Pgp.createTempGpg()
         try:
-            response = self.getGetResponse("/gbr@voidland.voidland.org%20pub.asc.txt?name=value") 
+            response = self.getGetResponse("/" + officialBotPublicKeyVirtualFilePath + "?name=value") 
             botPublicKeyFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="wb")
             try:
                 botPublicKeyFile.write(response.content)
@@ -129,7 +137,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
                 self.assertEqual("B509A2EB802708CE80C2C3E54897D47A61DC9FE3", key["fingerprint"])
                 self.assertEqual("pub", key["type"])
                  
-                self.assertEqual("text/plain", response.headers["Content-Type"])
+                self.assertEqual(contentType, response.headers["Content-Type"])
                  
             finally:
                 email_sec_cache.removeFile(botPublicKeyFile.name)
@@ -159,6 +167,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
     def testBotPublicKeyTimestamp(self):
         filePath = os.path.join(email_sec_cache.resourceDir, "officialBot.asc")
         self.assertLastModified("/gbr@voidland.voidland.org%20pub.asc.txt", filePath)
+        self.assertLastModified("/gbr@voidland.voidland.org%20pub.asc", filePath)
  
     def assertLastModified(self, uri, filePath):
         response = self.getGetResponse(uri)

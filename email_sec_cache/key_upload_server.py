@@ -18,7 +18,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     initialized = False
     
     rootFSPath = None
-    officialBotPublicKeyVirtualFilePath = None
+    officialBotPublicKeyVirtualFilePaths = []
 
     officialBotPublicKey = None
     officialBotPublicKeyFileTime = None
@@ -37,9 +37,11 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         pgp = email_sec_cache.Pgp()
         KeyUploadRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
         KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_cache.Pgp.officialBotKeysFilePath).st_mtime
-        officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc.txt"
+        officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc"
         logging.debug("EmailSecCache: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
-        KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath = os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName)
+        
+        KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName))
+        KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName + ".txt"))
         
         logging.debug("EmailSecCache: key_upload_server: Static initialization successful")
         KeyUploadRequestHandler.initialized = True
@@ -62,10 +64,10 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         
         content, fsPath, modTime = self.getGetResponse()
         if content is None:
-            self.send_error(404)
+            self.send_error(http.HTTPStatus.NOT_FOUND)
             return
 
-        self.send_response(200)
+        self.send_response(http.HTTPStatus.OK)
         
         contentType, contentEncoding = self.getContentType(fsPath)
         self.send_header("Content-Type", contentType)
@@ -87,10 +89,10 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         if fsPath is None:
             return None, None, None
         
-        if fsPath == KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath:
+        if fsPath in KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths:
             return \
                 KeyUploadRequestHandler.officialBotPublicKey, \
-                KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePath, \
+                fsPath, \
                 KeyUploadRequestHandler.officialBotPublicKeyFileTime
         
         try:
@@ -164,18 +166,18 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
         if contentTypeValue != "multipart/form-data" or "boundary" not in contentTypeParameters:
             logging.warning("EmailSecCache: key_upload_server: Invalid POST Content-Type: %s" % contentType)
-            self.send_error(415)
+            self.send_error(http.HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
             return
         contentTypeParameters["boundary"] = bytes(contentTypeParameters["boundary"], "ascii")
         uploaded = cgi.parse_multipart(self.rfile, contentTypeParameters)
         
         if not ("key" in uploaded and len(uploaded["key"]) > 0):
-            self.send_error(400)
+            self.send_error(http.HTTPStatus.BAD_REQUEST)
             return
         correspondentKey = str(uploaded["key"][0], "ascii")
         emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
         
-        self.send_response(302)
+        self.send_response(http.HTTPStatus.FOUND)
         if emailAddresses != []:
             self.send_header("Location", "key_upload_success.html")
         else:
