@@ -132,9 +132,7 @@ class MailBotTests(test.email_sec_cache.Tests):
     def setUp(self):
         test.email_sec_cache.Tests.setUp(self)
         
-        db = email_sec_cache.Db()
-        cursor = db.conn.cursor()
-        cursor.execute("DELETE FROM correspondents")
+        test.email_sec_cache.Tests.clearDb()
         
         correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)        
         email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
@@ -296,14 +294,6 @@ class MailBotTests(test.email_sec_cache.Tests):
     def testKeyUploadEMail_direct_2(self):
         self.assertDoubleKeyUpload("key_upload/direct_e-mail_2")
         
-    def testKeyUploadAndHappyPathPgpMime(self):
-        self.keyUploadSetUp()
-        self.assertHappyPath("key_upload/happy_path_pgp_mime")
-
-    def testKeyUploadAndHappyPathPgpInline(self):
-        self.keyUploadSetUp()
-        self.assertHappyPath("key_upload/happy_path_pgp_inline")
-
     def testKeyUploadInvalid(self):
         self.prepareKeyUploadTest("key_upload/invalid")
         db = email_sec_cache.Db()
@@ -326,12 +316,6 @@ class MailBotTests(test.email_sec_cache.Tests):
         with email_sec_cache.Pgp("gbrdead@gmail.com") as pgp:
             self.assertIn("99736E5D14232CCC8617F67203331C496704E218", pgp.correspondentFingerprints)
 
-    def keyUploadSetUp(self):
-        db = email_sec_cache.Db()
-        cursor = db.conn.cursor()
-        cursor.execute("DELETE FROM correspondents")
-        self.assertEqual(0, db.getCorrespondentsCount())
-
     def prepareKeyUploadTest(self, msgFileName):
         self.keyUploadSetUp()
         keyUploadMsg = self.readMessage(msgFileName)
@@ -342,3 +326,26 @@ class MailBotTests(test.email_sec_cache.Tests):
         self.assertEqual(0, len(mailBot.mockMbox.testMessages))
         self.assertEqual(0, len(mailBot.mockReplies))
         self.assertEqual(0, len(mailBot.failedMessagesKeys))
+
+    def testSimultaneousKeyUploadAndRequestPgpMime(self):
+        self.assertSimultaneousKeyUploadAndRequest("key_upload/happy_path_pgp_mime")
+
+    def testSimultaneousKeyUploadAndRequestPgpInline(self):
+        self.assertSimultaneousKeyUploadAndRequest("key_upload/happy_path_pgp_inline")
+
+    def assertSimultaneousKeyUploadAndRequest(self, msgFileName):
+        self.keyUploadSetUp()
+        
+        validRequestMsg = self.readMessage(msgFileName)
+        validRequestMsgId = validRequestMsg["Message-ID"]
+         
+        mailBot = MailBotForTesting([validRequestMsg])
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(1, len(mailBot.mockReplies))
+        self.assertOutgoingMessage(mailBot.mockReplies[0], validRequestMsgId, True)
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))
+        
+    def keyUploadSetUp(self):
+        test.email_sec_cache.Tests.clearDb()

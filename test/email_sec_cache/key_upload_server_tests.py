@@ -64,9 +64,8 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         
     def setUp(self):
         test.email_sec_cache.Tests.setUp(self)
-        db = email_sec_cache.Db()
-        cursor = db.conn.cursor()
-        cursor.execute("DELETE FROM correspondents")
+        
+        test.email_sec_cache.Tests.clearDb()
 
     def tearDown(self):
         test.email_sec_cache.Tests.tearDown(self)

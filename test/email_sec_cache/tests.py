@@ -67,3 +67,9 @@ class Tests(unittest.TestCase):
     @staticmethod
     def readPrivateKey(correspondentEmailAddress, correspondentKeyId):
         return Tests.readKey(correspondentEmailAddress, correspondentKeyId, private=True)
+    
+    @staticmethod
+    def clearDb():
+        db = email_sec_cache.Db()
+        cursor = db.conn.cursor()
+        cursor.execute("DELETE FROM correspondents")

@@ -104,7 +104,7 @@ class Pgp:
                     emailAddresses.append(emailAddress)
                     db.setCorrespondentKey(emailAddress, correspondentKey)
                 
-        logging.info("EmailSecCache: pgp: Imported keys for the following addresses: %s" % ("', ".join(emailAddresses)))
+        logging.info("EmailSecCache: pgp: Imported keys for the following addresses: %s" % (", ".join(emailAddresses)))
         return emailAddresses
     
     def __init__(self, emailAddress_=""):
