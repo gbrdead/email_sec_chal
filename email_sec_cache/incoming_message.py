@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import email.utils
 import email_sec_cache
 import bs4
 import logging
@@ -19,21 +18,34 @@ class IncomingMessagePart:
     msgPart = None    
     plainText = None
     
+    
+    stripAroundNewlinesRe = re.compile(" *\n *", re.MULTILINE)
     def extractPlainText(self):
         if self.plainText is not None:
             return
         
-        if self.msgPart.get_content_maintype() != "text":
-            logging.warning("EmailSecCache: incoming_message: A non-text part in message from %s (%s) encountered" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
+        if self.msgPart.get_content_maintype() != "text" and self.msgPart.get_content_type() != "application/pgp-keys":
             self.plainText = ""
             return
         
         self.plainText = self.msgPart.get_payload(decode=True)
-        if self.msgPart.get_content_subtype() == "html":
+        
+        if self.msgPart.get_content_type() == "text/html":
             html = bs4.BeautifulSoup(self.plainText, "html.parser")
-            for el in html.findAll(["script", "style"]):
-                el.extract()
+            for tag in html.find_all(["script", "style"]):
+                tag.extract()
+            for tag in html.find_all(string=True):
+                if isinstance(tag, bs4.Comment):
+                    tag.extract()
+                else:
+                    if not tag.find_parent("pre"):
+                        tag.replace_with(str(tag).strip())
+            for tag in html.find_all("br"):
+                tag.insert_before("\n")
+                tag.unwrap()
             self.plainText = html.get_text(separator=" ")
+            self.plainText = self.stripAroundNewlinesRe.sub("\n", self.plainText)
+            
         else:
             charset = self.msgPart.get_content_charset()
             if charset is None:
@@ -53,7 +65,6 @@ class IncomingMessage:
     emailAddress = None
     originalMessage = None
     pgp = None
-    messageParts = None
 
     
     def __init__(self, originalMessage_):
@@ -64,8 +75,6 @@ class IncomingMessage:
         if not self.emailAddress:
             raise email_sec_cache.MsgException("Missing From header in incoming message (%s)" % self.id)
         
-        self.pgp = email_sec_cache.Pgp(self.emailAddress)
-        
     def __enter__(self):
         return self
     
@@ -73,13 +82,8 @@ class IncomingMessage:
         self.close()
         
     def close(self):
-        self.pgp.close()
         logging.debug("EmailSecCache: incoming_message: Closed message from %s (%s)" % (self.emailAddress, self.id))
         
-    def getMessageParts(self):
-        self.extractMessageParts()
-        return self.messageParts
-    
     @staticmethod
     def create(message):
         if IncomingMessage.isPgpMime(message):
@@ -105,23 +109,56 @@ class IncomingMessage:
             contentTypeParameters["protocol"] == "application/pgp-signature"
 
     
-    def extractMessagePartsRecursive(self, message):
+    def extractMessagePartsRecursive(self, message, skipAttachments):
         if message.is_multipart():
             msgParts = []
             for payload in message.get_payload():
-                msgParts += self.extractMessagePartsRecursive(payload)
+                msgParts += self.extractMessagePartsRecursive(payload, skipAttachments)
             return msgParts
         
-        contentDispositionValue, _ = email_sec_cache.util.getHeaderValue(message, "Content-Disposition")
-        if contentDispositionValue is not None:
-            if contentDispositionValue == "attachment":
-                logging.debug("EmailSecCache: incoming_message: Ignoring attachment in message from %s (%s)" % (self.emailAddress, self.id))
-                return []
+        if skipAttachments:
+            contentDispositionValue, _ = email_sec_cache.util.getHeaderValue(message, "Content-Disposition")
+            if contentDispositionValue is not None:
+                if contentDispositionValue == "attachment":
+                    logging.debug("EmailSecCache: incoming_message: Ignoring attachment in message from %s (%s)" % (self.emailAddress, self.id))
+                    return []
             
         incomingMsgPart = self.processSinglePartMessage(message)
         if incomingMsgPart is not None:
             return [incomingMsgPart]
         return []
+    
+    def getMessageParts(self, skipAtttachments=True):
+        with email_sec_cache.Pgp(self.emailAddress) as self.pgp:
+            return self.getMessagePartsInternal(skipAtttachments)
+    
+    def getPgpKeys(self):
+        keyMarkers = [("-----BEGIN PGP PUBLIC KEY BLOCK-----", "-----END PGP PUBLIC KEY BLOCK-----"), ("-----BEGIN PGP PRIVATE KEY BLOCK-----", "-----END PGP PRIVATE KEY BLOCK-----")]
+        
+        pgpKeys = []
+        for msgPart in self.getMessageParts(skipAtttachments=False):
+            text = msgPart.getPlainText()
+            
+            for (pgpKeyBeginMarker, pgpKeyEndMarker) in keyMarkers:
+
+                currentPos = 0
+                while True: 
+                    pgpKeyBeginPos = text.find(pgpKeyBeginMarker, currentPos)
+                    if pgpKeyBeginPos < 0:
+                        break
+                    
+                    pgpKeyEndPos = text.find(pgpKeyEndMarker, pgpKeyBeginPos + len(pgpKeyBeginMarker))
+                    if pgpKeyEndPos < 0:
+                        break
+                    pgpKeyEndPos += len(pgpKeyEndMarker)
+                    
+                    pgpKeyText = text[pgpKeyBeginPos:pgpKeyEndPos]
+                    pgpKeys.append(pgpKeyText)
+                    
+                    currentPos = pgpKeyEndPos 
+        
+        return pgpKeys
+        
 
 
 class PgpMimeIncomingMessage(IncomingMessage):
@@ -179,11 +216,9 @@ class PgpMimeIncomingMessage(IncomingMessage):
              "encrypted" if self.encrypted else "not encrypted", \
              "has a valid signature" if self.signedAndVerified else "does not have a valid signature"))
         
-    def extractMessageParts(self):
-        if self.messageParts is not None:
-            return
+    def getMessagePartsInternal(self, skipAtttachments=True):
         self.decryptAndVerify()
-        self.messageParts = self.extractMessagePartsRecursive(self.plainMessage)
+        return self.extractMessagePartsRecursive(self.plainMessage, skipAtttachments)
         
     def processSinglePartMessage(self, msg):
         msgPart = IncomingMessagePart()
@@ -208,10 +243,8 @@ class PgpInlineIncomingMessage(IncomingMessage):
         IncomingMessage.__init__(self, originalMessage_)
         logging.debug("EmailSecCache: incoming_message: Created message from %s (%s) as inline PGP" % (self.emailAddress, self.id))
     
-    def extractMessageParts(self):
-        if self.messageParts is not None:
-            return
-        self.messageParts = self.extractMessagePartsRecursive(self.originalMessage)
+    def getMessagePartsInternal(self, skipAtttachments=True):
+        return self.extractMessagePartsRecursive(self.originalMessage, skipAtttachments)
         
     def processSinglePartMessage(self, msg):
         msgPart = IncomingMessagePart()
@@ -277,9 +310,6 @@ class PgpInlineIncomingMessage(IncomingMessage):
             plainText.startswith("-----BEGIN PGP MESSAGE-----")     # GpgOL pre-3.0 sends a wrong header.
     
     def normalize(self, msg, plainText):
-        plainText = plainText.strip()
-        plainText = self.normalizePgpHtml(msg, plainText)
-
         # GpgOL pre-3.0 sends the armored PGP message after the clear text, in the same message part.
         # We will discard the clear text - it should be contained in the armored message as well (but signed).
         fixed = False        
@@ -300,10 +330,4 @@ class PgpInlineIncomingMessage(IncomingMessage):
             logging.warning("EmailSecCache: incoming_message: Inline PGP message from %s (%s) has a PGP armored message not in the beginning of its containing message part" % \
                 (self.emailAddress, self.id))
             
-        return plainText
-    
-    stripAroundNewlinesRe = re.compile("[ \t]*\n[ \t]*", re.MULTILINE)
-    def normalizePgpHtml(self, msg, plainText):
-        if msg.get_content_maintype() == "text" and msg.get_content_subtype() == "html":
-            plainText = self.stripAroundNewlinesRe.sub("\n", plainText)
         return plainText

@@ -81,9 +81,7 @@ class FormatIncomingMessageTests(IncomingMessageTests):
         
     def assertMessage(self, encrypted, signed, signedWrong, plain, html, attachments):
         with self.readMessageByAttributes(encrypted, signed, signedWrong, plain, html, attachments) as incomingMsg:
-            msgParts_ = incomingMsg.getMessageParts()
             msgParts = incomingMsg.getMessageParts()
-            self.assertEqual(msgParts, msgParts_)
             self.assertTrue(msgParts)
     
             texts = []        
@@ -601,18 +599,18 @@ class MiscMessageTests(IncomingMessageTests):
 
 
     def testHtmlStripping(self):
-        words = self._testSpecialContent("html")
+        words = self.assertSpecialContent("html")
 
         self.assertNotIn("color", words)
         self.assertNotIn("var", words)
 
     def testMissingCharset(self):
-        self._testSpecialContent("missing_charset")
+        self.assertSpecialContent("missing_charset")
 
     def testNonTextMessagePart(self):
-        self._testSpecialContent("non_text_msg_part")
+        self.assertSpecialContent("non_text_msg_part")
         
-    def _testSpecialContent(self, msgFileName):
+    def assertSpecialContent(self, msgFileName):
         incomingMsg = self.readMessage(msgFileName)
         msgParts = incomingMsg.getMessageParts()
         

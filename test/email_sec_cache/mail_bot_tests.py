@@ -123,9 +123,6 @@ class MailBotTests(test.email_sec_cache.Tests):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         MailBotTests.messagesDir = os.path.join(moduleDir, "messages")
         
-        correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)
-        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
-        
         email_sec_cache.geocacheName = "GC65Z29"
         
     @classmethod
@@ -134,9 +131,13 @@ class MailBotTests(test.email_sec_cache.Tests):
         
     def setUp(self):
         test.email_sec_cache.Tests.setUp(self)
+        
         db = email_sec_cache.Db()
         cursor = db.conn.cursor()
-        cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (0, MailBotTests.correspondentEmailAddress))
+        cursor.execute("DELETE FROM correspondents")
+        
+        correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)        
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
 
     def tearDown(self):
         test.email_sec_cache.Tests.tearDown(self)
@@ -272,3 +273,64 @@ class MailBotTests(test.email_sec_cache.Tests):
 
     def testMessageWithUnparsableContentDisposition(self):
         self.assertBrokenMessage("unparsable_content_disposition")
+  
+  
+    def testKeyUploadEMail_opencaching_de_1(self):
+        self.assertSingleKeyUpload("key_upload/opencaching.de_e-mail_1")
+  
+    def testKeyUploadEMail_opencaching_de_2(self):
+        self.assertDoubleKeyUpload("key_upload/opencaching.de_e-mail_2")
+
+    def testKeyUploadEMail_geocaching_com_1(self):
+        self.assertSingleKeyUpload("key_upload/geocaching.com_e-mail_1")
+
+    def testKeyUploadEMail_geocaching_com_2(self):
+        self.assertDoubleKeyUpload("key_upload/geocaching.com_e-mail_2")
+
+    def testKeyUploadMessage_geocaching_com_1(self):
+        self.assertSingleKeyUpload("key_upload/geocaching.com_msg_1")
+
+    def testKeyUploadEMail_direct_2(self):
+        self.assertDoubleKeyUpload("key_upload/direct_e-mail_2")
+        
+    def testKeyUploadAndHappyPathPgpMime(self):
+        self.keyUploadSetUp()
+        self.assertHappyPath("key_upload/happy_path_pgp_mime")
+
+    def testKeyUploadAndHappyPathPgpInline(self):
+        self.keyUploadSetUp()
+        self.assertHappyPath("key_upload/happy_path_pgp_inline")
+
+    def testKeyUploadInvalid(self):
+        self.prepareKeyUploadTest("key_upload/invalid")
+        db = email_sec_cache.Db()
+        self.assertEqual(0, db.getCorrespondentsCount())
+
+    def assertSingleKeyUpload(self, msgFileName):
+        self.prepareKeyUploadTest(msgFileName)
+        with email_sec_cache.Pgp("gbr@voidland.org") as pgp:
+            self.assertIn("44EDCA862A2D87BDB1D9C36B7FB049F79011E1A9", pgp.correspondentFingerprints)
+
+    def assertDoubleKeyUpload(self, msgFileName):
+        self.prepareKeyUploadTest(msgFileName)
+        with email_sec_cache.Pgp("gbr@voidland.org") as pgp:
+            self.assertIn("44EDCA862A2D87BDB1D9C36B7FB049F79011E1A9", pgp.correspondentFingerprints)
+        with email_sec_cache.Pgp("gbrdead@gmail.com") as pgp:
+            self.assertIn("99736E5D14232CCC8617F67203331C496704E218", pgp.correspondentFingerprints)
+
+    def keyUploadSetUp(self):
+        db = email_sec_cache.Db()
+        cursor = db.conn.cursor()
+        cursor.execute("DELETE FROM correspondents")
+        self.assertEqual(0, db.getCorrespondentsCount())
+
+    def prepareKeyUploadTest(self, msgFileName):
+        self.keyUploadSetUp()
+        keyUploadMsg = self.readMessage(msgFileName)
+        
+        mailBot = MailBotForTesting([keyUploadMsg])
+        self.runMailBot(mailBot)
+
+        self.assertEqual(0, len(mailBot.mockMbox.testMessages))
+        self.assertEqual(0, len(mailBot.mockReplies))
+        self.assertEqual(0, len(mailBot.failedMessagesKeys))
