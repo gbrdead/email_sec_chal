@@ -306,6 +306,11 @@ class MailBotTests(test.email_sec_cache.Tests):
         db = email_sec_cache.Db()
         self.assertEqual(0, db.getCorrespondentsCount())
 
+    def testKeyUploadSpoofed(self):
+        self.prepareKeyUploadTest("key_upload/spoofed")
+        db = email_sec_cache.Db()
+        self.assertEqual(0, db.getCorrespondentsCount())
+
     def assertSingleKeyUpload(self, msgFileName):
         self.prepareKeyUploadTest(msgFileName)
         with email_sec_cache.Pgp("gbr@voidland.org") as pgp:

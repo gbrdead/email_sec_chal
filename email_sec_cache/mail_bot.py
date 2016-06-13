@@ -37,11 +37,15 @@ class MailBot:
                     try:
                         with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
                         
-                            self.processKeyUploadMessage(incomingMsg, msgKey)
-                            
-                            msgRecipientsEmailAddresses = email_sec_cache.util.getMessageRecipientsEmailAddresses(origMsg)
-                            if email_sec_cache.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
-                                self.processRequestMessage(incomingMsg, msgKey)
+                            if incomingMsg.emailAddress == email_sec_cache.Pgp.botEmailAddress:
+                                logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
+                            else:
+
+                                self.processKeyUploadMessage(incomingMsg, msgKey)
+                                
+                                msgRecipientsEmailAddresses = email_sec_cache.util.getMessageRecipientsEmailAddresses(origMsg)
+                                if email_sec_cache.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
+                                    self.processRequestMessage(incomingMsg, msgKey)
                                 
                     except Exception:
                         logging.exception("EmailSecCache: mail_bot: Failed processing message %s" % msgKey)
@@ -54,15 +58,11 @@ class MailBot:
                 self.mbox.unlock()
                 
     def processRequestMessage(self, incomingMsg, msgKey):
-        if incomingMsg.emailAddress == email_sec_cache.Pgp.botEmailAddress:
-            logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
-        else:
-            
-            msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
-            if msgPart is not None:
-                logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
-                impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
-                self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
+        msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
+        if msgPart is not None:
+            logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
+            impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
+            self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
         
     def reply(self, asImpostor, incomingMsg, emailAddress, msgId):
         with self.createReplyMessage(incomingMsg) as replyMsg:
