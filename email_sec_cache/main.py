@@ -10,7 +10,7 @@ resourceDir = None
 dataDir = None
 tempDir = None
 
-geocacheName = None
+geocacheNames = set()
 logLevel = logging.NOTSET
 keyUploadServerPort = -1
 smtpServerHost = None
@@ -20,7 +20,7 @@ def loadConfiguration():
     config = configparser.ConfigParser()
     config.read(email_sec_cache.configFile)
     
-    email_sec_cache.geocacheName = config["misc"]["geocache_name"]
+    email_sec_cache.geocacheNames = set(map(str.upper, email_sec_cache.util.extractWords(config["misc"]["geocache_names"])))
     email_sec_cache.logLevel = logging._nameToLevel[config["misc"]["log_level"].upper()]
     email_sec_cache.keyUploadServerPort = int(config["misc"]["key_upload_server_port"])
     email_sec_cache.smtpServerHost = config["misc"]["smtp_server_host"]
@@ -30,7 +30,7 @@ def loadConfiguration():
     
     logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=email_sec_cache.logLevel)
     
-    logging.info("EmailSecCache: main: Geocache name: %s" % email_sec_cache.geocacheName)
+    logging.info("EmailSecCache: main: Geocache names: %s" % ", ".join(email_sec_cache.geocacheNames))
     logging.info("EmailSecCache: main: Log level: %s" % logging.getLevelName(email_sec_cache.logLevel))
     logging.info("EmailSecCache: main: Key upload server port: %d" % email_sec_cache.keyUploadServerPort)
     logging.info("EmailSecCache: main: SMTP server host: %s" % email_sec_cache.smtpServerHost)

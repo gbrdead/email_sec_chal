@@ -85,7 +85,7 @@ class MailBot:
                 logging.warning("EmailSecCache: mail_bot: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             words = email_sec_cache.extractWords(msgPart.getPlainText())
-            if not str.upper(email_sec_cache.geocacheName) in list(map(str.upper, words)):
+            if not email_sec_cache.geocacheNames & set(map(str.upper, words)):
                 logging.warning("EmailSecCache: mail_bot: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             return msgPart

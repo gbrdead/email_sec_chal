@@ -123,7 +123,7 @@ class MailBotTests(test.email_sec_cache.Tests):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         MailBotTests.messagesDir = os.path.join(moduleDir, "messages")
         
-        email_sec_cache.geocacheName = "GC65Z29"
+        email_sec_cache.geocacheNames = set(["GC65Z29", "OC13031"])
         
     @classmethod
     def tearDownClass(cls):
@@ -177,9 +177,12 @@ class MailBotTests(test.email_sec_cache.Tests):
         self.assertOutgoingMessage(mailBot.mockReplies[2], validRequestMsgId, False)
         self.assertEqual(0, len(mailBot.failedMessagesKeys))
         
-    def testHappyPath(self):
-        self.assertHappyPath("validRequestForOfficialBot")
+    def testHappyPath_geocaching_com(self):
+        self.assertHappyPath("validRequestForOfficialBot_geocaching.com")
  
+    def testHappyPath_opencaching_de(self):
+        self.assertHappyPath("validRequestForOfficialBot")
+
     def testHappyPathNonLowercaseSenderAddress(self):
         self.assertHappyPath("validRequestForOfficialBot_non_lowercase_sender_address")
 
