@@ -631,6 +631,10 @@ class MiscMessageTests(IncomingMessageTests):
             self.assertTrue(msgPart.signedAndVerified)
         
 
+    def testUnknownCharset(self):
+        incomingMsg = self.readMessage("unknown_charset_spam")
+        incomingMsg.getMessageParts()
+
 
 if __name__ == "__main__":
     unittest.main()

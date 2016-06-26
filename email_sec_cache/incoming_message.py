@@ -51,7 +51,11 @@ class IncomingMessagePart:
             if charset is None:
                 logging.warning("EmailSecCache: incoming_message: No charset specified for a part in message from %s (%s); assuming UTF-8" % (self.incomingMessage.emailAddress, self.incomingMessage.id))
                 charset = "utf-8"
-            self.plainText = self.plainText.decode(charset, "ignore")
+            try:
+                self.plainText = self.plainText.decode(charset, "ignore")
+            except LookupError:
+                logging.warning("EmailSecCache: incoming_message: Unknown charset: %s" % charset, exc_info=True)
+                self.plainText = self.plainText.decode("utf-8", "ignore")
     
     def getPlainText(self):
         self.extractPlainText()
