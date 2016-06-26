@@ -65,7 +65,7 @@ class Db:
         emailAddress = emailAddress.lower()
         cursor = self.conn.cursor()
         if not self.correspondentExists(emailAddress):
-            cursor.execute("INSERT INTO correspondents (email_address, key) VALUES(?, ?)", (emailAddress, key))
+            cursor.execute("INSERT INTO correspondents (email_address, key, red_herring_sent) VALUES(?, ?, ?)", (emailAddress, key, -1))
             logging.debug("EmailSecCache: db: Added a new correspondent key in the DB for %s" % emailAddress)
         else:
             cursor.execute("UPDATE correspondents SET key = ?, red_herring_sent = -1 WHERE email_address = ?", (key, emailAddress))
