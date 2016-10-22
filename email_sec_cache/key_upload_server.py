@@ -64,10 +64,10 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         
         content, fsPath, modTime = self.getGetResponse()
         if content is None:
-            self.send_error(http.HTTPStatus.NOT_FOUND)
+            self.send_error(404)
             return
 
-        self.send_response(http.HTTPStatus.OK)
+        self.send_response(200)
         
         contentType, contentEncoding = self.getContentType(fsPath)
         self.send_header("Content-Type", contentType)
@@ -166,18 +166,18 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         contentTypeValue, contentTypeParameters = cgi.parse_header(contentType)
         if contentTypeValue != "multipart/form-data" or "boundary" not in contentTypeParameters:
             logging.warning("EmailSecCache: key_upload_server: Invalid POST Content-Type: %s" % contentType)
-            self.send_error(http.HTTPStatus.UNSUPPORTED_MEDIA_TYPE)
+            self.send_error(415)
             return
         contentTypeParameters["boundary"] = bytes(contentTypeParameters["boundary"], "ascii")
         uploaded = cgi.parse_multipart(self.rfile, contentTypeParameters)
         
         if not ("key" in uploaded and len(uploaded["key"]) > 0):
-            self.send_error(http.HTTPStatus.BAD_REQUEST)
+            self.send_error(400)
             return
         correspondentKey = str(uploaded["key"][0], "ascii")
         emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
         
-        self.send_response(http.HTTPStatus.FOUND)
+        self.send_response(302)
         if emailAddresses != []:
             self.send_header("Location", "key_upload_success.html")
         else:
