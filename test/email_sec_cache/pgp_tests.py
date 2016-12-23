@@ -30,3 +30,10 @@ class PgpTests(test.email_sec_cache.Tests):
             emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(garbageKey)
             self.assertListEqual([], emailAddresses)
             self.assertEqual(initialCorrespondentsCount, db.getCorrespondentsCount())
+
+    def testStoreCorrespondentKeyWithStrangeRealNameInUid(self):
+        correspondentKey = test.email_sec_cache.Tests.readPublicKey("dimpata@gmail.com", "0556B1B2")
+        
+        email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
+        with email_sec_cache.Pgp("dimpata@gmail.com") as pgp:
+            self.assertEqual(["95E12FD2351D3CC7EFBAE77B514D3A510556B1B2"], pgp.correspondentFingerprints)

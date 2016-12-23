@@ -52,7 +52,7 @@ class Pgp:
             Pgp.impostorBotKeys = impostorBotKeysFile.read()
             
         Pgp.botFrom = Pgp.getBotFromHeaderValue()
-        _, Pgp.botEmailAddress = email.utils.parseaddr(Pgp.botFrom)
+        Pgp.botEmailAddress = Pgp.uidToEmailAddress(Pgp.botFrom)
         Pgp.botEmailAddress = Pgp.botEmailAddress.lower()
 
         logging.debug("EmailSecCache: pgp: Static initialization successful")
@@ -101,7 +101,7 @@ class Pgp:
         db = email_sec_cache.Db()
         for key in keys:
             for uid in key["uids"]:
-                _, emailAddress = email.utils.parseaddr(uid)
+                emailAddress = Pgp.uidToEmailAddress(uid)
                 if emailAddress is not None:
                     emailAddress = emailAddress.lower()
                     emailAddresses.append(emailAddress)
@@ -210,3 +210,11 @@ class Pgp:
         generator = email.generator.BytesGenerator(buf, maxheaderlen=0)
         generator.flatten(msg, linesep="\r\n")
         return buf.getvalue()
+
+    @staticmethod
+    def uidToEmailAddress(uid):
+        openingAngleBracketPos = uid.find("<")
+        closingAngleBracketPos = uid.find(">")
+        if openingAngleBracketPos != -1 and closingAngleBracketPos != -1:
+            return uid[openingAngleBracketPos+1:closingAngleBracketPos]
+        return uid
