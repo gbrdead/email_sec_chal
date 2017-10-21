@@ -30,31 +30,31 @@ def loadConfiguration():
     
     logging.basicConfig(format="%(asctime)s [%(levelname)s]: %(message)s", datefmt="%Y.%m.%d %H:%M:%S", level=email_sec_chal.logLevel)
     
-    logging.info("EmailSecCache: main: Trigger words: %s" % ", ".join(email_sec_chal.triggerWords))
-    logging.info("EmailSecCache: main: Log level: %s" % logging.getLevelName(email_sec_chal.logLevel))
-    logging.info("EmailSecCache: main: Key upload server port: %d" % email_sec_chal.keyUploadServerPort)
-    logging.info("EmailSecCache: main: SMTP server host: %s" % email_sec_chal.smtpServerHost)
-    logging.info("EmailSecCache: main: Resource directory: %s" % email_sec_chal.resourceDir)
-    logging.info("EmailSecCache: main: Data directory: %s" % email_sec_chal.dataDir)
-    logging.info("EmailSecCache: main: Temporary directory: %s" % email_sec_chal.tempDir)
+    logging.info("EmailSecChal: main: Trigger words: %s" % ", ".join(email_sec_chal.triggerWords))
+    logging.info("EmailSecChal: main: Log level: %s" % logging.getLevelName(email_sec_chal.logLevel))
+    logging.info("EmailSecChal: main: Key upload server port: %d" % email_sec_chal.keyUploadServerPort)
+    logging.info("EmailSecChal: main: SMTP server host: %s" % email_sec_chal.smtpServerHost)
+    logging.info("EmailSecChal: main: Resource directory: %s" % email_sec_chal.resourceDir)
+    logging.info("EmailSecChal: main: Data directory: %s" % email_sec_chal.dataDir)
+    logging.info("EmailSecChal: main: Temporary directory: %s" % email_sec_chal.tempDir)
 
 
 if __name__ == "__main__":
     try:
         loadConfiguration()
     except:
-        logging.exception("EmailSecCache: main: Cannot read configuration")
+        logging.exception("EmailSecChal: main: Cannot read configuration")
         sys.exit(1)
 
     try:
         email_sec_chal.startKeyUploadServer()
     except:
-        logging.exception("EmailSecCache: main: Cannot start the key upload server")
+        logging.exception("EmailSecChal: main: Cannot start the key upload server")
         sys.exit(2)
         
     try:
         mailBot = email_sec_chal.MailBot()
         mailBot.run()
     except:
-        logging.exception("EmailSecCache: main: The mailbot stopped with an exception")
+        logging.exception("EmailSecChal: main: The mailbot stopped with an exception")
         sys.exit(3)

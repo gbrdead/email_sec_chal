@@ -42,25 +42,25 @@ class OutgoingMessage:
         
     def close(self):
         self.pgp.close()
-        logging.debug("EmailSecCache: outgoing_message: Closed message to %s" % self.incomingMsg.emailAddress)
+        logging.debug("EmailSecChal: outgoing_message: Closed message to %s" % self.incomingMsg.emailAddress)
         
     def send(self, asImpostor):
         msg = self.construct(asImpostor)
         
         with self.createSmtpClient() as smtpClient:
             smtpClient.sendmail(email_sec_chal.Pgp.botEmailAddress, self.incomingMsg.emailAddress, msg.as_string())
-            logging.debug("EmailSecCache: outgoing_message: Successfully sent message to %s" % self.incomingMsg.emailAddress)
+            logging.debug("EmailSecChal: outgoing_message: Successfully sent message to %s" % self.incomingMsg.emailAddress)
         
     def createSmtpClient(self):
         smtpClient = smtplib.SMTP(email_sec_chal.smtpServerHost)
-        logging.debug("EmailSecCache: outgoing_message: Successfully connected to SMTP server at %s" % email_sec_chal.smtpServerHost)
+        logging.debug("EmailSecChal: outgoing_message: Successfully connected to SMTP server at %s" % email_sec_chal.smtpServerHost)
         return smtpClient
         
     def construct(self, asImpostor):
         msg = self.constructUnencrypted(asImpostor)
-        logging.debug("EmailSecCache: outgoing_message: Unencrypted message to % successfully created" % self.incomingMsg.emailAddress)
+        logging.debug("EmailSecChal: outgoing_message: Unencrypted message to % successfully created" % self.incomingMsg.emailAddress)
         msg = self.pgp.signAndEncrypt(msg, asImpostor)
-        logging.debug("EmailSecCache: outgoing_message: Message to % successfully signed and encrypted" % self.incomingMsg.emailAddress)
+        logging.debug("EmailSecChal: outgoing_message: Message to % successfully signed and encrypted" % self.incomingMsg.emailAddress)
         
         msg["To"] = self.incomingMsg.originalMessage["From"]
         msg["From"] = email_sec_chal.Pgp.botFrom
@@ -79,11 +79,11 @@ class OutgoingMessage:
         
         text = self.constructTextMessagePart(filePrefix)
         msg.attach(text)
-        logging.debug("EmailSecCache: outgoing_message: Text attached")
+        logging.debug("EmailSecChal: outgoing_message: Text attached")
         
         spoilerPictureAttachment = self.constructSpoilerMessagePart(filePrefix)
         msg.attach(spoilerPictureAttachment)
-        logging.debug("EmailSecCache: outgoing_message: Spoiler picture attached")
+        logging.debug("EmailSecChal: outgoing_message: Spoiler picture attached")
         
         if asImpostor:
             impostorPublicKey = self.pgp.getImpostorPublicKey()
@@ -92,13 +92,13 @@ class OutgoingMessage:
             email_sec_chal.setMimeAttachmentFileName(impostorPublicKeyAttachment, "public_key.asc")
             msg.attach(impostorPublicKeyAttachment)
 
-            logging.debug("EmailSecCache: outgoing_message: Applying Enigmail pre-1.9 workaround")
+            logging.debug("EmailSecChal: outgoing_message: Applying Enigmail pre-1.9 workaround")
             msg.as_string()
             boundary = msg.get_boundary()
             boundary = "--" + boundary[2:]
             msg.set_boundary(boundary)
             
-            logging.debug("EmailSecCache: outgoing_message: Impostor public key attached")
+            logging.debug("EmailSecChal: outgoing_message: Impostor public key attached")
             
         return msg
 
@@ -106,7 +106,7 @@ class OutgoingMessage:
         htmlResponsePath = os.path.join(email_sec_chal.resourceDir, filePrefix + ".html")
         if not os.access(htmlResponsePath, os.F_OK):
             
-            logging.debug("EmailSecCache: outgoing_message: %s not available, will use plain text" % htmlResponsePath)
+            logging.debug("EmailSecChal: outgoing_message: %s not available, will use plain text" % htmlResponsePath)
             plainTextResponsePath = os.path.join(email_sec_chal.resourceDir, filePrefix + ".txt")
             with open(plainTextResponsePath, "r", encoding="utf-8") as plainTextResponseFile:
                 plainTextResponse = plainTextResponseFile.read()

@@ -21,7 +21,7 @@ class MailBot:
         self.db = email_sec_chal.Db()
         self.failedMessagesKeys = set()
 
-        logging.info("EmailSecCache: mail_bot: Successfully started")
+        logging.info("EmailSecChal: mail_bot: Successfully started")
         
         while True:
             time.sleep(1)
@@ -30,7 +30,7 @@ class MailBot:
             try:
                 for msgKey in self.mbox.iterkeys():
                     if msgKey in self.failedMessagesKeys:
-                        logging.debug("EmailSecCache: mail_bot: Skipping previously failed message with key %s" % msgKey)
+                        logging.debug("EmailSecChal: mail_bot: Skipping previously failed message with key %s" % msgKey)
                         continue
                     origMsg = self.mbox[msgKey]
                     
@@ -38,7 +38,7 @@ class MailBot:
                         with email_sec_chal.IncomingMessage.create(origMsg) as incomingMsg:
                         
                             if incomingMsg.emailAddress == email_sec_chal.Pgp.botEmailAddress:
-                                logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
+                                logging.warning("EmailSecChal: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
                             else:
 
                                 self.processKeyUploadMessage(incomingMsg, msgKey)
@@ -48,7 +48,7 @@ class MailBot:
                                     self.processRequestMessage(incomingMsg, msgKey)
                                 
                     except Exception:
-                        logging.exception("EmailSecCache: mail_bot: Failed processing message %s" % msgKey)
+                        logging.exception("EmailSecChal: mail_bot: Failed processing message %s" % msgKey)
                         self.failedMessagesKeys.add(msgKey)
                         
                     if msgKey not in self.failedMessagesKeys:    
@@ -60,7 +60,7 @@ class MailBot:
     def processRequestMessage(self, incomingMsg, msgKey):
         msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
         if msgPart is not None:
-            logging.info("EmailSecCache: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
+            logging.info("EmailSecChal: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
             impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
             self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
         
@@ -68,10 +68,10 @@ class MailBot:
         with self.createReplyMessage(incomingMsg) as replyMsg:
             replyMsg.send(asImpostor)
             if asImpostor:
-                logging.info("EmailSecCache: mail_bot: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
+                logging.info("EmailSecChal: mail_bot: Replied to %s as the impostor bot (%s)" % (emailAddress, msgId))
                 self.db.redHerringSent(emailAddress)
             else:
-                logging.info("EmailSecCache: mail_bot: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
+                logging.info("EmailSecChal: mail_bot: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
                 
     def createReplyMessage(self, incomingMsg):
         return email_sec_chal.OutgoingMessage(incomingMsg)
@@ -79,14 +79,14 @@ class MailBot:
     def findValidMessagePart(self, incomingMsg, emailAddress, msgId):
         for msgPart in incomingMsg.getMessageParts():
             if not msgPart.encrypted:
-                logging.warning("EmailSecCache: mail_bot: Ignoring unencrypted message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                logging.warning("EmailSecChal: mail_bot: Ignoring unencrypted message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             if not msgPart.signedAndVerified:
-                logging.warning("EmailSecCache: mail_bot: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                logging.warning("EmailSecChal: mail_bot: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             words = email_sec_chal.extractWords(msgPart.getPlainText())
             if not email_sec_chal.triggerWords & set(map(str.upper, words)):
-                logging.warning("EmailSecCache: mail_bot: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
+                logging.warning("EmailSecChal: mail_bot: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             return msgPart
         return None

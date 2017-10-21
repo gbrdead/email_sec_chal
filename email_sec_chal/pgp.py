@@ -55,7 +55,7 @@ class Pgp:
         Pgp.botEmailAddress = Pgp.uidToEmailAddress(Pgp.botFrom)
         Pgp.botEmailAddress = Pgp.botEmailAddress.lower()
 
-        logging.debug("EmailSecCache: pgp: Static initialization successful")
+        logging.debug("EmailSecChal: pgp: Static initialization successful")
         Pgp.initialized = True
         
     @staticmethod
@@ -80,7 +80,7 @@ class Pgp:
         finally:
             shutil.rmtree(gnupgHomeDir, ignore_errors=True)
         
-        logging.info("EmailSecCache: pgp: The value for the bot's From header is: " + botFrom)
+        logging.info("EmailSecChal: pgp: The value for the bot's From header is: " + botFrom)
         return botFrom
 
     @staticmethod    
@@ -107,7 +107,7 @@ class Pgp:
                     emailAddresses.append(emailAddress)
                     db.setCorrespondentKey(emailAddress, correspondentKey)
                 
-        logging.info("EmailSecCache: pgp: Imported keys for the following addresses: %s" % (", ".join(emailAddresses)))
+        logging.info("EmailSecChal: pgp: Imported keys for the following addresses: %s" % (", ".join(emailAddresses)))
         return emailAddresses
     
     def __init__(self, emailAddress_=""):
@@ -115,7 +115,7 @@ class Pgp:
         
         self.db = email_sec_chal.Db()
         self.emailAddress = emailAddress_
-        logging.debug("EmailSecCache: pgp: Creating an instance for %s" % (self.emailAddress if self.emailAddress is not None else "nobody"))
+        logging.debug("EmailSecChal: pgp: Creating an instance for %s" % (self.emailAddress if self.emailAddress is not None else "nobody"))
         if self.emailAddress is not None:
             self.emailAddress = self.emailAddress.lower()
         
@@ -129,7 +129,7 @@ class Pgp:
         gpg = Pgp.createGpg(gnupgHomeDir)
         gpg.encoding = "utf-8"
         importResult = gpg.import_keys(botKeys)
-        logging.debug("EmailSecCache: pgp: Created a GPG home directory in %s" % gnupgHomeDir)
+        logging.debug("EmailSecChal: pgp: Created a GPG home directory in %s" % gnupgHomeDir)
         return gnupgHomeDir, gpg, importResult.fingerprints
 
     def __enter__(self):
@@ -145,9 +145,9 @@ class Pgp:
     def removeGnupgHomeDir(self, gnupgHomeDir):
         try:
             shutil.rmtree(gnupgHomeDir)
-            logging.debug("EmailSecCache: pgp: Deleted the GPG home directory %s" % gnupgHomeDir)
+            logging.debug("EmailSecChal: pgp: Deleted the GPG home directory %s" % gnupgHomeDir)
         except:
-            logging.warning("EmailSecCache: pgp: Cannot remove directory %s" % gnupgHomeDir, exc_info=True)
+            logging.warning("EmailSecChal: pgp: Cannot remove directory %s" % gnupgHomeDir, exc_info=True)
 
         
     def loadCorrespondentKeyFromDb(self):
@@ -177,7 +177,7 @@ class Pgp:
         signatureFile = tempfile.NamedTemporaryFile(dir = email_sec_chal.tempDir, delete=False, mode="w")
         signatureFile.write(signature)
         signatureFile.close()
-        logging.debug("EmailSecCache: pgp: Wrote detached signature to temporary file %s" % signatureFile.name)
+        logging.debug("EmailSecChal: pgp: Wrote detached signature to temporary file %s" % signatureFile.name)
         
         verified = self.officialGpg.verify_data(signatureFile.name, binaryData)
         email_sec_chal.removeFile(signatureFile.name)

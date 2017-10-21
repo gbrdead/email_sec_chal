@@ -6,5 +6,5 @@ from .incoming_message import IncomingMessage
 from .outgoing_message import OutgoingMessage
 from .util import extractWords, removeFile, removeMimeVersion, setMimeAttachmentFileName, isPathPrefix, getMessageRecipientsEmailAddresses, getMessageSenderEmailAddress
 from .db import Db
-from .exception import EmailSecCacheException, MsgException, PgpException
+from .exception import EmailSecChalException, MsgException, PgpException
 from .key_upload_server import startKeyUploadServer,KeyUploadRequestHandler

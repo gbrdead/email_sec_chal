@@ -31,9 +31,9 @@ class Db:
                 email_address TEXT PRIMARY KEY,
                 key TEXT DEFAULT NULL,
                 red_herring_sent INTEGER DEFAULT -1)""")
-        logging.debug("EmailSecCache: db: Created the correspondents DB table")
+        logging.debug("EmailSecChal: db: Created the correspondents DB table")
         
-        logging.debug("EmailSecCache: db: Static initialization successful")
+        logging.debug("EmailSecChal: db: Static initialization successful")
         Db.initialized = True
 
     def __init__(self):
@@ -66,10 +66,10 @@ class Db:
         cursor = self.conn.cursor()
         if not self.correspondentExists(emailAddress):
             cursor.execute("INSERT INTO correspondents (email_address, key, red_herring_sent) VALUES(?, ?, ?)", (emailAddress, key, -1))
-            logging.debug("EmailSecCache: db: Added a new correspondent key in the DB for %s" % emailAddress)
+            logging.debug("EmailSecChal: db: Added a new correspondent key in the DB for %s" % emailAddress)
         else:
             cursor.execute("UPDATE correspondents SET key = ?, red_herring_sent = -1 WHERE email_address = ?", (key, emailAddress))
-            logging.debug("EmailSecCache: db: Updated the correspondent key in the DB for %s" % emailAddress)
+            logging.debug("EmailSecChal: db: Updated the correspondent key in the DB for %s" % emailAddress)
 
     def isRedHerringSent(self, emailAddress):
         emailAddress = emailAddress.lower()
@@ -87,7 +87,7 @@ class Db:
             cursor.execute("INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, self.getCurrentTimestamp()))
         else:
             cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (self.getCurrentTimestamp(), emailAddress))
-        logging.debug("EmailSecCache: db: Set red herring as sent in DB for %s" % emailAddress)
+        logging.debug("EmailSecChal: db: Set red herring as sent in DB for %s" % emailAddress)
         
     def getCurrentTimestamp(self):
         return int(time.time())

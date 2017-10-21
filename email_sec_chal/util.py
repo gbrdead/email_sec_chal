@@ -19,10 +19,10 @@ def extractWords(text):
 
 def removeFile(fileName):
     try:
-        logging.debug("EmailSecCache: util: Removing file: %s" % fileName)
+        logging.debug("EmailSecChal: util: Removing file: %s" % fileName)
         os.remove(fileName)
     except:
-        logging.warning("EmailSecCache: util: Cannot remove file %s" % fileName, exc_info=True)
+        logging.warning("EmailSecChal: util: Cannot remove file %s" % fileName, exc_info=True)
 
 
 def removeMimeVersion(msgPart):

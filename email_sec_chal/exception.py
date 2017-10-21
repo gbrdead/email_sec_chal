@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 
-class EmailSecCacheException(Exception):
+class EmailSecChalException(Exception):
     def __init__(self, msg):
         self.msg = msg
     def __str__(self):
         return self.msg
 
-class MsgException(EmailSecCacheException):
+class MsgException(EmailSecChalException):
     pass
 
-class PgpException(EmailSecCacheException):
+class PgpException(EmailSecChalException):
     pass
