@@ -1,7 +1,7 @@
 *.pyc
 *~
 /MANIFEST
-/email_sec_cache.egg-info/
+/email_sec_chal.egg-info/
 /dist/
 /.cache/
 /.eggs/

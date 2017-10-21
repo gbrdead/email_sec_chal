@@ -1,2 +1,2 @@
-graft test/email_sec_cache/config
-graft test/email_sec_cache/messages
+graft test/email_sec_chal/config
+graft test/email_sec_chal/messages

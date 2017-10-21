@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import email_sec_cache
+import email_sec_chal
 import bs4
 import logging
 import re
@@ -75,9 +75,9 @@ class IncomingMessage:
         self.originalMessage = originalMessage_
         self.id = self.originalMessage["Message-ID"]
         
-        self.emailAddress = email_sec_cache.util.getMessageSenderEmailAddress(self.originalMessage)
+        self.emailAddress = email_sec_chal.util.getMessageSenderEmailAddress(self.originalMessage)
         if not self.emailAddress:
-            raise email_sec_cache.MsgException("Missing From header in incoming message (%s)" % self.id)
+            raise email_sec_chal.MsgException("Missing From header in incoming message (%s)" % self.id)
         
     def __enter__(self):
         return self
@@ -100,14 +100,14 @@ class IncomingMessage:
     
     @staticmethod
     def isPgpMimeEncrypted(message):
-        contentTypeValue, contentTypeParameters = email_sec_cache.util.getHeaderValue(message, "Content-Type")
+        contentTypeValue, contentTypeParameters = email_sec_chal.util.getHeaderValue(message, "Content-Type")
         return \
             contentTypeValue == "multipart/encrypted" and \
             contentTypeParameters["protocol"] == "application/pgp-encrypted"
         
     @staticmethod
     def isPgpMimeSigned(message):
-        contentTypeValue, contentTypeParameters = email_sec_cache.util.getHeaderValue(message, "Content-Type")
+        contentTypeValue, contentTypeParameters = email_sec_chal.util.getHeaderValue(message, "Content-Type")
         return \
             contentTypeValue == "multipart/signed" and \
             contentTypeParameters["protocol"] == "application/pgp-signature"
@@ -121,7 +121,7 @@ class IncomingMessage:
             return msgParts
         
         if skipAttachments:
-            contentDispositionValue, _ = email_sec_cache.util.getHeaderValue(message, "Content-Disposition")
+            contentDispositionValue, _ = email_sec_chal.util.getHeaderValue(message, "Content-Disposition")
             if contentDispositionValue is not None:
                 if contentDispositionValue == "attachment":
                     logging.debug("EmailSecCache: incoming_message: Ignoring attachment in message from %s (%s)" % (self.emailAddress, self.id))
@@ -133,7 +133,7 @@ class IncomingMessage:
         return []
     
     def getMessageParts(self, skipAtttachments=True):
-        with email_sec_cache.Pgp(self.emailAddress) as self.pgp:
+        with email_sec_chal.Pgp(self.emailAddress) as self.pgp:
             return self.getMessagePartsInternal(skipAtttachments)
     
     def getPgpKeys(self):

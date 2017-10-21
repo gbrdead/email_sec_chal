@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import test.email_sec_cache
-import email_sec_cache
+import test.email_sec_chal
+import email_sec_chal
 import unittest.mock
 import mailbox
 import os.path
@@ -29,7 +29,7 @@ class MockMailbox(mailbox.Mailbox):
     
 
     def __init__(self, testMessagesAsList, runs = 1):
-        mailbox.Mailbox.__init__(self, email_sec_cache.tempDir)
+        mailbox.Mailbox.__init__(self, email_sec_chal.tempDir)
         self.initTestMessages(testMessagesAsList)
         self.runs = runs
         
@@ -91,7 +91,7 @@ class MockOutgoingMessage:
         self.asImpostor = asImpostor
 
 
-class MailBotForTesting(email_sec_cache.MailBot):
+class MailBotForTesting(email_sec_chal.MailBot):
     
     mockReplies = None
     mockMbox = None
@@ -108,7 +108,7 @@ class MailBotForTesting(email_sec_cache.MailBot):
 
 
 
-class MailBotTests(test.email_sec_cache.Tests):
+class MailBotTests(test.email_sec_chal.Tests):
     
     correspondentEmailAddress = "gbr@voidland.org" 
     correspondentKeyId = "9011E1A9"
@@ -118,27 +118,27 @@ class MailBotTests(test.email_sec_cache.Tests):
     
     @classmethod
     def setUpClass(cls):
-        test.email_sec_cache.Tests.setUpClass()
+        test.email_sec_chal.Tests.setUpClass()
         
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         MailBotTests.messagesDir = os.path.join(moduleDir, "messages")
         
-        email_sec_cache.geocacheNames = set(["GC65Z29", "OC13031"])
+        email_sec_chal.triggerWords = set(["GC65Z29", "OC13031"])
         
     @classmethod
     def tearDownClass(cls):
-        test.email_sec_cache.Tests.tearDownClass()
+        test.email_sec_chal.Tests.tearDownClass()
         
     def setUp(self):
-        test.email_sec_cache.Tests.setUp(self)
+        test.email_sec_chal.Tests.setUp(self)
         
-        test.email_sec_cache.Tests.clearDb()
+        test.email_sec_chal.Tests.clearDb()
         
-        correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)        
-        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
+        correspondentPublicKey = test.email_sec_chal.Tests.readPublicKey(MailBotTests.correspondentEmailAddress, MailBotTests.correspondentKeyId)        
+        email_sec_chal.Pgp.storeCorrespondentKey(correspondentPublicKey)
 
     def tearDown(self):
-        test.email_sec_cache.Tests.tearDown(self)
+        test.email_sec_chal.Tests.tearDown(self)
         
     def readMessage(self, msgFileName):
         msgFilePath = os.path.join(MailBotTests.messagesDir, msgFileName + ".eml")
@@ -296,24 +296,24 @@ class MailBotTests(test.email_sec_cache.Tests):
         
     def testKeyUploadInvalid(self):
         self.prepareKeyUploadTest("key_upload/invalid")
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         self.assertEqual(0, db.getCorrespondentsCount())
 
     def testKeyUploadSpoofed(self):
         self.prepareKeyUploadTest("key_upload/spoofed")
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         self.assertEqual(0, db.getCorrespondentsCount())
 
     def assertSingleKeyUpload(self, msgFileName):
         self.prepareKeyUploadTest(msgFileName)
-        with email_sec_cache.Pgp("gbr@voidland.org") as pgp:
+        with email_sec_chal.Pgp("gbr@voidland.org") as pgp:
             self.assertIn("44EDCA862A2D87BDB1D9C36B7FB049F79011E1A9", pgp.correspondentFingerprints)
 
     def assertDoubleKeyUpload(self, msgFileName):
         self.prepareKeyUploadTest(msgFileName)
-        with email_sec_cache.Pgp("gbr@voidland.org") as pgp:
+        with email_sec_chal.Pgp("gbr@voidland.org") as pgp:
             self.assertIn("44EDCA862A2D87BDB1D9C36B7FB049F79011E1A9", pgp.correspondentFingerprints)
-        with email_sec_cache.Pgp("gbrdead@gmail.com") as pgp:
+        with email_sec_chal.Pgp("gbrdead@gmail.com") as pgp:
             self.assertIn("99736E5D14232CCC8617F67203331C496704E218", pgp.correspondentFingerprints)
 
     def prepareKeyUploadTest(self, msgFileName):
@@ -348,4 +348,4 @@ class MailBotTests(test.email_sec_cache.Tests):
         self.assertEqual(0, len(mailBot.failedMessagesKeys))
         
     def keyUploadSetUp(self):
-        test.email_sec_cache.Tests.clearDb()
+        test.email_sec_chal.Tests.clearDb()

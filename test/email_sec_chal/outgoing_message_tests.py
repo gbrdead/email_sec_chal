@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import test.email_sec_cache
+import test.email_sec_chal
 import os.path
-import email_sec_cache
+import email_sec_chal
 import tempfile
 import shutil
 import email
@@ -24,7 +24,7 @@ class MockSMTP:
 
 
 
-class OutgoingMessageTests(test.email_sec_cache.Tests):
+class OutgoingMessageTests(test.email_sec_chal.Tests):
     
     correspondentEmailAddress = "gbr@voidland.org" 
     correspondentKeyId = "9011E1A9"
@@ -43,27 +43,27 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
     
     @classmethod
     def setUpClass(cls):
-        test.email_sec_cache.Tests.setUpClass()
+        test.email_sec_chal.Tests.setUpClass()
         
-        officialBotKeyFilePath = os.path.join(email_sec_cache.resourceDir, "officialBot.asc")
-        impostorBotKeyFilePath = os.path.join(email_sec_cache.resourceDir, "impostorBot.asc")
+        officialBotKeyFilePath = os.path.join(email_sec_chal.resourceDir, "officialBot.asc")
+        impostorBotKeyFilePath = os.path.join(email_sec_chal.resourceDir, "impostorBot.asc")
         with open(officialBotKeyFilePath, "r") as officialBotKeyFile:
             officialBotKey = officialBotKeyFile.read() 
         with open(impostorBotKeyFilePath, "r") as impostorBotKeyFile:
             impostorBotKey = impostorBotKeyFile.read() 
             
-        correspondentPublicKey = test.email_sec_cache.Tests.readPublicKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
-        correspondentPrivateKey = test.email_sec_cache.Tests.readPrivateKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
+        correspondentPublicKey = test.email_sec_chal.Tests.readPublicKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
+        correspondentPrivateKey = test.email_sec_chal.Tests.readPrivateKey(OutgoingMessageTests.correspondentEmailAddress, OutgoingMessageTests.correspondentKeyId)
             
-        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
+        email_sec_chal.Pgp.storeCorrespondentKey(correspondentPublicKey)
             
-        OutgoingMessageTests.officialBotGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
-        OutgoingMessageTests.impostorBotGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
-        OutgoingMessageTests.correspondentGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
+        OutgoingMessageTests.officialBotGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_chal.tempDir)
+        OutgoingMessageTests.impostorBotGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_chal.tempDir)
+        OutgoingMessageTests.correspondentGnupgHomeDir = tempfile.mkdtemp(dir = email_sec_chal.tempDir)
         
-        OutgoingMessageTests.officialBotGpg = email_sec_cache.Pgp.createGpg(OutgoingMessageTests.officialBotGnupgHomeDir)
-        OutgoingMessageTests.impostorBotGpg = email_sec_cache.Pgp.createGpg(OutgoingMessageTests.impostorBotGnupgHomeDir)
-        OutgoingMessageTests.correspondentGpg = email_sec_cache.Pgp.createGpg(OutgoingMessageTests.correspondentGnupgHomeDir)
+        OutgoingMessageTests.officialBotGpg = email_sec_chal.Pgp.createGpg(OutgoingMessageTests.officialBotGnupgHomeDir)
+        OutgoingMessageTests.impostorBotGpg = email_sec_chal.Pgp.createGpg(OutgoingMessageTests.impostorBotGnupgHomeDir)
+        OutgoingMessageTests.correspondentGpg = email_sec_chal.Pgp.createGpg(OutgoingMessageTests.correspondentGnupgHomeDir)
         
         OutgoingMessageTests.officialBotGpg.import_keys(officialBotKey)
         impostorFingerprints = OutgoingMessageTests.impostorBotGpg.import_keys(impostorBotKey).fingerprints
@@ -78,7 +78,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         validRequestFilePath = os.path.join(moduleDir, "messages", "validRequestForOfficialBot.eml")
         with open(validRequestFilePath, "rb") as validRequestFile:
             msg = email.message_from_bytes(validRequestFile.read())
-            OutgoingMessageTests.incomingMsg = email_sec_cache.IncomingMessage.create(msg)
+            OutgoingMessageTests.incomingMsg = email_sec_chal.IncomingMessage.create(msg)
 
         
     @classmethod
@@ -87,7 +87,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         shutil.rmtree(OutgoingMessageTests.impostorBotGnupgHomeDir, ignore_errors=True)
         shutil.rmtree(OutgoingMessageTests.correspondentGnupgHomeDir, ignore_errors=True)
         
-        test.email_sec_cache.Tests.tearDownClass()
+        test.email_sec_chal.Tests.tearDownClass()
 
 
     def testAsImpostorBot(self):
@@ -151,7 +151,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         
 
     def obtainTestMessage(self, asImpostor):
-        with email_sec_cache.OutgoingMessage(OutgoingMessageTests.incomingMsg) as outgoingMsg:
+        with email_sec_chal.OutgoingMessage(OutgoingMessageTests.incomingMsg) as outgoingMsg:
             smtpClient = MockSMTP()
             outgoingMsg.createSmtpClient = unittest.mock.MagicMock(return_value=smtpClient)
             
@@ -207,7 +207,7 @@ class OutgoingMessageTests(test.email_sec_cache.Tests):
         contentDispositionValue, _ = cgi.parse_header(contentDisposition)
         self.assertEqual("attachment", contentDispositionValue)
         
-        spoilerFilePath = os.path.join(email_sec_cache.resourceDir, spoilerPictureFileName)
+        spoilerFilePath = os.path.join(email_sec_chal.resourceDir, spoilerPictureFileName)
         with open(spoilerFilePath, "rb") as spoilerFile:
             expectedSpoilerPictureData = spoilerFile.read()    
         self.assertEqual(expectedSpoilerPictureData, spoilerPictureAttachment.get_payload(decode=True))

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-import test.email_sec_cache
+import test.email_sec_chal
 import socket
-import email_sec_cache
+import email_sec_chal
 import requests
 import shutil
 import tempfile
@@ -12,7 +12,7 @@ import os.path
 
 
 
-class KeyUploadServerTests(test.email_sec_cache.Tests):
+class KeyUploadServerTests(test.email_sec_chal.Tests):
     
     keyUploadServer = None
     keyUploadUrlPrefix = None
@@ -44,15 +44,15 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
                     
     @classmethod
     def setUpClass(cls):
-        test.email_sec_cache.Tests.setUpClass()
+        test.email_sec_chal.Tests.setUpClass()
 
-        email_sec_cache.keyUploadServerPort = KeyUploadServerTests.findFreePort()
-        email_sec_cache.KeyUploadRequestHandler.initialized = False
+        email_sec_chal.keyUploadServerPort = KeyUploadServerTests.findFreePort()
+        email_sec_chal.KeyUploadRequestHandler.initialized = False
         
-        KeyUploadServerTests.keyUploadServer = email_sec_cache.startKeyUploadServer()
-        KeyUploadServerTests.keyUploadUrlPrefix = "http://localhost:" + str(email_sec_cache.keyUploadServerPort)
+        KeyUploadServerTests.keyUploadServer = email_sec_chal.startKeyUploadServer()
+        KeyUploadServerTests.keyUploadUrlPrefix = "http://localhost:" + str(email_sec_chal.keyUploadServerPort)
         
-        KeyUploadServerTests.correspondentKey = test.email_sec_cache.Tests.readPublicKey(KeyUploadServerTests.correspondentEmailAddress, KeyUploadServerTests.correspondentKeyId)
+        KeyUploadServerTests.correspondentKey = test.email_sec_chal.Tests.readPublicKey(KeyUploadServerTests.correspondentEmailAddress, KeyUploadServerTests.correspondentKeyId)
 
     @classmethod
     def tearDownClass(cls):
@@ -60,15 +60,15 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         KeyUploadServerTests.keyUploadServer.server_close()
         KeyUploadServerTests.keyUploadServer = None
         
-        test.email_sec_cache.Tests.tearDownClass()
+        test.email_sec_chal.Tests.tearDownClass()
         
     def setUp(self):
-        test.email_sec_cache.Tests.setUp(self)
+        test.email_sec_chal.Tests.setUp(self)
         
-        test.email_sec_cache.Tests.clearDb()
+        test.email_sec_chal.Tests.clearDb()
 
     def tearDown(self):
-        test.email_sec_cache.Tests.tearDown(self)
+        test.email_sec_chal.Tests.tearDown(self)
         
         
     def getGetResponse(self, uri, raiseExceptionOnError=True):
@@ -122,10 +122,10 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         self.assertBotPublicKey("gbr@voidland.voidland.org%20pub.asc.txt", "text/plain")
  
     def assertBotPublicKey(self, officialBotPublicKeyVirtualFilePath, contentType):
-        gpg, gnupgHomeDir = email_sec_cache.Pgp.createTempGpg()
+        gpg, gnupgHomeDir = email_sec_chal.Pgp.createTempGpg()
         try:
             response = self.getGetResponse("/" + officialBotPublicKeyVirtualFilePath + "?name=value") 
-            botPublicKeyFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="wb")
+            botPublicKeyFile = tempfile.NamedTemporaryFile(dir = email_sec_chal.tempDir, delete=False, mode="wb")
             try:
                 botPublicKeyFile.write(response.content)
                 botPublicKeyFile.close()
@@ -139,7 +139,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
                 self.assertEqual(contentType, response.headers["Content-Type"])
                  
             finally:
-                email_sec_cache.removeFile(botPublicKeyFile.name)
+                email_sec_chal.removeFile(botPublicKeyFile.name)
         finally:
             shutil.rmtree(gnupgHomeDir, ignore_errors=True)
  
@@ -160,11 +160,11 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         self.assertEqual(expectedStrings, strings)            
  
     def testFileTimestamp(self):
-        filePath = os.path.join(email_sec_cache.resourceDir, "html", "file.html")
+        filePath = os.path.join(email_sec_chal.resourceDir, "html", "file.html")
         self.assertLastModified("/file.html", filePath)
          
     def testBotPublicKeyTimestamp(self):
-        filePath = os.path.join(email_sec_cache.resourceDir, "officialBot.asc")
+        filePath = os.path.join(email_sec_chal.resourceDir, "officialBot.asc")
         self.assertLastModified("/gbr@voidland.voidland.org%20pub.asc.txt", filePath)
         self.assertLastModified("/gbr@voidland.voidland.org%20pub.asc", filePath)
  
@@ -196,7 +196,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         self.assertEqual(302, response.status_code)
         self.assertEqual("key_upload_success.html", response.headers["Location"])
         
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         self.assertEqual(KeyUploadServerTests.correspondentKey, db.getCorrespondentKey(KeyUploadServerTests.correspondentEmailAddress))
 
     def testUploadInvalidContentType(self):
@@ -204,7 +204,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         response = self.getPostResponse("/key_upload", data=data)
         self.assertEqual(415, response.status_code)
         
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         self.assertEqual(None, db.getCorrespondentKey(KeyUploadServerTests.correspondentEmailAddress))
 
     def testUploadWrongFieldName(self):
@@ -212,7 +212,7 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         response = self.getPostResponse("/key_upload", files=files)
         self.assertEqual(400, response.status_code)
         
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         self.assertEqual(None, db.getCorrespondentKey(KeyUploadServerTests.correspondentEmailAddress))
 
     def testUploadInvalidKey(self):
@@ -221,5 +221,5 @@ class KeyUploadServerTests(test.email_sec_cache.Tests):
         self.assertEqual(302, response.status_code)
         self.assertEqual("key_upload_error.html", response.headers["Location"])
         
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         self.assertEqual(None, db.getCorrespondentKey(KeyUploadServerTests.correspondentEmailAddress))

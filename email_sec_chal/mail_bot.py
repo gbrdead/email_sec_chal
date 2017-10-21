@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import mailbox
 import time
-import email_sec_cache
+import email_sec_chal
 import logging
 
 
@@ -18,7 +18,7 @@ class MailBot:
     
     def run(self):
         self.mbox = self.getMailbox()
-        self.db = email_sec_cache.Db()
+        self.db = email_sec_chal.Db()
         self.failedMessagesKeys = set()
 
         logging.info("EmailSecCache: mail_bot: Successfully started")
@@ -35,16 +35,16 @@ class MailBot:
                     origMsg = self.mbox[msgKey]
                     
                     try:
-                        with email_sec_cache.IncomingMessage.create(origMsg) as incomingMsg:
+                        with email_sec_chal.IncomingMessage.create(origMsg) as incomingMsg:
                         
-                            if incomingMsg.emailAddress == email_sec_cache.Pgp.botEmailAddress:
+                            if incomingMsg.emailAddress == email_sec_chal.Pgp.botEmailAddress:
                                 logging.warning("EmailSecCache: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
                             else:
 
                                 self.processKeyUploadMessage(incomingMsg, msgKey)
                                 
-                                msgRecipientsEmailAddresses = email_sec_cache.util.getMessageRecipientsEmailAddresses(origMsg)
-                                if email_sec_cache.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
+                                msgRecipientsEmailAddresses = email_sec_chal.util.getMessageRecipientsEmailAddresses(origMsg)
+                                if email_sec_chal.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
                                     self.processRequestMessage(incomingMsg, msgKey)
                                 
                     except Exception:
@@ -74,7 +74,7 @@ class MailBot:
                 logging.info("EmailSecCache: mail_bot: Replied to %s as the official bot (%s)" % (emailAddress, msgId))
                 
     def createReplyMessage(self, incomingMsg):
-        return email_sec_cache.OutgoingMessage(incomingMsg)
+        return email_sec_chal.OutgoingMessage(incomingMsg)
                 
     def findValidMessagePart(self, incomingMsg, emailAddress, msgId):
         for msgPart in incomingMsg.getMessageParts():
@@ -84,8 +84,8 @@ class MailBot:
             if not msgPart.signedAndVerified:
                 logging.warning("EmailSecCache: mail_bot: Ignoring unverified message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
-            words = email_sec_cache.extractWords(msgPart.getPlainText())
-            if not email_sec_cache.geocacheNames & set(map(str.upper, words)):
+            words = email_sec_chal.extractWords(msgPart.getPlainText())
+            if not email_sec_chal.triggerWords & set(map(str.upper, words)):
                 logging.warning("EmailSecCache: mail_bot: Ignoring invalid message part in incoming message from %s (%s)" % (emailAddress, msgId))
                 continue
             return msgPart
@@ -93,6 +93,6 @@ class MailBot:
 
     def processKeyUploadMessage(self, incomingMsg, msgKey):
         for correspondentKey in incomingMsg.getPgpKeys():
-            emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
+            emailAddresses = email_sec_chal.Pgp.storeCorrespondentKey(correspondentKey)
             #TODO: associate emailAddresses with the opencaching.de/geocaching.com account
             

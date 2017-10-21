@@ -2,7 +2,7 @@
 import shutil
 import os
 import tempfile
-import email_sec_cache
+import email_sec_chal
 import logging
 import io
 import email.generator
@@ -40,14 +40,14 @@ class Pgp:
         if Pgp.initialized:
             return
         
-        if not os.access(email_sec_cache.tempDir, os.F_OK):
-            os.makedirs(email_sec_cache.tempDir)
+        if not os.access(email_sec_chal.tempDir, os.F_OK):
+            os.makedirs(email_sec_chal.tempDir)
 
-        Pgp.officialBotKeysFilePath = os.path.join(email_sec_cache.resourceDir, "officialBot.asc")
+        Pgp.officialBotKeysFilePath = os.path.join(email_sec_chal.resourceDir, "officialBot.asc")
         with open(Pgp.officialBotKeysFilePath, "r") as officialBotKeysFile:
             Pgp.officialBotKeys = officialBotKeysFile.read()
             
-        impostorBotKeysFilePath = os.path.join(email_sec_cache.resourceDir, "impostorBot.asc")
+        impostorBotKeysFilePath = os.path.join(email_sec_chal.resourceDir, "impostorBot.asc")
         with open(impostorBotKeysFilePath, "r") as impostorBotKeysFile:
             Pgp.impostorBotKeys = impostorBotKeysFile.read()
             
@@ -67,7 +67,7 @@ class Pgp:
     
     @staticmethod
     def createTempGpg():
-        gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir)
+        gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_chal.tempDir)
         gpg = Pgp.createGpg(gnupgHomeDir)
         return gpg, gnupgHomeDir
     
@@ -87,18 +87,18 @@ class Pgp:
     def storeCorrespondentKey(correspondentKey):
         gpg, gnupgHomeDir = Pgp.createTempGpg()
         try:
-            tmpFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
+            tmpFile = tempfile.NamedTemporaryFile(dir = email_sec_chal.tempDir, delete=False, mode="w")
             try:
                 tmpFile.write(correspondentKey)
                 tmpFile.close()
                 keys = gpg.scan_keys(tmpFile.name)
             finally:
-                email_sec_cache.removeFile(tmpFile.name)
+                email_sec_chal.removeFile(tmpFile.name)
         finally:
             shutil.rmtree(gnupgHomeDir, ignore_errors=True)
             
         emailAddresses = []
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         for key in keys:
             for uid in key["uids"]:
                 emailAddress = Pgp.uidToEmailAddress(uid)
@@ -113,7 +113,7 @@ class Pgp:
     def __init__(self, emailAddress_=""):
         Pgp.staticInit()
         
-        self.db = email_sec_cache.Db()
+        self.db = email_sec_chal.Db()
         self.emailAddress = emailAddress_
         logging.debug("EmailSecCache: pgp: Creating an instance for %s" % (self.emailAddress if self.emailAddress is not None else "nobody"))
         if self.emailAddress is not None:
@@ -125,7 +125,7 @@ class Pgp:
             self.loadCorrespondentKeyFromDb()
     
     def initBotGpg(self, botName, botKeys):
-        gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_cache.tempDir, prefix = self.emailAddress + "_" + botName + "_")
+        gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_chal.tempDir, prefix = self.emailAddress + "_" + botName + "_")
         gpg = Pgp.createGpg(gnupgHomeDir)
         gpg.encoding = "utf-8"
         importResult = gpg.import_keys(botKeys)
@@ -162,7 +162,7 @@ class Pgp:
             publicKey = gpg.export_keys(fingerprint)
             if publicKey:
                 return publicKey
-        raise email_sec_cache.PgpException("The public key of the %s bot could not be exported." % botName)
+        raise email_sec_chal.PgpException("The public key of the %s bot could not be exported." % botName)
     
     def getOfficialPublicKey(self):
         return self.getBotPublicKey(self.officialFingerprints, self.officialGpg, "official")
@@ -174,13 +174,13 @@ class Pgp:
     def verifyMessageWithDetachedSignature(self, msg, signature):
         binaryData = self.convertToBinary(msg)
         
-        signatureFile = tempfile.NamedTemporaryFile(dir = email_sec_cache.tempDir, delete=False, mode="w")
+        signatureFile = tempfile.NamedTemporaryFile(dir = email_sec_chal.tempDir, delete=False, mode="w")
         signatureFile.write(signature)
         signatureFile.close()
         logging.debug("EmailSecCache: pgp: Wrote detached signature to temporary file %s" % signatureFile.name)
         
         verified = self.officialGpg.verify_data(signatureFile.name, binaryData)
-        email_sec_cache.removeFile(signatureFile.name)
+        email_sec_chal.removeFile(signatureFile.name)
         return verified
 
     def signAndEncrypt(self, msg, asImpostor):
@@ -195,12 +195,12 @@ class Pgp:
         encryptedMsg = email.mime.multipart.MIMEMultipart("encrypted", protocol="application/pgp-encrypted")
         
         pgpIdentification = email.mime.application.MIMEApplication("Version: 1\n", "pgp-encrypted", email.encoders.encode_7or8bit)
-        email_sec_cache.removeMimeVersion(pgpIdentification)
+        email_sec_chal.removeMimeVersion(pgpIdentification)
         encryptedMsg.attach(pgpIdentification)
         
         encryptedAsc = email.mime.application.MIMEApplication(str(encryptedData), "octet-stream", email.encoders.encode_7or8bit)
-        email_sec_cache.removeMimeVersion(encryptedAsc)
-        email_sec_cache.setMimeAttachmentFileName(encryptedAsc, "encrypted.asc")
+        email_sec_chal.removeMimeVersion(encryptedAsc)
+        email_sec_chal.setMimeAttachmentFileName(encryptedAsc, "encrypted.asc")
         encryptedMsg.attach(encryptedAsc)
         
         return encryptedMsg

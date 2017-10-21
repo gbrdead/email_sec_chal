@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import email_sec_cache
+import email_sec_chal
 import os
 import sqlite3
 import logging
@@ -14,15 +14,15 @@ class Db:
     
     @staticmethod
     def createDbConnection():
-        return sqlite3.connect(os.path.join(email_sec_cache.dataDir, "email_sec_cache.sqlite3"), isolation_level=None)
+        return sqlite3.connect(os.path.join(email_sec_chal.dataDir, "email_sec_chal.sqlite3"), isolation_level=None)
         
     @staticmethod
     def staticInit():
         if Db.initialized:
             return
         
-        if not os.access(email_sec_cache.dataDir, os.F_OK):
-            os.makedirs(email_sec_cache.dataDir)
+        if not os.access(email_sec_chal.dataDir, os.F_OK):
+            os.makedirs(email_sec_chal.dataDir)
 
         conn = Db.createDbConnection()
         cursor = conn.cursor()

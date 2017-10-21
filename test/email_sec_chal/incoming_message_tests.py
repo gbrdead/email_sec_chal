@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 import unittest
-import email_sec_cache
+import email_sec_chal
 import os
 import email
-import test.email_sec_cache
+import test.email_sec_chal
 
 
 
-class IncomingMessageTests(test.email_sec_cache.Tests):
+class IncomingMessageTests(test.email_sec_chal.Tests):
     
     messagesDir = None
     correspondentEmailAddress = None
@@ -16,11 +16,11 @@ class IncomingMessageTests(test.email_sec_cache.Tests):
     
     @classmethod
     def setUpClass(cls):
-        test.email_sec_cache.Tests.setUpClass()
+        test.email_sec_chal.Tests.setUpClass()
         
         with open(IncomingMessageTests.correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:
             correspondentPublicKey = correspondentPublicKeyFile.read()
-        email_sec_cache.Pgp.storeCorrespondentKey(correspondentPublicKey)
+        email_sec_chal.Pgp.storeCorrespondentKey(correspondentPublicKey)
         
     @classmethod
     def tearDownClass(cls):
@@ -28,13 +28,13 @@ class IncomingMessageTests(test.email_sec_cache.Tests):
         IncomingMessageTests.correspondentEmailAddress = None
         IncomingMessageTests.correspondentPublicKeyFilePath = None
         
-        test.email_sec_cache.Tests.tearDownClass()
+        test.email_sec_chal.Tests.tearDownClass()
     
     def readMessage(self, msgFileName):
         msgFilePath = os.path.join(IncomingMessageTests.messagesDir, msgFileName + ".eml")
         with open(msgFilePath, "rb") as f:
             emailMsg = email.message_from_binary_file(f)
-            return email_sec_cache.IncomingMessage.create(emailMsg)
+            return email_sec_chal.IncomingMessage.create(emailMsg)
 
 
 
@@ -90,7 +90,7 @@ class FormatIncomingMessageTests(IncomingMessageTests):
                 self.assertEqual(encrypted, msgPart.encrypted)
                 self.assertEqual(signed and not signedWrong, msgPart.signedAndVerified)
                 
-            words = email_sec_cache.extractWords(texts)
+            words = email_sec_chal.extractWords(texts)
             self.assertWords(words)
 
     def assertWords(self, words):
@@ -431,7 +431,7 @@ class FormatIncomingMessageTests(IncomingMessageTests):
             for msgPart in msgParts:
                 texts += [msgPart.getPlainText()]
                 self.assertTrue(msgPart.forImpostor)
-            words = email_sec_cache.extractWords(texts)
+            words = email_sec_chal.extractWords(texts)
             self.assertWords(words)
             
     def testEncryptedWithWrongKey(self):
@@ -447,7 +447,7 @@ class FormatIncomingMessageTests(IncomingMessageTests):
             for msgPart in msgParts:
                 texts += [msgPart.getPlainText()]
                 self.assertFalse(msgPart.signedAndVerified)
-            words = email_sec_cache.extractWords(texts)
+            words = email_sec_chal.extractWords(texts)
             self.assertWords(words)
 
 
@@ -594,7 +594,7 @@ class MiscMessageTests(IncomingMessageTests):
         try:
             self.readMessage("missing_from_header")
             self.fail()
-        except email_sec_cache.MsgException as e:
+        except email_sec_chal.MsgException as e:
             self.assertIn("Missing From header", str(e))
 
 
@@ -616,7 +616,7 @@ class MiscMessageTests(IncomingMessageTests):
         
         words = []
         for msgPart in msgParts:
-            words += email_sec_cache.extractWords(msgPart.getPlainText())
+            words += email_sec_chal.extractWords(msgPart.getPlainText())
             
         self.assertIn("Alabala", words)
         self.assertIn("Алабала", words)

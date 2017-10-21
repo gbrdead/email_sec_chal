@@ -1,9 +1,9 @@
 import setuptools
 
 setuptools.setup(
-    name = "email-sec-cache",
-    description = "Email Security Cache",
-    version = "0.9.0",
+    name = "email-sec-chal",
+    description = "Email Security CTF Challenge",
+    version = "1.0.0",
     license="GPLv3+",
     
     author = "Vladimir Panov",
@@ -12,8 +12,8 @@ setuptools.setup(
     maintainer_email = "gbr@voidland.org",
     
     packages=[
-        "email_sec_cache",
-        "test.email_sec_cache"],
+        "email_sec_chal",
+        "test.email_sec_chal"],
                  
     install_requires=[
         "python-gnupg >= 0.3.8",
@@ -21,4 +21,4 @@ setuptools.setup(
         "html2text >= 2016.1.8",
         "requests >= 2.9.1"],
                  
-    test_suite = "test.email_sec_cache")
+    test_suite = "test.email_sec_chal")

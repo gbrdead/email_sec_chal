@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import email_sec_cache 
+import email_sec_chal 
 import email.mime.text
 import smtplib
 import email.mime.multipart
@@ -32,7 +32,7 @@ class OutgoingMessage:
     
     def __init__(self, incomingMsg_):
         self.incomingMsg = incomingMsg_
-        self.pgp = email_sec_cache.Pgp(self.incomingMsg.emailAddress)
+        self.pgp = email_sec_chal.Pgp(self.incomingMsg.emailAddress)
         
     def __enter__(self):
         return self
@@ -48,12 +48,12 @@ class OutgoingMessage:
         msg = self.construct(asImpostor)
         
         with self.createSmtpClient() as smtpClient:
-            smtpClient.sendmail(email_sec_cache.Pgp.botEmailAddress, self.incomingMsg.emailAddress, msg.as_string())
+            smtpClient.sendmail(email_sec_chal.Pgp.botEmailAddress, self.incomingMsg.emailAddress, msg.as_string())
             logging.debug("EmailSecCache: outgoing_message: Successfully sent message to %s" % self.incomingMsg.emailAddress)
         
     def createSmtpClient(self):
-        smtpClient = smtplib.SMTP(email_sec_cache.smtpServerHost)
-        logging.debug("EmailSecCache: outgoing_message: Successfully connected to SMTP server at %s" % email_sec_cache.smtpServerHost)
+        smtpClient = smtplib.SMTP(email_sec_chal.smtpServerHost)
+        logging.debug("EmailSecCache: outgoing_message: Successfully connected to SMTP server at %s" % email_sec_chal.smtpServerHost)
         return smtpClient
         
     def construct(self, asImpostor):
@@ -63,7 +63,7 @@ class OutgoingMessage:
         logging.debug("EmailSecCache: outgoing_message: Message to % successfully signed and encrypted" % self.incomingMsg.emailAddress)
         
         msg["To"] = self.incomingMsg.originalMessage["From"]
-        msg["From"] = email_sec_cache.Pgp.botFrom
+        msg["From"] = email_sec_chal.Pgp.botFrom
         msg["Subject"] = getReSubject(self.incomingMsg.originalMessage)
         
         return msg
@@ -75,7 +75,7 @@ class OutgoingMessage:
             filePrefix = "official"
             
         msg = email.mime.multipart.MIMEMultipart("mixed")
-        email_sec_cache.removeMimeVersion(msg)
+        email_sec_chal.removeMimeVersion(msg)
         
         text = self.constructTextMessagePart(filePrefix)
         msg.attach(text)
@@ -88,8 +88,8 @@ class OutgoingMessage:
         if asImpostor:
             impostorPublicKey = self.pgp.getImpostorPublicKey()
             impostorPublicKeyAttachment = email.mime.application.MIMEApplication(impostorPublicKey, "pgp-keys", email.encoders.encode_quopri)
-            email_sec_cache.removeMimeVersion(impostorPublicKeyAttachment)
-            email_sec_cache.setMimeAttachmentFileName(impostorPublicKeyAttachment, "public_key.asc")
+            email_sec_chal.removeMimeVersion(impostorPublicKeyAttachment)
+            email_sec_chal.setMimeAttachmentFileName(impostorPublicKeyAttachment, "public_key.asc")
             msg.attach(impostorPublicKeyAttachment)
 
             logging.debug("EmailSecCache: outgoing_message: Applying Enigmail pre-1.9 workaround")
@@ -103,15 +103,15 @@ class OutgoingMessage:
         return msg
 
     def constructTextMessagePart(self, filePrefix):
-        htmlResponsePath = os.path.join(email_sec_cache.resourceDir, filePrefix + ".html")
+        htmlResponsePath = os.path.join(email_sec_chal.resourceDir, filePrefix + ".html")
         if not os.access(htmlResponsePath, os.F_OK):
             
             logging.debug("EmailSecCache: outgoing_message: %s not available, will use plain text" % htmlResponsePath)
-            plainTextResponsePath = os.path.join(email_sec_cache.resourceDir, filePrefix + ".txt")
+            plainTextResponsePath = os.path.join(email_sec_chal.resourceDir, filePrefix + ".txt")
             with open(plainTextResponsePath, "r", encoding="utf-8") as plainTextResponseFile:
                 plainTextResponse = plainTextResponseFile.read()
             plainText = email.mime.text.MIMEText(plainTextResponse, "plain")
-            email_sec_cache.removeMimeVersion(plainText)
+            email_sec_chal.removeMimeVersion(plainText)
             return plainText
             
         with open(htmlResponsePath, "r", encoding="utf-8") as htmlResponseFile:
@@ -122,21 +122,21 @@ class OutgoingMessage:
         plainTextResponse = h.handle(htmlResponse)
             
         multipartAlt = email.mime.multipart.MIMEMultipart("alternative")
-        email_sec_cache.removeMimeVersion(multipartAlt)
+        email_sec_chal.removeMimeVersion(multipartAlt)
         plainText = email.mime.text.MIMEText(plainTextResponse, "plain")
-        email_sec_cache.removeMimeVersion(plainText)
+        email_sec_chal.removeMimeVersion(plainText)
         html = email.mime.text.MIMEText(htmlResponse, "html")
-        email_sec_cache.removeMimeVersion(html)
+        email_sec_chal.removeMimeVersion(html)
         multipartAlt.attach(plainText)            
         multipartAlt.attach(html)
         
         return multipartAlt
     
     def constructSpoilerMessagePart(self, filePrefix):
-        spoilerPicturePath = os.path.join(email_sec_cache.resourceDir, filePrefix + "Spoiler.jpg")
+        spoilerPicturePath = os.path.join(email_sec_chal.resourceDir, filePrefix + "Spoiler.jpg")
         with open(spoilerPicturePath, "rb") as spoilerPictureFile:
             spoilerPicture = spoilerPictureFile.read()
         spoilerPictureAttachment = email.mime.image.MIMEImage(spoilerPicture)
-        email_sec_cache.removeMimeVersion(spoilerPictureAttachment)
-        email_sec_cache.setMimeAttachmentFileName(spoilerPictureAttachment, "spoiler.jpg")
+        email_sec_chal.removeMimeVersion(spoilerPictureAttachment)
+        email_sec_chal.setMimeAttachmentFileName(spoilerPictureAttachment, "spoiler.jpg")
         return spoilerPictureAttachment

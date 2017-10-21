@@ -2,7 +2,7 @@
 import http.server
 import socketserver
 import threading
-import email_sec_cache
+import email_sec_chal
 import os.path
 import mimetypes
 import shutil
@@ -29,15 +29,15 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         if KeyUploadRequestHandler.initialized:
             return
         
-        rootFSPath = os.path.join(email_sec_cache.resourceDir, "html")
+        rootFSPath = os.path.join(email_sec_chal.resourceDir, "html")
         rootFSPath = os.path.normpath(rootFSPath)
         KeyUploadRequestHandler.rootFSPath = os.path.normcase(rootFSPath)
         logging.debug("EmailSecCache: key_upload_server: The root file system path is: %s" % KeyUploadRequestHandler.rootFSPath)
         
-        pgp = email_sec_cache.Pgp()
+        pgp = email_sec_chal.Pgp()
         KeyUploadRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
-        KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_cache.Pgp.officialBotKeysFilePath).st_mtime
-        officialBotPublicKeyFileName = email_sec_cache.Pgp.botEmailAddress + " pub.asc"
+        KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_chal.Pgp.officialBotKeysFilePath).st_mtime
+        officialBotPublicKeyFileName = email_sec_chal.Pgp.botEmailAddress + " pub.asc"
         logging.debug("EmailSecCache: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
         
         KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName))
@@ -139,13 +139,13 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         fsPath = os.path.normpath(fsPath)
         fsPath = os.path.normcase(fsPath)
         logging.debug("EmailSecCache: key_upload_server: Normalized file system path: %s" % fsPath)
-        if not email_sec_cache.isPathPrefix(fsPath, KeyUploadRequestHandler.rootFSPath):
+        if not email_sec_chal.isPathPrefix(fsPath, KeyUploadRequestHandler.rootFSPath):
             logging.warning("EmailSecCache: key_upload_server: Attempt to access a file outside the root dir")
             return None
         return fsPath
     
     def applyParameters(self, content):
-        content = content.replace("@BOT_EMAIL_ADDRESS@", email_sec_cache.Pgp.botEmailAddress)
+        content = content.replace("@BOT_EMAIL_ADDRESS@", email_sec_chal.Pgp.botEmailAddress)
         return content
     
     def getContentType(self, fsPath):
@@ -175,7 +175,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_error(400)
             return
         correspondentKey = str(uploaded["key"][0], "ascii")
-        emailAddresses = email_sec_cache.Pgp.storeCorrespondentKey(correspondentKey)
+        emailAddresses = email_sec_chal.Pgp.storeCorrespondentKey(correspondentKey)
         
         self.send_response(302)
         if emailAddresses != []:
@@ -194,7 +194,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
 
 def startKeyUploadServer():
     KeyUploadRequestHandler.staticInit()
-    httpd = socketserver.TCPServer(("", email_sec_cache.keyUploadServerPort), KeyUploadRequestHandler, bind_and_activate=False)
+    httpd = socketserver.TCPServer(("", email_sec_chal.keyUploadServerPort), KeyUploadRequestHandler, bind_and_activate=False)
     httpd.allow_reuse_address = True
     httpd.server_bind()
     httpd.server_activate()

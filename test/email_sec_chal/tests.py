@@ -4,7 +4,7 @@ import os
 import shutil
 import tempfile
 import unittest
-import email_sec_cache
+import email_sec_chal
 
 
 
@@ -25,28 +25,28 @@ class Tests(unittest.TestCase):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         resourceDir = os.path.join(moduleDir, "res")
         
-        tempDir = "/tmp/email_sec_cache" 
+        tempDir = "/tmp/email_sec_chal" 
         if not os.access(tempDir, os.F_OK):
             os.makedirs(tempDir)
         Tests.tempDir = tempfile.mkdtemp(dir = tempDir)
         
-        Tests.saveResourceDir = email_sec_cache.resourceDir
-        Tests.saveDataDir = email_sec_cache.dataDir
-        Tests.saveTempDir = email_sec_cache.tempDir 
+        Tests.saveResourceDir = email_sec_chal.resourceDir
+        Tests.saveDataDir = email_sec_chal.dataDir
+        Tests.saveTempDir = email_sec_chal.tempDir 
         
-        email_sec_cache.resourceDir = resourceDir 
-        email_sec_cache.dataDir = Tests.tempDir
-        email_sec_cache.tempDir = Tests.tempDir
-        email_sec_cache.Db.initialized = False
-        email_sec_cache.Pgp.initialized = False
+        email_sec_chal.resourceDir = resourceDir 
+        email_sec_chal.dataDir = Tests.tempDir
+        email_sec_chal.tempDir = Tests.tempDir
+        email_sec_chal.Db.initialized = False
+        email_sec_chal.Pgp.initialized = False
 
     @classmethod
     def tearDownClass(cls):
-        email_sec_cache.resourceDir = Tests.saveResourceDir 
-        email_sec_cache.dataDir = Tests.saveDataDir
-        email_sec_cache.tempDir = Tests.saveTempDir  
-        email_sec_cache.Db.initialized = False
-        email_sec_cache.Pgp.initialized = False
+        email_sec_chal.resourceDir = Tests.saveResourceDir 
+        email_sec_chal.dataDir = Tests.saveDataDir
+        email_sec_chal.tempDir = Tests.saveTempDir  
+        email_sec_chal.Db.initialized = False
+        email_sec_chal.Pgp.initialized = False
         
         shutil.rmtree(Tests.tempDir, ignore_errors=True)
         
@@ -56,7 +56,7 @@ class Tests(unittest.TestCase):
     def readKey(correspondentEmailAddress, correspondentKeyId, private):
         correspondentKeyFileNamePrefix = correspondentEmailAddress + " (0x" + correspondentKeyId + ")"
         correspondentPublicKeyFileName = correspondentKeyFileNamePrefix + " " + ("sec" if private else "pub") + ".asc"
-        correspondentPublicKeyFilePath = os.path.join(email_sec_cache.resourceDir, correspondentPublicKeyFileName)
+        correspondentPublicKeyFilePath = os.path.join(email_sec_chal.resourceDir, correspondentPublicKeyFileName)
         with open(correspondentPublicKeyFilePath, "r") as correspondentPublicKeyFile:    
             return correspondentPublicKeyFile.read() 
     
@@ -70,6 +70,6 @@ class Tests(unittest.TestCase):
     
     @staticmethod
     def clearDb():
-        db = email_sec_cache.Db()
+        db = email_sec_chal.Db()
         cursor = db.conn.cursor()
         cursor.execute("DELETE FROM correspondents")
