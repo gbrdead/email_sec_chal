@@ -136,33 +136,6 @@ class IncomingMessage:
         with email_sec_chal.Pgp(self.emailAddress) as self.pgp:
             return self.getMessagePartsInternal(skipAtttachments)
     
-    def getPgpKeys(self):
-        keyMarkers = [("-----BEGIN PGP PUBLIC KEY BLOCK-----", "-----END PGP PUBLIC KEY BLOCK-----"), ("-----BEGIN PGP PRIVATE KEY BLOCK-----", "-----END PGP PRIVATE KEY BLOCK-----")]
-        
-        pgpKeys = []
-        for msgPart in self.getMessageParts(skipAtttachments=False):
-            text = msgPart.getPlainText()
-            
-            for (pgpKeyBeginMarker, pgpKeyEndMarker) in keyMarkers:
-
-                currentPos = 0
-                while True: 
-                    pgpKeyBeginPos = text.find(pgpKeyBeginMarker, currentPos)
-                    if pgpKeyBeginPos < 0:
-                        break
-                    
-                    pgpKeyEndPos = text.find(pgpKeyEndMarker, pgpKeyBeginPos + len(pgpKeyBeginMarker))
-                    if pgpKeyEndPos < 0:
-                        break
-                    pgpKeyEndPos += len(pgpKeyEndMarker)
-                    
-                    pgpKeyText = text[pgpKeyBeginPos:pgpKeyEndPos]
-                    pgpKeys.append(pgpKeyText)
-                    
-                    currentPos = pgpKeyEndPos 
-        
-        return pgpKeys
-        
 
 
 class PgpMimeIncomingMessage(IncomingMessage):
@@ -255,7 +228,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
         msgPart.incomingMessage = self
         msgPart.msgPart = msg
         
-        plainText = self.normalize(msg, msgPart.getPlainText())
+        plainText = self.normalize(msgPart.getPlainText())
         if self.isEncrypted(plainText):
             msgPart.encrypted = True
             
@@ -287,7 +260,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
             msgPart.encrypted = False
             msgPart.signedAndVerified = False
         
-        plainText = self.normalize(msg, msgPart.getPlainText())                
+        plainText = self.normalize(msgPart.getPlainText())                
         if self.isSigned(plainText):
             
             if msgPart.encrypted:
@@ -313,7 +286,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
         return plainText.startswith("-----BEGIN PGP SIGNED MESSAGE-----") or \
             plainText.startswith("-----BEGIN PGP MESSAGE-----")     # GpgOL pre-3.0 sends a wrong header.
     
-    def normalize(self, msg, plainText):
+    def normalize(self, plainText):
         # GpgOL pre-3.0 sends the armored PGP message after the clear text, in the same message part.
         # We will discard the clear text - it should be contained in the armored message as well (but signed).
         fixed = False        

@@ -40,9 +40,6 @@ class MailBot:
                             if incomingMsg.emailAddress == email_sec_chal.Pgp.botEmailAddress:
                                 logging.warning("EmailSecChal: mail_bot: Ignoring spoofed message from myself (%s)" % incomingMsg.id)
                             else:
-
-                                self.processKeyUploadMessage(incomingMsg, msgKey)
-                                
                                 msgRecipientsEmailAddresses = email_sec_chal.util.getMessageRecipientsEmailAddresses(origMsg)
                                 if email_sec_chal.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
                                     self.processRequestMessage(incomingMsg, msgKey)
@@ -90,9 +87,3 @@ class MailBot:
                 continue
             return msgPart
         return None
-
-    def processKeyUploadMessage(self, incomingMsg, msgKey):
-        for correspondentKey in incomingMsg.getPgpKeys():
-            emailAddresses = email_sec_chal.Pgp.storeCorrespondentKey(correspondentKey)
-            #TODO: associate emailAddresses with the opencaching.de/geocaching.com account
-            

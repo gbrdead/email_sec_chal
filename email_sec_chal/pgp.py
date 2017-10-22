@@ -10,7 +10,6 @@ import gnupg
 import email.mime.multipart
 import email.mime.application
 import email.encoders
-import email.utils
 
 
 

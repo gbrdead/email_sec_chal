@@ -5,7 +5,6 @@ import smtplib
 import email.mime.multipart
 import logging
 import os.path
-import email.mime.image
 import html2text
 import email.mime.application
 import email.encoders
@@ -81,10 +80,6 @@ class OutgoingMessage:
         msg.attach(text)
         logging.debug("EmailSecChal: outgoing_message: Text attached")
         
-        spoilerPictureAttachment = self.constructSpoilerMessagePart(filePrefix)
-        msg.attach(spoilerPictureAttachment)
-        logging.debug("EmailSecChal: outgoing_message: Spoiler picture attached")
-        
         if asImpostor:
             impostorPublicKey = self.pgp.getImpostorPublicKey()
             impostorPublicKeyAttachment = email.mime.application.MIMEApplication(impostorPublicKey, "pgp-keys", email.encoders.encode_quopri)
@@ -131,12 +126,3 @@ class OutgoingMessage:
         multipartAlt.attach(html)
         
         return multipartAlt
-    
-    def constructSpoilerMessagePart(self, filePrefix):
-        spoilerPicturePath = os.path.join(email_sec_chal.resourceDir, filePrefix + "Spoiler.jpg")
-        with open(spoilerPicturePath, "rb") as spoilerPictureFile:
-            spoilerPicture = spoilerPictureFile.read()
-        spoilerPictureAttachment = email.mime.image.MIMEImage(spoilerPicture)
-        email_sec_chal.removeMimeVersion(spoilerPictureAttachment)
-        email_sec_chal.setMimeAttachmentFileName(spoilerPictureAttachment, "spoiler.jpg")
-        return spoilerPictureAttachment

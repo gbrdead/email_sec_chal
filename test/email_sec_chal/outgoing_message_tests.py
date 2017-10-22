@@ -96,9 +96,9 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
         
         self.assertFalse(OutgoingMessageTests.officialBotGpg.decrypt(encrypted))
         decryptedResult = OutgoingMessageTests.impostorBotGpg.decrypt(encrypted)
-        decryptedMsg = self.assertDecryptedResultAndGetMessage(decryptedResult, "impostorSpoiler.jpg")
+        decryptedMsg = self.assertDecryptedResultAndGetMessage(decryptedResult)
         
-        self.assertEqual(3, len(decryptedMsg.get_payload()))
+        self.assertEqual(2, len(decryptedMsg.get_payload()))
         
 
         textMsgPart = decryptedMsg.get_payload(0)
@@ -120,7 +120,7 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
         self.assertIn("Алабала", html)
         
         
-        impostorPublicKeyAttachment = decryptedMsg.get_payload(2)
+        impostorPublicKeyAttachment = decryptedMsg.get_payload(1)
         self.assertEqual("application/pgp-keys", impostorPublicKeyAttachment.get_content_type())
         self.assertEqual("public_key.asc", impostorPublicKeyAttachment.get_filename())
         
@@ -139,9 +139,9 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
         
         self.assertFalse(OutgoingMessageTests.impostorBotGpg.decrypt(encrypted))
         decryptedResult = OutgoingMessageTests.officialBotGpg.decrypt(encrypted)
-        decryptedMsg = self.assertDecryptedResultAndGetMessage(decryptedResult, "officialSpoiler.jpg")
+        decryptedMsg = self.assertDecryptedResultAndGetMessage(decryptedResult)
         
-        self.assertEqual(2, len(decryptedMsg.get_payload()))
+        self.assertEqual(1, len(decryptedMsg.get_payload()))
         
         textMsgPart = decryptedMsg.get_payload(0)
         self.assertEqual("text/plain", textMsgPart.get_content_type())
@@ -191,25 +191,12 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
 
         return encrypted
     
-    def assertDecryptedResultAndGetMessage(self, decryptedResult, spoilerPictureFileName):
+    def assertDecryptedResultAndGetMessage(self, decryptedResult):
         self.assertTrue(decryptedResult)
         self.assertTrue(decryptedResult.valid)
         decryptedMsg = email.message_from_bytes(decryptedResult.data)
         
         self.assertEqual("multipart/mixed", decryptedMsg.get_content_type())
-        self.assertLessEqual(2, len(decryptedMsg.get_payload()))
-        
-        spoilerPictureAttachment = decryptedMsg.get_payload(1)
-        self.assertEqual("image/jpeg", spoilerPictureAttachment.get_content_type())
-        self.assertEqual("spoiler.jpg", spoilerPictureAttachment.get_filename())
-        
-        contentDisposition = spoilerPictureAttachment["Content-Disposition"]
-        contentDispositionValue, _ = cgi.parse_header(contentDisposition)
-        self.assertEqual("attachment", contentDispositionValue)
-        
-        spoilerFilePath = os.path.join(email_sec_chal.resourceDir, spoilerPictureFileName)
-        with open(spoilerFilePath, "rb") as spoilerFile:
-            expectedSpoilerPictureData = spoilerFile.read()    
-        self.assertEqual(expectedSpoilerPictureData, spoilerPictureAttachment.get_payload(decode=True))
+        self.assertLessEqual(1, len(decryptedMsg.get_payload()))
         
         return decryptedMsg
