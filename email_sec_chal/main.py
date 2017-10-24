@@ -5,7 +5,7 @@ import configparser
 import sys
 
 
-configFile = "/data/email_sec_chal/email_sec_chal.ini"
+configFile = "email_sec_chal.ini"
 resourceDir = None
 dataDir = None
 tempDir = None
@@ -40,6 +40,9 @@ def loadConfiguration():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        email_sec_chal.configFile = sys.argv[1]
+    
     try:
         loadConfiguration()
     except:
