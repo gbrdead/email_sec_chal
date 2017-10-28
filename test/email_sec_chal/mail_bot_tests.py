@@ -175,10 +175,7 @@ class MailBotTests(test.email_sec_chal.Tests):
         self.assertOutgoingMessage(mailBot.mockReplies[2], validRequestMsgId, False)
         self.assertEqual(0, len(mailBot.failedMessagesKeys))
         
-    def testHappyPath_geocaching_com(self):
-        self.assertHappyPath("validRequestForOfficialBot_geocaching.com")
- 
-    def testHappyPath_opencaching_de(self):
+    def testHappyPath(self):
         self.assertHappyPath("validRequestForOfficialBot")
 
     def testHappyPathNonLowercaseSenderAddress(self):
