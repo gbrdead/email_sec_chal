@@ -29,9 +29,9 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         if KeyUploadRequestHandler.initialized:
             return
         
-        rootFSPath = os.path.join(email_sec_chal.resourceDir, "html")
-        rootFSPath = os.path.normpath(rootFSPath)
-        KeyUploadRequestHandler.rootFSPath = os.path.normcase(rootFSPath)
+        KeyUploadRequestHandler.rootFSPath = os.path.join(email_sec_chal.resourceDir, "html")
+        KeyUploadRequestHandler.rootFSPath = os.path.normpath(KeyUploadRequestHandler.rootFSPath)
+        KeyUploadRequestHandler.rootFSPath = os.path.normcase(KeyUploadRequestHandler.rootFSPath)
         logging.debug("EmailSecChal: key_upload_server: The root file system path is: %s" % KeyUploadRequestHandler.rootFSPath)
         
         pgp = email_sec_chal.Pgp()
@@ -132,10 +132,13 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     
     def getFSPath(self):
         pathComponents = self.getPathComponents()
-        if not pathComponents:
+        if pathComponents is None:
             return None
         
         fsPath = os.path.join(KeyUploadRequestHandler.rootFSPath, *pathComponents)
+        while os.path.isdir(fsPath):
+            fsPath = os.path.join(fsPath, "index.html")
+            logging.debug("EmailSecChal: key_upload_server: Added index.html to the file system path: %s" % fsPath)
         fsPath = os.path.normpath(fsPath)
         fsPath = os.path.normcase(fsPath)
         logging.debug("EmailSecChal: key_upload_server: Normalized file system path: %s" % fsPath)

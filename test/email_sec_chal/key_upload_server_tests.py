@@ -88,10 +88,20 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
             getResponse.raise_for_status()
         return getResponse
             
-    def testDefaultUrl(self):
-        response = self.getGetResponse("/", raiseExceptionOnError=False)
-        self.assertEqual(404, response.status_code)
+    def testRootIndex(self):
+        self.assertExistingFile("", ["mainindex"])
+        self.assertExistingFile("/", ["mainindex"])
  
+    def testSubdirIndex(self):
+        self.assertExistingFile("/subdir2", ["subindex"])
+        self.assertExistingFile("/subdir2/", ["subindex"])
+
+    def testNonExistingIndex(self):
+        response = self.getGetResponse("/subdir", raiseExceptionOnError=False)
+        self.assertEqual(404, response.status_code)
+        response = self.getGetResponse("/subdir/", raiseExceptionOnError=False)
+        self.assertEqual(404, response.status_code)
+
     def testNonExistingFile(self):
         response = self.getGetResponse("/non_existing_file.html", raiseExceptionOnError=False)
         self.assertEqual(404, response.status_code)
