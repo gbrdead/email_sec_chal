@@ -60,7 +60,7 @@ class Pgp:
     @staticmethod
     def createGpg(gnupgHomeDir):
         try:
-            return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG), gpgbinary="gpg1")
+            return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG), gpgbinary="gpg2")
         except:
             return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
     
@@ -126,7 +126,6 @@ class Pgp:
     def initBotGpg(self, botName, botKeys):
         gnupgHomeDir = tempfile.mkdtemp(dir = email_sec_chal.tempDir, prefix = self.emailAddress + "_" + botName + "_")
         gpg = Pgp.createGpg(gnupgHomeDir)
-        gpg.encoding = "utf-8"
         importResult = gpg.import_keys(botKeys)
         logging.debug("EmailSecChal: pgp: Created a GPG home directory in %s" % gnupgHomeDir)
         return gnupgHomeDir, gpg, importResult.fingerprints

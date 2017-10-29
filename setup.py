@@ -16,7 +16,7 @@ setuptools.setup(
         "test.email_sec_chal"],
                  
     install_requires=[
-        "python-gnupg >= 0.3.8",
+        "python-gnupg >= 0.4.1",
         "beautifulsoup4 >= 4.4.1",
         "html2text >= 2016.1.8",
         "requests >= 2.9.1"],

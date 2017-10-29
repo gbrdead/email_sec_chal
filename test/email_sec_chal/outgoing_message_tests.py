@@ -94,8 +94,8 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
         encryptedMsg = self.obtainTestMessage(True)
         encrypted = self.assertEncryptedMessageAndGetPayload(encryptedMsg)
         
-        self.assertFalse(OutgoingMessageTests.officialBotGpg.decrypt(encrypted))
-        decryptedResult = OutgoingMessageTests.impostorBotGpg.decrypt(encrypted)
+        self.assertFalse(OutgoingMessageTests.officialBotGpg.decrypt(encrypted.encode()))
+        decryptedResult = OutgoingMessageTests.impostorBotGpg.decrypt(encrypted.encode())
         decryptedMsg = self.assertDecryptedResultAndGetMessage(decryptedResult)
         
         self.assertEqual(2, len(decryptedMsg.get_payload()))
@@ -137,8 +137,8 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
         encryptedMsg = self.obtainTestMessage(False)
         encrypted = self.assertEncryptedMessageAndGetPayload(encryptedMsg)
         
-        self.assertFalse(OutgoingMessageTests.impostorBotGpg.decrypt(encrypted))
-        decryptedResult = OutgoingMessageTests.officialBotGpg.decrypt(encrypted)
+        self.assertFalse(OutgoingMessageTests.impostorBotGpg.decrypt(encrypted.encode()))
+        decryptedResult = OutgoingMessageTests.officialBotGpg.decrypt(encrypted.encode())
         decryptedMsg = self.assertDecryptedResultAndGetMessage(decryptedResult)
         
         self.assertEqual(1, len(decryptedMsg.get_payload()))
@@ -187,7 +187,7 @@ class OutgoingMessageTests(test.email_sec_chal.Tests):
         encryptedAscCharset = encryptedAsc.get_content_charset() or "ascii"
         encrypted = encryptedAsc.get_payload(decode=True).decode(encryptedAscCharset)
         
-        self.assertTrue(OutgoingMessageTests.correspondentGpg.decrypt(encrypted))
+        self.assertTrue(OutgoingMessageTests.correspondentGpg.decrypt(encrypted.encode()))
 
         return encrypted
     

@@ -158,13 +158,13 @@ class PgpMimeIncomingMessage(IncomingMessage):
             self.encrypted = True
             encryptedPayload = self.originalMessage.get_payload(1).get_payload()
 
-            decryptedResult = self.pgp.officialGpg.decrypt(encryptedPayload)
+            decryptedResult = self.pgp.officialGpg.decrypt(encryptedPayload.encode())
             if decryptedResult:
                 logging.debug("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) was decrypted by the official bot's key" % \
                     (self.emailAddress, self.id))
                 self.forImpostor = False
             else:
-                decryptedResult = self.pgp.impostorGpg.decrypt(encryptedPayload)
+                decryptedResult = self.pgp.impostorGpg.decrypt(encryptedPayload.encode())
                 if decryptedResult:
                     logging.warning("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) was decrypted by the impostor bot's key" % \
                         (self.emailAddress, self.id))
@@ -232,7 +232,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
         if self.isEncrypted(plainText):
             msgPart.encrypted = True
             
-            decryptedResult = self.pgp.officialGpg.decrypt(plainText)
+            decryptedResult = self.pgp.officialGpg.decrypt(plainText.encode())
             if decryptedResult:
                 logging.debug("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that was decrypted by the official bot's key" % \
                     (self.emailAddress, self.id))
@@ -243,7 +243,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
                             (self.emailAddress, self.id))
                     msgPart.encrypted = False
                 else:
-                    decryptedResult = self.pgp.impostorGpg.decrypt(plainText)
+                    decryptedResult = self.pgp.impostorGpg.decrypt(plainText.encode())
                     if decryptedResult:
                         logging.warning("EmailSecChal: incoming_message: Inline PGP  message from %s (%s) has a message part that was decrypted by the impostor bot's key" % \
                             (self.emailAddress, self.id))
@@ -254,7 +254,7 @@ class PgpInlineIncomingMessage(IncomingMessage):
                         return None
 
             msgPart.signedAndVerified = decryptedResult.valid
-            msgPart.plainText = str(decryptedResult)
+            msgPart.plainText = str(decryptedResult.data, "utf-8", "ignore")
                
         else:
             msgPart.encrypted = False
@@ -267,9 +267,9 @@ class PgpInlineIncomingMessage(IncomingMessage):
                 logging.debug("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that has been signed and encrypted in two separate steps" % \
                     (self.emailAddress, self.id))
             
-            decryptedResult = self.pgp.officialGpg.decrypt(plainText)
+            decryptedResult = self.pgp.officialGpg.decrypt(plainText.encode())
             msgPart.signedAndVerified = decryptedResult.valid
-            msgPart.plainText = str(decryptedResult)
+            msgPart.plainText = str(decryptedResult.data, "utf-8", "ignore")
             
         logging.debug("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that is %s and %s" % \
             (self.emailAddress, self.id, \
