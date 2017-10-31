@@ -79,6 +79,8 @@ class IncomingMessage:
         if not self.emailAddress:
             raise email_sec_chal.MsgException("Missing From header in incoming message (%s)" % self.id)
         
+        self.pgp = email_sec_chal.Pgp(self.emailAddress)
+        
     def __enter__(self):
         return self
     
@@ -86,6 +88,7 @@ class IncomingMessage:
         self.close()
         
     def close(self):
+        self.pgp.close()
         logging.debug("EmailSecChal: incoming_message: Closed message from %s (%s)" % (self.emailAddress, self.id))
         
     @staticmethod
@@ -133,8 +136,7 @@ class IncomingMessage:
         return []
     
     def getMessageParts(self, skipAtttachments=True):
-        with email_sec_chal.Pgp(self.emailAddress) as self.pgp:
-            return self.getMessagePartsInternal(skipAtttachments)
+        return self.getMessagePartsInternal(skipAtttachments)
     
 
 

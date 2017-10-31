@@ -37,8 +37,17 @@ class Tests(unittest.TestCase):
         email_sec_chal.resourceDir = resourceDir 
         email_sec_chal.dataDir = Tests.tempDir
         email_sec_chal.tempDir = Tests.tempDir
+        
         email_sec_chal.Db.initialized = False
+        email_sec_chal.Db.conn = None
+        
         email_sec_chal.Pgp.initialized = False
+        email_sec_chal.Pgp.officialBotKeys = None
+        email_sec_chal.Pgp.impostorBotKeys = None
+        email_sec_chal.Pgp.botFrom = None
+        email_sec_chal.Pgp.botEmailAddress = None
+        email_sec_chal.Pgp.officialBotKeysFilePath = None
+        
 
     @classmethod
     def tearDownClass(cls):
