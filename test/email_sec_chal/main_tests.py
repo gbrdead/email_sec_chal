@@ -17,6 +17,7 @@ class ConfigurationTests(test.email_sec_chal.Tests):
         email_sec_chal.logLevel = logging.NOTSET
         email_sec_chal.keyUploadServerPort = -1
         email_sec_chal.smtpServerHost = None
+        email_sec_chal.silentPeriodSec = -1
         
         email_sec_chal.loadConfiguration()
         
@@ -27,3 +28,4 @@ class ConfigurationTests(test.email_sec_chal.Tests):
         self.assertEqual(logging.INFO, email_sec_chal.logLevel)
         self.assertEqual(8088, email_sec_chal.keyUploadServerPort)
         self.assertEqual("localhost", email_sec_chal.smtpServerHost)
+        self.assertEqual(300, email_sec_chal.silentPeriodSec)

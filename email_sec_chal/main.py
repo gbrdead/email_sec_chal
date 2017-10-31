@@ -14,6 +14,7 @@ triggerWords = set()
 logLevel = logging.NOTSET
 keyUploadServerPort = -1
 smtpServerHost = None
+silentPeriodSec = 0
 
 
 def loadConfiguration():
@@ -24,6 +25,7 @@ def loadConfiguration():
     email_sec_chal.logLevel = logging._nameToLevel[config["misc"]["log_level"].upper()]
     email_sec_chal.keyUploadServerPort = int(config["misc"]["key_upload_server_port"])
     email_sec_chal.smtpServerHost = config["misc"]["smtp_server_host"]
+    email_sec_chal.silentPeriodSec = int(config["misc"]["silent_period_sec"])
     email_sec_chal.resourceDir = config["dirs"]["resource_dir"]
     email_sec_chal.dataDir = config["dirs"]["data_dir"]
     email_sec_chal.tempDir = config["dirs"]["temp_dir"]

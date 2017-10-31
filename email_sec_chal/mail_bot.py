@@ -42,7 +42,7 @@ class MailBot:
                             else:
                                 msgRecipientsEmailAddresses = email_sec_chal.util.getMessageRecipientsEmailAddresses(origMsg)
                                 if email_sec_chal.Pgp.botEmailAddress in msgRecipientsEmailAddresses:
-                                    self.processRequestMessage(incomingMsg, msgKey)
+                                    self.processRequestMessage(incomingMsg)
                                 
                     except Exception:
                         logging.exception("EmailSecChal: mail_bot: Failed processing message %s" % msgKey)
@@ -54,11 +54,18 @@ class MailBot:
             finally:            
                 self.mbox.unlock()
                 
-    def processRequestMessage(self, incomingMsg, msgKey):
+    def processRequestMessage(self, incomingMsg):
+        redHerringSentTimestamp = self.db.getRedHerringSentTimestamp(incomingMsg.emailAddress)
+        if redHerringSentTimestamp >= 0:
+            endOfSilentPeriodTimestamp = redHerringSentTimestamp + email_sec_chal.silentPeriodSec
+            if self.db.getCurrentTimestamp() < endOfSilentPeriodTimestamp:
+                logging.info("EmailSecChal: mail_bot: Ignoring a request from %s (%s) in the silent period" % (incomingMsg.emailAddress, incomingMsg.id))
+                return
+        
         msgPart = self.findValidMessagePart(incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
         if msgPart is not None:
             logging.info("EmailSecChal: mail_bot: Received a valid request from %s (%s)" % (incomingMsg.emailAddress, incomingMsg.id))
-            impostorShouldReply = msgPart.forImpostor or not self.db.isRedHerringSent(incomingMsg.emailAddress)
+            impostorShouldReply = msgPart.forImpostor or redHerringSentTimestamp < 0
             self.reply(impostorShouldReply, incomingMsg, incomingMsg.emailAddress, incomingMsg.id)
         
     def reply(self, asImpostor, incomingMsg, emailAddress, msgId):

@@ -71,14 +71,14 @@ class Db:
             cursor.execute("UPDATE correspondents SET key = ?, red_herring_sent = -1 WHERE email_address = ?", (key, emailAddress))
             logging.debug("EmailSecChal: db: Updated the correspondent key in the DB for %s" % emailAddress)
 
-    def isRedHerringSent(self, emailAddress):
+    def getRedHerringSentTimestamp(self, emailAddress):
         emailAddress = emailAddress.lower()
         cursor = self.conn.cursor()
         cursor.execute("SELECT red_herring_sent FROM correspondents WHERE email_address = ?", (emailAddress, ))
         row = cursor.fetchone()
         if row is not None:
-            return row[0] >= 0
-        return False
+            return row[0]
+        return -1
     
     def redHerringSent(self, emailAddress):
         emailAddress = emailAddress.lower()

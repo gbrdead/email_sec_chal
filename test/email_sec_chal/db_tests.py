@@ -32,13 +32,13 @@ class DbTests(test.email_sec_chal.Tests):
     
     def testRedHerring(self):
         db = email_sec_chal.Db()
-        self.assertFalse(db.isRedHerringSent(DbTests.correspondentEmailAddress))
+        self.assertFalse(db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress) >= 0)
         
         email_sec_chal.Pgp.storeCorrespondentKey(DbTests.correspondentPublicKey)
-        self.assertFalse(db.isRedHerringSent(DbTests.correspondentEmailAddress))
+        self.assertFalse(db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress) >= 0)
         
         db.redHerringSent(DbTests.correspondentEmailAddress)
-        self.assertTrue(db.isRedHerringSent(DbTests.correspondentEmailAddress))
+        self.assertTrue(db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress) >= 0)
         
         email_sec_chal.Pgp.storeCorrespondentKey(DbTests.correspondentPublicKey)
-        self.assertFalse(db.isRedHerringSent(DbTests.correspondentEmailAddress))
+        self.assertFalse(db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress) >= 0)
