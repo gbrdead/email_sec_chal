@@ -21,6 +21,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     officialBotPublicKeyVirtualFilePaths = []
 
     officialBotPublicKey = None
+    officialBotKeyFingerprint = None
     officialBotPublicKeyFileTime = None
     
     
@@ -39,6 +40,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_chal.Pgp.officialBotKeysFilePath).st_mtime
         officialBotPublicKeyFileName = email_sec_chal.Pgp.botEmailAddress + " pub.asc"
         logging.debug("EmailSecChal: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
+        KeyUploadRequestHandler.officialBotKeyFingerprint = pgp.officialFingerprints[0]
         
         KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName))
         KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName + ".txt"))
@@ -149,6 +151,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     
     def applyParameters(self, content):
         content = content.replace("@BOT_EMAIL_ADDRESS@", email_sec_chal.Pgp.botEmailAddress)
+        content = content.replace("@BOT_KEY_FINGERPRINT@", KeyUploadRequestHandler.officialBotKeyFingerprint)
         return content
     
     def getContentType(self, fsPath):
