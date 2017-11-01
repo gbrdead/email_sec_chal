@@ -35,15 +35,15 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         KeyUploadRequestHandler.rootFSPath = os.path.normcase(KeyUploadRequestHandler.rootFSPath)
         logging.debug("EmailSecChal: key_upload_server: The root file system path is: %s" % KeyUploadRequestHandler.rootFSPath)
         
-        pgp = email_sec_chal.Pgp()
-        KeyUploadRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
-        KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_chal.Pgp.officialBotKeysFilePath).st_mtime
-        officialBotPublicKeyFileName = email_sec_chal.Pgp.botEmailAddress + " pub.asc"
-        logging.debug("EmailSecChal: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
-        KeyUploadRequestHandler.officialBotKeyFingerprint = pgp.officialFingerprints[0]
+        with email_sec_chal.Pgp() as pgp:
+            KeyUploadRequestHandler.officialBotPublicKey = pgp.getOfficialPublicKey()
+            KeyUploadRequestHandler.officialBotPublicKeyFileTime = os.stat(email_sec_chal.Pgp.officialBotKeysFilePath).st_mtime
+            officialBotPublicKeyFileName = email_sec_chal.Pgp.botEmailAddress + " pub.asc"
+            logging.debug("EmailSecChal: key_upload_server: The official bot's public key file name is: %s" % officialBotPublicKeyFileName)
+            KeyUploadRequestHandler.officialBotKeyFingerprint = pgp.officialFingerprints[0]
         
-        KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName))
-        KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName + ".txt"))
+            KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName))
+            KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName + ".txt"))
         
         logging.debug("EmailSecChal: key_upload_server: Static initialization successful")
         KeyUploadRequestHandler.initialized = True
