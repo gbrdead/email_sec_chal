@@ -155,9 +155,10 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
  
     def testExistingFileAndParameterSubstitution(self):
         self.assertExistingFile("/file.html?name=value#anchor", ["word", "gbr@voidland.voidland.org"])
+        self.assertExistingFile("/subdir2/fileInSubDir.html", ["word", "B509A2EB802708CE80C2C3E54897D47A61DC9FE3"])
  
     def testExistingFileInSubdir(self):
-        self.assertExistingFile("/subdir/fileInSubDir.html#anchor", ["word", "BOT_EMAIL_ADDRESS"])
+        self.assertExistingFile("/subdir/fileInSubDir.html#anchor", ["word", "BOT_EMAIL_ADDRESS", "BOT_KEY_FINGERPRINT"])
  
     def assertExistingFile(self, uri, expectedStrings): 
         response = self.getGetResponse(uri)
@@ -167,7 +168,7 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
             el.extract()
         plainText = html.get_text(separator=" ")
         strings = KeyUploadServerTests.stringsRe.findall(plainText)
-        self.assertEqual(expectedStrings, strings)            
+        self.assertEqual(expectedStrings, strings)
  
     def testFileTimestamp(self):
         filePath = os.path.join(email_sec_chal.resourceDir, "html", "file.html")
