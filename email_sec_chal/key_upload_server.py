@@ -180,8 +180,12 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         if not ("key" in uploaded and len(uploaded["key"]) > 0):
             self.send_error(400)
             return
-        correspondentKey = str(uploaded["key"][0], "ascii")
-        emailAddresses = email_sec_chal.Pgp.storeCorrespondentKey(correspondentKey)
+        
+        try:
+            correspondentKey = str(uploaded["key"][0], "ascii")
+            emailAddresses = email_sec_chal.Pgp.storeCorrespondentKey(correspondentKey)
+        except UnicodeDecodeError:
+            emailAddresses = []
         
         self.send_response(302)
         if emailAddresses != []:

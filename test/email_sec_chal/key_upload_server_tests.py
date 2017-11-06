@@ -234,3 +234,12 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
         
         db = email_sec_chal.Db()
         self.assertEqual(None, db.getCorrespondentKey(KeyUploadServerTests.correspondentEmailAddress))
+
+    def testUploadNonAsciiInvalidKey(self):
+        files={"key": ("public_key.asc", "невалиден ключ")}
+        response = self.getPostResponse("/key_upload", files=files)
+        self.assertEqual(302, response.status_code)
+        self.assertEqual("key_upload_error.html", response.headers["Location"])
+        
+        db = email_sec_chal.Db()
+        self.assertEqual(None, db.getCorrespondentKey(KeyUploadServerTests.correspondentEmailAddress))
