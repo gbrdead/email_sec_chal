@@ -59,10 +59,7 @@ class Pgp:
         
     @staticmethod
     def createGpg(gnupgHomeDir):
-        try:
-            return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG), gpgbinary="gpg2")
-        except:
-            return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
+        return gnupg.GPG(gnupghome = gnupgHomeDir, verbose=logging.getLogger().isEnabledFor(logging.DEBUG))
     
     @staticmethod
     def createTempGpg():
