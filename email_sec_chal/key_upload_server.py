@@ -184,7 +184,8 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         try:
             correspondentKey = str(uploaded["key"][0], "ascii")
             emailAddresses = email_sec_chal.Pgp.storeCorrespondentKey(correspondentKey)
-        except UnicodeDecodeError:
+        except:
+            logging.warning("EmailSecChal: key_upload_server: Cannot import key", exc_info=True)
             emailAddresses = []
         
         self.send_response(302)
