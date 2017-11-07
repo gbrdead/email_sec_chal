@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import test.email_sec_chal
 import email_sec_chal
+import time
 
 
 
@@ -42,3 +43,18 @@ class DbTests(test.email_sec_chal.Tests):
         
         email_sec_chal.Pgp.storeCorrespondentKey(DbTests.correspondentPublicKey)
         self.assertFalse(db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress) >= 0)
+        
+    def testRedHerringShouldNotResetSilentPeriod(self):
+        db = email_sec_chal.Db()
+        email_sec_chal.Pgp.storeCorrespondentKey(DbTests.correspondentPublicKey)
+        
+        db.redHerringSent(DbTests.correspondentEmailAddress)
+        redHerringSentTimestamp1 = db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress)
+        self.assertTrue(redHerringSentTimestamp1 >= 0)
+        
+        while db.getCurrentTimestamp() <= redHerringSentTimestamp1:
+            time.sleep(1)    
+        
+        db.redHerringSent(DbTests.correspondentEmailAddress)
+        redHerringSentTimestamp2 = db.getRedHerringSentTimestamp(DbTests.correspondentEmailAddress)
+        self.assertEqual(redHerringSentTimestamp1, redHerringSentTimestamp2)

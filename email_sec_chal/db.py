@@ -86,7 +86,7 @@ class Db:
         if not self.correspondentExists(emailAddress):
             cursor.execute("INSERT INTO correspondents (email_address, red_herring_sent) VALUES(?, ?)", (emailAddress, self.getCurrentTimestamp()))
         else:
-            cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ?", (self.getCurrentTimestamp(), emailAddress))
+            cursor.execute("UPDATE correspondents SET red_herring_sent = ? WHERE email_address = ? AND NOT red_herring_sent >= 0", (self.getCurrentTimestamp(), emailAddress))
         logging.debug("EmailSecChal: db: Set red herring as sent in DB for %s" % emailAddress)
         
     def getCurrentTimestamp(self):
