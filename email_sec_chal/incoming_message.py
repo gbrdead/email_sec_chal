@@ -160,17 +160,17 @@ class PgpMimeIncomingMessage(IncomingMessage):
             self.encrypted = True
             encryptedPayload = self.originalMessage.get_payload(1).get_payload()
 
-            decryptedResult = self.pgp.officialGpg.decrypt(encryptedPayload.encode())
+            decryptedResult = self.pgp.impostorGpg.decrypt(encryptedPayload.encode())
             if decryptedResult:
-                logging.debug("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) was decrypted by the official bot's key" % \
+                logging.warning("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) was decrypted by the impostor bot's key" % \
                     (self.emailAddress, self.id))
-                self.forImpostor = False
+                self.forImpostor = True
             else:
-                decryptedResult = self.pgp.impostorGpg.decrypt(encryptedPayload.encode())
+                decryptedResult = self.pgp.officialGpg.decrypt(encryptedPayload.encode())
                 if decryptedResult:
-                    logging.warning("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) was decrypted by the impostor bot's key" % \
+                    logging.debug("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) was decrypted by the official bot's key" % \
                         (self.emailAddress, self.id))
-                    self.forImpostor = True
+                    self.forImpostor = False
                 else:
                     logging.warning("EmailSecChal: incoming_message: PGP/MIME message from %s (%s) could not be decrypted:\n%s" % \
                         (self.emailAddress, self.id, decryptedResult.stderr))
@@ -234,22 +234,22 @@ class PgpInlineIncomingMessage(IncomingMessage):
         if self.isEncrypted(plainText):
             msgPart.encrypted = True
             
-            decryptedResult = self.pgp.officialGpg.decrypt(plainText.encode())
+            decryptedResult = self.pgp.impostorGpg.decrypt(plainText.encode())
             if decryptedResult:
-                logging.debug("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that was decrypted by the official bot's key" % \
+                logging.warning("EmailSecChal: incoming_message: Inline PGP  message from %s (%s) has a message part that was decrypted by the impostor bot's key" % \
                     (self.emailAddress, self.id))
-                msgPart.forImpostor = False
+                msgPart.forImpostor = True
             else:
-                if decryptedResult.key_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
-                    logging.warning("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part with a wrong PGP header (\"PGP MESSAGE\" instead of \"PGP SIGNED MESSAGE\")" % \
-                            (self.emailAddress, self.id))
-                    msgPart.encrypted = False
+                decryptedResult = self.pgp.officialGpg.decrypt(plainText.encode())
+                if decryptedResult:
+                    logging.debug("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that was decrypted by the official bot's key" % \
+                        (self.emailAddress, self.id))
+                    msgPart.forImpostor = False
                 else:
-                    decryptedResult = self.pgp.impostorGpg.decrypt(plainText.encode())
-                    if decryptedResult:
-                        logging.warning("EmailSecChal: incoming_message: Inline PGP  message from %s (%s) has a message part that was decrypted by the impostor bot's key" % \
-                            (self.emailAddress, self.id))
-                        msgPart.forImpostor = True
+                    if decryptedResult.key_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
+                        logging.warning("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part with a wrong PGP header (\"PGP MESSAGE\" instead of \"PGP SIGNED MESSAGE\")" % \
+                                (self.emailAddress, self.id))
+                        msgPart.encrypted = False
                     else:
                         logging.warning("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that could not be decrypted:\n%s" % \
                             (self.emailAddress, self.id, decryptedResult.stderr))
