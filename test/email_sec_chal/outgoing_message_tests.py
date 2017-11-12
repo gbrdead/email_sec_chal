@@ -27,7 +27,7 @@ class MockSMTP:
 class OutgoingMessageTests(test.email_sec_chal.Tests):
     
     correspondentEmailAddress = "gbr@voidland.org" 
-    correspondentKeyId = "9011E1A9"
+    correspondentKeyId = "345933AF"
     
     officialBotGnupgHomeDir = None
     impostorBotGnupgHomeDir = None
