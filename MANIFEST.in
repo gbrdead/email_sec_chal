@@ -1,2 +1,2 @@
-graft test/email_sec_chal/config
+graft test/email_sec_chal/res
 graft test/email_sec_chal/messages

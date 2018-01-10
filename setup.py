@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name = "email-sec-chal",
+    name = "email_sec_chal",
     description = "Email Security CTF Challenge",
     version = "1.0.0",
     license="GPLv3+",
@@ -13,6 +13,7 @@ setuptools.setup(
     
     packages=[
         "email_sec_chal",
+        "test",
         "test.email_sec_chal"],
                  
     install_requires=[
