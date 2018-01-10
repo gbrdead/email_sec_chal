@@ -25,7 +25,7 @@ class Tests(unittest.TestCase):
         moduleDir = os.path.dirname(os.path.abspath(__file__))
         resourceDir = os.path.join(moduleDir, "res")
         
-        tempDir = "/tmp/email_sec_chal" 
+        tempDir = "/tmp"
         if not os.access(tempDir, os.F_OK):
             os.makedirs(tempDir)
         Tests.tempDir = tempfile.mkdtemp(dir = tempDir)
