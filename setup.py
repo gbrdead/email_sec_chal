@@ -11,15 +11,24 @@ setuptools.setup(
     maintainer = "Vladimir Panov",
     maintainer_email = "gbr@voidland.org",
     
-    packages=[
+    packages = [
         "email_sec_chal",
         "test",
-        "test.email_sec_chal"],
+        "test.email_sec_chal"
+    ],
                  
-    install_requires=[
+    install_requires = [
         "python-gnupg >= 0.4.1",
         "beautifulsoup4 >= 4.4.1",
         "html2text >= 2016.1.8",
-        "requests >= 2.9.1"],
+        "requests >= 2.9.1"
+    ],
                  
-    test_suite = "test.email_sec_chal")
+    entry_points = {
+        "console_scripts": [
+            "email_sec_chal = email_sec_chal:main"
+        ]
+    },
+
+    test_suite = "test.email_sec_chal"
+)

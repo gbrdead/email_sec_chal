@@ -41,7 +41,7 @@ def loadConfiguration():
     logging.info("EmailSecChal: main: Temporary directory: %s" % email_sec_chal.tempDir)
 
 
-if __name__ == "__main__":
+def main():
     if len(sys.argv) > 1:
         email_sec_chal.configFile = sys.argv[1]
     
@@ -63,3 +63,6 @@ if __name__ == "__main__":
     except:
         logging.exception("EmailSecChal: main: The mailbot stopped with an exception")
         sys.exit(3)
+
+if __name__ == "__main__":
+    main()
