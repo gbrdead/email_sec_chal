@@ -3,7 +3,7 @@ import setuptools
 setuptools.setup(
     name = "email_sec_chal",
     description = "Email Security CTF Challenge",
-    version = "1.0.0",
+    version = "1.0.1",
     license="GPLv3+",
     
     author = "Vladimir Panov",
