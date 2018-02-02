@@ -24,6 +24,8 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     officialBotKeyFingerprint = None
     officialBotPublicKeyFileTime = None
     
+    impostorBotKeyFingerprint = None
+    
     
     @staticmethod
     def staticInit():
@@ -44,6 +46,8 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
         
             KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName))
             KeyUploadRequestHandler.officialBotPublicKeyVirtualFilePaths.append(os.path.join(KeyUploadRequestHandler.rootFSPath, officialBotPublicKeyFileName + ".txt"))
+            
+            KeyUploadRequestHandler.impostorBotKeyFingerprint = pgp.impostorFingerprints[0]
         
         logging.debug("EmailSecChal: key_upload_server: Static initialization successful")
         KeyUploadRequestHandler.initialized = True
@@ -152,6 +156,8 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
     def applyParameters(self, content):
         content = content.replace("@BOT_EMAIL_ADDRESS@", email_sec_chal.Pgp.botEmailAddress)
         content = content.replace("@BOT_KEY_FINGERPRINT@", KeyUploadRequestHandler.officialBotKeyFingerprint)
+        content = content.replace("@OFFICIAL_BOT_KEY_FINGERPRINT@", KeyUploadRequestHandler.officialBotKeyFingerprint)
+        content = content.replace("@IMPOSTOR_BOT_KEY_FINGERPRINT@", KeyUploadRequestHandler.impostorBotKeyFingerprint)
         return content
     
     def getContentType(self, fsPath):

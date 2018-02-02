@@ -156,9 +156,11 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
     def testExistingFileAndParameterSubstitution(self):
         self.assertExistingFile("/file.html?name=value#anchor", ["word", "gbr@voidland.voidland.org"])
         self.assertExistingFile("/subdir2/fileInSubDir.html", ["word", "B509A2EB802708CE80C2C3E54897D47A61DC9FE3"])
+        self.assertExistingFile("/subdir2/fileInSubDir2.html", ["word", "B509A2EB802708CE80C2C3E54897D47A61DC9FE3"])
+        self.assertExistingFile("/subdir2/fileInSubDir3.html", ["word", "4EE368B05671332D6F7C105851C494F69E5FFE34"])
  
     def testExistingFileInSubdir(self):
-        self.assertExistingFile("/subdir/fileInSubDir.html#anchor", ["word", "BOT_EMAIL_ADDRESS", "BOT_KEY_FINGERPRINT"])
+        self.assertExistingFile("/subdir/fileInSubDir.html#anchor", ["word", "BOT_EMAIL_ADDRESS", "BOT_KEY_FINGERPRINT", "OFFICIAL_BOT_KEY_FINGERPRINT", "IMPOSTOR_BOT_KEY_FINGERPRINT"])
  
     def assertExistingFile(self, uri, expectedStrings): 
         response = self.getGetResponse(uri)
