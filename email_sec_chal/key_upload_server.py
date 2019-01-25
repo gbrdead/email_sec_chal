@@ -181,6 +181,7 @@ class KeyUploadRequestHandler(http.server.BaseHTTPRequestHandler):
             self.send_error(415)
             return
         contentTypeParameters["boundary"] = bytes(contentTypeParameters["boundary"], "ascii")
+        contentTypeParameters["CONTENT-LENGTH"] = self.headers["Content-Length"]        # Workaround for https://bugs.python.org/issue34226 .
         uploaded = cgi.parse_multipart(self.rfile, contentTypeParameters)
         
         if not ("key" in uploaded and len(uploaded["key"]) > 0):

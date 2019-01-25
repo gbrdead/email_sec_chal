@@ -246,14 +246,9 @@ class PgpInlineIncomingMessage(IncomingMessage):
                         (self.emailAddress, self.id))
                     msgPart.forImpostor = False
                 else:
-                    if decryptedResult.key_id is not None:    # So the message is not encrypted but just signed; the header is wrong.
-                        logging.warning("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part with a wrong PGP header (\"PGP MESSAGE\" instead of \"PGP SIGNED MESSAGE\")" % \
-                                (self.emailAddress, self.id))
-                        msgPart.encrypted = False
-                    else:
-                        logging.warning("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that could not be decrypted:\n%s" % \
-                            (self.emailAddress, self.id, decryptedResult.stderr))
-                        return None
+                    logging.warning("EmailSecChal: incoming_message: Inline PGP message from %s (%s) has a message part that could not be decrypted:\n%s" % \
+                        (self.emailAddress, self.id, decryptedResult.stderr))
+                    return None
 
             msgPart.signedAndVerified = decryptedResult.valid
             msgPart.plainText = str(decryptedResult.data, "utf-8", "ignore")
