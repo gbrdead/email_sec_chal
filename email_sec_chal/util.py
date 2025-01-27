@@ -6,7 +6,7 @@ import cgi
 import email.utils
 
 
-wordRe = re.compile("\w+")
+wordRe = re.compile("\\w+")
 
 def extractWords(text):
     if not isinstance(text, list):

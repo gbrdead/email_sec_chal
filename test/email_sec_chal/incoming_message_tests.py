@@ -640,8 +640,3 @@ class MiscMessageTests(IncomingMessageTests):
         with self.readMessage("validRequestForBothBots") as incomingMsg:
             for msgPart in incomingMsg.getMessageParts():
                 self.assertTrue(msgPart.forImpostor)
-
-
-
-if __name__ == "__main__":
-    unittest.main()

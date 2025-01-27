@@ -21,7 +21,7 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
     correspondentKeyId = "9011E1A9"
     correspondentKey = None
     
-    stringsRe = re.compile("\S+")
+    stringsRe = re.compile("\\S+")
     
     
     @staticmethod
@@ -121,7 +121,12 @@ class KeyUploadServerTests(test.email_sec_chal.Tests):
         self.assertEqual(404, response.status_code)
  
     def testPathTraversalAttempt(self):
-        response = self.getGetResponse("/subdir/../file.html", raiseExceptionOnError=False)
+        url = KeyUploadServerTests.keyUploadUrlPrefix + "/subdir/../file.html"
+        session = requests.Session()
+        request = requests.Request(method="GET" , url=url)
+        preparedRequest = request.prepare()
+        preparedRequest.url = url
+        response = session.send(preparedRequest, verify=False)
         self.assertEqual(404, response.status_code)
  
  

@@ -29,6 +29,4 @@ setuptools.setup(
             "email_sec_chal = email_sec_chal:main"
         ]
     },
-
-    test_suite = "test.email_sec_chal"
 )
